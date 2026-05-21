@@ -1,0 +1,599 @@
+{
+  "users": [
+    {
+      "_id": "usr_cq7myuc9l",
+      "name": "ahmed",
+      "email": "ahmedmahmoud@gmail.com",
+      "passwordHash": "$2b$10$xS4oLfkcMhid1YpMpeAp3OI.47omiYpJlG3NWpN.0Q9c8ssTSFnPa",
+      "phone": "001556533745",
+      "governorate": "الوادي الجديد",
+      "address": "ghjghhjhh",
+      "role": "admin",
+      "createdAt": "2026-05-21T17:33:11.690Z",
+      "updatedAt": "2026-05-21T17:35:33.643Z"
+    },
+    {
+      "_id": "usr_a0oatlwyh",
+      "name": "احمد علي",
+      "email": "ahmedali@gmail.com",
+      "passwordHash": "$2b$10$Mm.42vKvAiIIazlRgwjJBulxwWyEEtEQV3BF8ucVfknjumAbfke.q",
+      "phone": "019192992",
+      "governorate": "شمال سيناء",
+      "address": "ffkfkfkfkkkfkfkkf",
+      "role": "user",
+      "createdAt": "2026-05-21T17:51:41.018Z",
+      "updatedAt": "2026-05-21T17:51:41.018Z"
+    }
+  ],
+  "orders": [
+    {
+      "_id": "ord_kge7v8v9i",
+      "customerName": "احمد علي",
+      "customerPhone": "019192992",
+      "customerCity": "شمال سيناء",
+      "customerAddress": "ffkfkfkfkkkfkfkkf",
+      "items": [
+        {
+          "productId": "p2",
+          "name": "جاكيت كروشيه مربعات الجدة",
+          "quantity": 1,
+          "price": 950,
+          "color": "lavender",
+          "size": "M",
+          "image": "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (2).jpeg"
+        }
+      ],
+      "totalAmount": 1020,
+      "status": "shipped",
+      "userId": "usr_a0oatlwyh",
+      "createdAt": "2026-05-21T17:52:10.342Z",
+      "updatedAt": "2026-05-21T18:11:16.318Z"
+    }
+  ],
+  "products": [
+    {
+      "_id": "p1",
+      "name": "بلوفر صوف ألباكا تريكو",
+      "description": "بلوفر تريكو يدوي الصنع من صوف الألباكا الممتاز. ناعم جداً ودافئ ومريح.",
+      "price": 850,
+      "category": "sweaters",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg"
+      ],
+      "colors": [
+        "ivory",
+        "sage",
+        "rose"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p2",
+      "name": "جاكيت كروشيه مربعات الجدة",
+      "description": "جاكيت بستايل الجراني سكوير الكلاسيكي، ألوان باستيل هادئة ومريحة.",
+      "price": 950,
+      "category": "jackets",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (2).jpeg"
+      ],
+      "colors": [
+        "lavender",
+        "sage",
+        "sand"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p3",
+      "name": "كوفية تريكو غرزة كبيرة",
+      "description": "كوفية تريكو طويلة ودافئة، مصنوعة من مزيج صوف ناعم لا يسبب الحساسية.",
+      "price": 350,
+      "category": "scarves",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (3).jpeg"
+      ],
+      "colors": [
+        "rose",
+        "sand",
+        "sage"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p4",
+      "name": "سالوبيت أطفال وحذاء مطابق",
+      "description": "طقم رائع ومريح للأطفال بلمسات يدوية دقيقة.",
+      "price": 600,
+      "category": "kids",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (4).jpeg"
+      ],
+      "colors": [
+        "peach",
+        "sage",
+        "ivory"
+      ],
+      "sizes": [
+        "0-3M",
+        "3-6M",
+        "6-12M"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p5",
+      "name": "بلوفر كروشيه صيفي مفرغ",
+      "description": "بلوفر كروشيه بخيوط قطنية ناعمة، تصميم مفرغ وعصري.",
+      "price": 550,
+      "category": "sweaters",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (5).jpeg"
+      ],
+      "colors": [
+        "sand",
+        "ivory",
+        "lavender"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p6",
+      "name": "جوانتي صوف بدون أصابع",
+      "description": "جوانتي تريكو شتوي للتدفئة مع حرية حركة الأصابع.",
+      "price": 150,
+      "category": "gloves",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (6).jpeg"
+      ],
+      "colors": [
+        "sage",
+        "rose"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p7",
+      "name": "شرابات شتوية ثقيلة للبيت",
+      "description": "شرابات كروشيه بتصميم دافئ جداً ومريح للقدمين في أيام الشتاء الباردة.",
+      "price": 120,
+      "category": "socks",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (7).jpeg"
+      ],
+      "colors": [
+        "ivory",
+        "peach"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p8",
+      "name": "كارديجان حلم اللافندر",
+      "description": "كارديجان كروشيه ناعم بأكمام واسعة وأزرار خشبية. يضفي لمسة ربيعية دافئة.",
+      "price": 750,
+      "category": "jackets",
+      "images": [
+        "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (8).jpeg"
+      ],
+      "colors": [
+        "lavender",
+        "ivory"
+      ],
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p9",
+      "name": "أيس كاب تريكو بوم بوم",
+      "description": "أيس كاب تريكو يدوي مع كرة فرو ناعمة، تدفئة مثالية للأذنين.",
+      "price": 180,
+      "category": "hats",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.48 AM.jpeg"
+      ],
+      "colors": [
+        "rose",
+        "ivory"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p10",
+      "name": "بطانية كروشيه للأطفال",
+      "description": "بطانية كروشيه يدوية فائقة النعومة، مثالية لسرير الطفل أو العربة.",
+      "price": 1200,
+      "category": "blankets",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.49 AM (1).jpeg"
+      ],
+      "colors": [
+        "sage",
+        "ivory",
+        "peach"
+      ],
+      "sizes": [
+        "90x90cm"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p11",
+      "name": "طقم سالوبيت أزرق سماوي",
+      "description": "سالوبيت تريكو ناعم مع قبعة مطابقة، تصميم كلاسيكي دافئ.",
+      "price": 650,
+      "category": "kids",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.49 AM (2).jpeg"
+      ],
+      "colors": [
+        "blue",
+        "ivory"
+      ],
+      "sizes": [
+        "0-3M",
+        "3-6M"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p12",
+      "name": "كوفية صوف عريضة",
+      "description": "كوفية تريكو بغرزة ضيقة لتدفئة مضاعفة في الأيام شديدة البرودة.",
+      "price": 380,
+      "category": "scarves",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.49 AM (3).jpeg"
+      ],
+      "colors": [
+        "sand",
+        "charcoal"
+      ],
+      "sizes": [
+        "One Size"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p13",
+      "name": "جاكيت تريكو أزرار جانبية",
+      "description": "جاكيت تريكو بتصميم عصري مع أزرار جانبية خشبية، أنيق ودافئ.",
+      "price": 880,
+      "category": "jackets",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.49 AM (4).jpeg"
+      ],
+      "colors": [
+        "sage",
+        "sand"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "isFeatured": false,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    },
+    {
+      "_id": "p14",
+      "name": "بلوفر كروشيه ملون",
+      "description": "بلوفر كروشيه يدوي بألوان متداخلة تضفي حيوية على إطلالتك الشتوية.",
+      "price": 720,
+      "category": "sweaters",
+      "images": [
+        "/products/WhatsApp Image 2026-05-08 at 1.03.49 AM (5).jpeg"
+      ],
+      "colors": [
+        "multi"
+      ],
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-05-21T17:20:44.935Z",
+      "updatedAt": "2026-05-21T17:20:44.935Z"
+    }
+  ],
+  "shippingRates": [
+    {
+      "_id": "sh_79sy75osd",
+      "governorate": "القاهرة",
+      "rate": 50,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_hezngslqp",
+      "governorate": "الجيزة",
+      "rate": 50,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_17akqftoj",
+      "governorate": "الإسكندرية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_tgoicreuj",
+      "governorate": "الدقهلية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_fk8pv5inm",
+      "governorate": "البحر الأحمر",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_6cfe0h1c2",
+      "governorate": "البحيرة",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_1o2bgcwdw",
+      "governorate": "الفيوم",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_6cgf5eja0",
+      "governorate": "الغربية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_o9gsh8kip",
+      "governorate": "الإسماعيلية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_58k3qzrrf",
+      "governorate": "المنوفية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_0j7iziq99",
+      "governorate": "المنيا",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_2p2eq6w14",
+      "governorate": "القليوبية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_hcksg33e2",
+      "governorate": "الوادي الجديد",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_8qm0y034t",
+      "governorate": "السويس",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_ur4jfxi3n",
+      "governorate": "الشرقية",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_ox0sgwbtv",
+      "governorate": "سوهاج",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_ay60e7yek",
+      "governorate": "جنوب سيناء",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_hmvw4qzph",
+      "governorate": "شمال سيناء",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_jtnvi057i",
+      "governorate": "قنا",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_r4finjhwx",
+      "governorate": "كفر الشيخ",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_gntn8340c",
+      "governorate": "مطروح",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_yevdy1vj7",
+      "governorate": "الأقصر",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_4n3pzk3wm",
+      "governorate": "أسوان",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_5nk3cet08",
+      "governorate": "أسيوط",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_notj48grm",
+      "governorate": "بني سويف",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_7gw46sv8t",
+      "governorate": "بورسعيد",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    },
+    {
+      "_id": "sh_bksueu3qa",
+      "governorate": "دمياط",
+      "rate": 70,
+      "estimatedDays": "3-5 أيام",
+      "isActive": true,
+      "createdAt": "2026-05-21T17:50:11.305Z",
+      "updatedAt": "2026-05-21T17:50:11.305Z"
+    }
+  ]
+}

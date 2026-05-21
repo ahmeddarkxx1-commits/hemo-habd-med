@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEMO HAND MADE | هيمو هاند ميد</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --c-rose: #E8C5C1;
+            --c-ivory: #FAF6F0;
+            --c-sage: #B5C9B7;
+            --c-lavender: #C9C0D3;
+            --c-sand: #E8DDD0;
+            --c-peach: #F2D4C8;
+            --c-white: #FFFFFF;
+            --c-text: #5A5452;
+            --c-text-light: #8A8482;
+            --c-border: rgba(232, 221, 208, 0.5);
+
+            --f-head: 'Cormorant Garamond', serif;
+            --f-body: 'Nunito', sans-serif;
+
+            --radius: 20px;
+            --radius-sm: 12px;
+            --radius-pill: 50px;
+            
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.06);
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 32px;
+            --space-lg: 80px;
+            --space-xl: 120px;
+
+            --trans: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--f-body);
+            font-weight: 300;
+            color: var(--c-text);
+            background-color: var(--c-white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--f-head);
+            font-weight: 500;
+            margin: 0 0 var(--space-sm) 0;
+            color: var(--c-text);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, select, input {
+            font-family: inherit;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+        }
+
+        /* --- Utilities --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .flex { display: flex; }
+        .flex-col { display: flex; flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-sm { gap: var(--space-sm); }
+        .gap-md { gap: var(--space-md); }
+        .gap-lg { gap: var(--space-lg); }
+
+        .text-center { text-align: center; }
+        
+        .bg-ivory { background-color: var(--c-ivory); }
+        .bg-white { background-color: var(--c-white); }
+        .bg-sage { background-color: var(--c-sage); }
+
+        /* --- Animations --- */
+        @keyframes floatYarn {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .animate-bob {
+            animation: floatYarn 4s ease-in-out infinite;
+        }
+
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-fade-up.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Components --- */
+        .btn-fill {
+            background-color: var(--c-rose);
+            color: var(--c-white);
+            padding: 12px 32px;
+            border-radius: var(--radius-pill);
+            font-size: 1.1rem;
+            transition: var(--trans);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-fill:hover {
+            background-color: var(--c-sage);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--c-text);
+            border: 1px solid var(--c-text-light);
+            padding: 12px 32px;
+            border-radius: var(--radius-pill);
+            font-size: 1.1rem;
+            transition: var(--trans);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-outline:hover {
+            border-color: var(--c-rose);
+            color: var(--c-rose);
+            background: var(--c-white);
+        }
+
+        .badge {
+            background-color: var(--c-lavender);
+            color: var(--c-white);
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 2;
+        }
+        [dir="rtl"] .badge {
+            left: auto;
+            right: 16px;
+        }
+
+        /* Form Inputs */
+        .input-box {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--c-border);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-sm);
+            background: var(--c-white);
+            outline: none;
+            transition: var(--trans);
+        }
+        .input-box:focus {
+            border-color: var(--c-sage);
+        }
+
+        /* --- Layout --- */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--c-border);
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-family: var(--f-head);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--c-text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: var(--c-text);
+            transition: color var(--trans);
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--c-rose);
+            transform: scaleX(0);
+            transition: transform var(--trans);
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .lang-toggle {
+            font-size: 1rem;
+            color: var(--c-text-light);
+            cursor: pointer;
+            transition: color var(--trans);
+            font-weight: 600;
+        }
+        .lang-toggle:hover {
+            color: var(--c-text);
+        }
+
+        .cart-icon {
+            position: relative;
+            color: var(--c-text);
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: var(--c-rose);
+            color: var(--c-white);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        [dir="rtl"] .cart-count {
+            right: auto;
+            left: -8px;
+        }
+
+        /* --- SPA Routing --- */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* --- Blobs & Dividers --- */
+        .blob {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: floatYarn 6s ease-in-out infinite alternate;
+        }
+        .blob-1 { top: -50px; right: -50px; width: 300px; }
+        .blob-2 { bottom: 10%; left: -100px; width: 250px; }
+        
+        .crochet-divider {
+            width: 100%;
+            height: 30px;
+            overflow: hidden;
+            background: transparent;
+            margin: -1px 0;
+        }
+
+        /* --- Home: Hero --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at top left, var(--c-rose) 0%, transparent 40%),
+                        radial-gradient(circle at bottom right, var(--c-lavender) 0%, transparent 40%),
+                        var(--c-ivory);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; right:0; bottom:0;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L30 20 L20 40 L10 20 Z' fill='none' stroke='%234A4A4A' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            color: var(--c-text);
+            margin-bottom: var(--space-sm);
+            letter-spacing: 2px;
+            transition: letter-spacing 1.5s ease-out;
+        }
+        
+        body.loaded .hero-title {
+            letter-spacing: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--c-text-light);
+            margin-bottom: var(--space-md);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.6;
+            z-index: 10;
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: var(--c-text);
+            animation: floatYarn 2s infinite alternate;
+        }
+
+        /* --- Home: Categories --- */
+        .section-padding {
+            padding: var(--space-xl) 0;
+            position: relative;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            position: relative;
+            z-index: 10;
+        }
+
+        .category-card {
+            background: var(--c-white);
+            border-radius: var(--radius);
+            padding: var(--space-md);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--trans);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .category-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        .cat-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+        }
+        .category-card h3 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        /* --- Product Card --- */
+        .product-card {
+            background: var(--c-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--trans);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .product-img-area {
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card:hover .product-img-area svg {
+            transform: scale(1.05);
+        }
+        .product-img-area svg {
+            transition: transform 0.6s ease;
+            max-width: 60%;
+            max-height: 60%;
+            opacity: 0.8;
+        }
+        .fav-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: var(--c-white);
+            opacity: 0;
+            transition: var(--trans);
+            z-index: 2;
+        }
+        [dir="rtl"] .fav-btn {
+            right: auto;
+            left: 16px;
+        }
+        .product-card:hover .fav-btn {
+            opacity: 1;
+            color: var(--c-rose);
+        }
+        .product-info {
+            padding: var(--space-md);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+        .product-title-en {
+            font-size: 0.9rem;
+            color: var(--c-text-light);
+            margin-bottom: var(--space-sm);
+        }
+        .product-price {
+            font-family: var(--f-head);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--c-text);
+            margin-top: auto;
+        }
+        .add-to-cart-pill {
+            margin-top: var(--space-sm);
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius-pill);
+            background: var(--c-ivory);
+            color: var(--c-text);
+            border: 1px solid transparent;
+            transition: var(--trans);
+            font-weight: 500;
+        }
+        .product-card:hover .add-to-cart-pill {
+            background: var(--c-rose);
+            color: var(--c-white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        /* --- Brand Story --- */
+        .story-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+        .story-content {
+            padding: var(--space-md);
+        }
+        .story-artwork {
+            position: relative;
+            height: 500px;
+            border-radius: var(--radius);
+            background: var(--c-sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .story-artwork::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L30 20 L20 40 L10 20 Z' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
+        }
+
+        /* --- Newsletter --- */
+        .newsletter-box {
+            background: var(--c-ivory);
+            border-radius: var(--radius);
+            padding: var(--space-xl) var(--space-md);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            border: 2px dashed var(--c-lavender);
+            z-index: 10;
+        }
+        .input-group {
+            display: flex;
+            max-width: 400px;
+            margin: var(--space-md) auto 0;
+            background: var(--c-white);
+            border-radius: var(--radius-pill);
+            padding: 6px;
+            box-shadow: var(--shadow);
+        }
+        .input-group input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 0 16px;
+            font-family: inherit;
+            background: transparent;
+        }
+        .input-group button {
+            background: var(--c-sage);
+            color: var(--c-white);
+            padding: 10px 24px;
+            border-radius: var(--radius-pill);
+            transition: var(--trans);
+        }
+        .input-group button:hover {
+            background: var(--c-rose);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: var(--c-ivory);
+            padding: var(--space-lg) 0 var(--space-md);
+            border-top: 1px solid var(--c-border);
+            position: relative;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--c-border);
+            color: var(--c-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* --- Shop Page --- */
+        .filter-bar {
+            display: flex;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            padding: var(--space-sm) 0;
+            margin-bottom: var(--space-lg);
+            scrollbar-width: none;
+            border-bottom: 1px solid var(--c-border);
+            position: sticky;
+            top: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 90;
+        }
+        .filter-bar::-webkit-scrollbar { display: none; }
+        .filter-tab {
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            white-space: nowrap;
+            color: var(--c-text-light);
+            transition: var(--trans);
+            font-size: 1.1rem;
+        }
+        .filter-tab.active {
+            background: var(--c-sage);
+            color: var(--c-white);
+        }
+        .filter-tab:hover:not(.active) {
+            background: var(--c-ivory);
+            color: var(--c-text);
+        }
+
+        /* --- Product Detail Page --- */
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+        }
+        .pd-image-area {
+            background: var(--c-ivory);
+            border-radius: var(--radius);
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+            transition: background 0.5s ease;
+        }
+        .pd-thumbs {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        .pd-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            background: var(--c-sand);
+            cursor: pointer;
+            opacity: 0.5;
+            transition: var(--trans);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pd-thumb.active, .pd-thumb:hover {
+            opacity: 1;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--c-white);
+        }
+        .pd-info h1 {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+        .pd-info .en-title {
+            color: var(--c-text-light);
+            font-size: 1.2rem;
+            margin-bottom: var(--space-md);
+        }
+        .pd-price {
+            font-family: var(--f-head);
+            font-size: 2.5rem;
+            color: var(--c-text);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .pd-badge {
+            background: var(--c-peach);
+            font-family: var(--f-body);
+            font-size: 1rem;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            color: var(--c-text);
+        }
+        
+        .selector-label {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            display: block;
+            color: var(--c-text);
+        }
+        .color-swatches {
+            display: flex;
+            gap: 12px;
+            margin-bottom: var(--space-md);
+        }
+        .swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--trans);
+            box-shadow: var(--shadow);
+        }
+        .swatch.active {
+            border-color: var(--c-text);
+            transform: scale(1.1);
+        }
+        
+        .size-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: var(--space-md);
+        }
+        .size-pill {
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--c-border);
+            cursor: pointer;
+            transition: var(--trans);
+            font-weight: 600;
+        }
+        .size-pill.active {
+            background: var(--c-text);
+            color: var(--c-white);
+            border-color: var(--c-text);
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--c-border);
+            border-radius: var(--radius-pill);
+            width: fit-content;
+            margin-bottom: var(--space-lg);
+            background: var(--c-white);
+        }
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--c-text);
+        }
+        .qty-btn:hover { color: var(--c-rose); }
+        .qty-val {
+            padding: 0 16px;
+            font-weight: 600;
+        }
+
+        .pd-actions {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        .pd-actions .btn-fill {
+            flex-grow: 1;
+            padding: 16px;
+            font-size: 1.2rem;
+        }
+
+        .accordion {
+            border-top: 1px solid var(--c-border);
+        }
+        .acc-item {
+            border-bottom: 1px solid var(--c-border);
+        }
+        .acc-header {
+            padding: var(--space-sm) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .acc-content {
+            padding-bottom: var(--space-sm);
+            color: var(--c-text-light);
+            display: none;
+            line-height: 1.6;
+        }
+        .acc-item.active .acc-content {
+            display: block;
+        }
+
+        /* --- Cart Page --- */
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-xl);
+        }
+        .cart-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--c-border);
+            align-items: center;
+        }
+        .cart-item-img {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-sm);
+            background: var(--c-ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        .cart-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .cart-item-meta {
+            color: var(--c-text-light);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .cart-item-price {
+            font-weight: 600;
+            font-family: var(--f-head);
+            font-size: 1.3rem;
+            min-width: 100px;
+            text-align: center;
+        }
+        .cart-remove-btn {
+            color: var(--c-text-light);
+            transition: color 0.2s;
+            margin: 0 16px;
+        }
+        .cart-remove-btn:hover { color: var(--c-rose); }
+        
+        .empty-cart-state {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: var(--space-xl) 0; text-align: center;
+        }
+
+        .order-summary {
+            background: var(--c-ivory);
+            padding: var(--space-lg);
+            border-radius: var(--radius);
+            position: sticky;
+            top: 100px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-size: 1.1rem;
+        }
+        .summary-total {
+            border-top: 1px solid var(--c-border);
+            padding-top: var(--space-sm);
+            margin-top: var(--space-sm);
+            font-weight: 600;
+            font-size: 1.6rem;
+            font-family: var(--f-head);
+        }
+
+        /* --- Admin Dashboard --- */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--space-md);
+            min-height: calc(100vh - 80px);
+        }
+        .admin-sidebar {
+            background: var(--c-ivory);
+            padding: var(--space-md);
+            border-radius: var(--radius);
+            height: fit-content;
+        }
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            color: var(--c-text-light);
+            transition: var(--trans);
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background: var(--c-white);
+            color: var(--c-text);
+            border-right: 4px solid var(--c-rose);
+        }
+        [dir="ltr"] .admin-nav-item:hover, [dir="ltr"] .admin-nav-item.active {
+            border-right: none;
+            border-left: 4px solid var(--c-rose);
+        }
+        
+        .admin-content-view {
+            display: none;
+        }
+
+        .admin-stat-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        .stat-card {
+            background: var(--c-white);
+            padding: var(--space-md);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--c-border);
+        }
+        .stat-val {
+            font-size: 2rem;
+            font-family: var(--f-head);
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: var(--c-text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .svg-chart-container {
+            width: 100%; height: 200px;
+            border-bottom: 1px solid var(--c-border);
+            border-left: 1px solid var(--c-border);
+            position: relative; margin-top: 20px; margin-bottom: var(--space-lg);
+        }
+        [dir="rtl"] .svg-chart-container {
+            border-left: none; border-right: 1px solid var(--c-border);
+        }
+
+        .admin-table-container {
+            background: var(--c-white);
+            padding: var(--space-md);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--c-border);
+            overflow-x: auto;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .admin-table th, .admin-table td {
+            text-align: right;
+            padding: 16px 12px;
+            border-bottom: 1px solid var(--c-border);
+        }
+        [dir="ltr"] .admin-table th, [dir="ltr"] .admin-table td {
+            text-align: left;
+        }
+        .admin-table th {
+            color: var(--c-text-light);
+            font-weight: 600;
+        }
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--c-white);
+        }
+
+        /* Filter select for orders */
+        .admin-filter-select {
+            padding: 10px 16px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--c-border);
+            background: var(--c-white);
+            outline: none;
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .category-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .admin-stat-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .story-section { grid-template-columns: 1fr; }
+            .product-detail-grid { grid-template-columns: 1fr; }
+            .cart-grid { grid-template-columns: 1fr; }
+            .admin-layout { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container flex justify-between items-center">
+            <div class="logo">HEMO HAND MADE</div>
+            <nav class="nav-links" id="desktop-nav">
+                <a href="#home" class="nav-link active" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+                <a href="#shop" class="nav-link" data-ar="المتجر" data-en="Shop">المتجر</a>
+                <a href="#admin" class="nav-link" data-ar="الإدارة" data-en="Admin">الإدارة</a>
+            </nav>
+            <div class="header-actions">
+                <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+                <a href="#cart" class="cart-icon">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="app">
+        <!-- View: Home -->
+        <div id="view-home" class="page-view active">
+            <section class="hero">
+                <!-- Decorative blobs -->
+                <svg class="blob blob-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="var(--c-peach)" d="M44.7,-76.4C58.3,-69.2,70.1,-58.1,79.5,-45.1C88.9,-32.1,95.9,-16.1,96.3,-0.1C96.7,15.9,90.4,31.8,81,44.8C71.6,57.8,59.1,67.9,45.2,74.5C31.3,81.1,15.6,84.2,-0.2,84.5C-16,84.9,-32,82.5,-45.8,75.8C-59.6,69.1,-71.2,58.1,-79.8,44.8C-88.4,31.5,-94.1,15.8,-94.8,-0.4C-95.5,-16.6,-91.3,-33.2,-82.4,-46.8C-73.5,-60.4,-59.9,-71.1,-45.4,-77.6C-30.9,-84.1,-15.4,-86.4,0.3,-86.9C16.1,-87.5,31.1,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
+                </svg>
+                <svg class="blob blob-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="var(--c-sage)" d="M47.5,-75.6C60.3,-66.1,68.6,-50.2,75.6,-34.2C82.6,-18.2,88.4,-2.2,85.2,12.3C82,26.8,69.9,39.7,56.8,50.7C43.7,61.7,29.6,70.7,14,75.9C-1.5,81,-18.4,82.2,-33.4,76.5C-48.4,70.9,-61.5,58.5,-71.2,43.9C-80.9,29.4,-87.1,12.7,-85.5,-3.3C-83.8,-19.3,-74.3,-34.5,-62.1,-46.2C-49.9,-57.9,-35.1,-66.1,-20.5,-73.4C-5.9,-80.6,8.5,-86.9,23.3,-84.9C38.1,-83,53.4,-72.7,47.5,-75.6Z" transform="translate(100 100)" />
+                </svg>
+                
+                <div class="container">
+                    <div class="hero-content animate-fade-up">
+                        <i data-lucide="gem" class="animate-bob" style="color: var(--c-rose); width: 48px; height: 48px; margin-bottom: 20px;"></i>
+                        <h1 class="hero-title" data-ar="كل غرزة بحب — صُنع بيدي" data-en="Every stitch with love — handmade by me">كل غرزة بحب — صُنع بيدي</h1>
+                        <p class="hero-subtitle" data-ar="Handmade with love, one stitch at a time" data-en="Handmade with love, one stitch at a time">Handmade with love, one stitch at a time</p>
+                        <div class="flex justify-center gap-md">
+                            <a href="#shop" class="btn-fill" data-ar="تسوقي الآن" data-en="Shop Now">تسوقي الآن</a>
+                            <a href="#about" class="btn-outline" data-ar="قصتنا" data-en="Our Story">قصتنا</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <span class="scroll-line"></span>
+                </div>
+            </section>
+
+            <!-- Crochet Divider -->
+            <div class="crochet-divider">
+                <svg width="100%" height="30" preserveAspectRatio="none" viewBox="0 0 200 30">
+                   <path d="M 0 15 Q 10 5 20 15 T 40 15 T 60 15 T 80 15 T 100 15 T 120 15 T 140 15 T 160 15 T 180 15 T 200 15" fill="none" stroke="var(--c-sand)" stroke-width="2" opacity="0.6"/>
+                   <path d="M 10 15 Q 20 25 30 15 T 50 15 T 70 15 T 90 15 T 110 15 T 130 15 T 150 15 T 170 15 T 190 15 T 210 15" fill="none" stroke="var(--c-sand)" stroke-width="2" opacity="0.6"/>
+                </svg>
+            </div>
+
+            <section class="section-padding bg-ivory">
+                <div class="container">
+                    <h2 class="text-center animate-fade-up" data-ar="تسوقي حسب الفئة" data-en="Shop by Category">تسوقي حسب الفئة</h2>
+                    <br>
+                    <div class="category-grid animate-fade-up" id="home-categories">
+                        <!-- Categories injected here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crochet Divider -->
+            <div class="crochet-divider" style="background: var(--c-ivory);">
+                <svg width="100%" height="30" preserveAspectRatio="none" viewBox="0 0 200 30">
+                   <path d="M 0 15 Q 10 5 20 15 T 40 15 T 60 15 T 80 15 T 100 15 T 120 15 T 140 15 T 160 15 T 180 15 T 200 15" fill="none" stroke="var(--c-white)" stroke-width="4"/>
+                </svg>
+            </div>
+
+            <section class="section-padding">
+                <div class="container">
+                    <div class="flex justify-between items-center" style="margin-bottom: var(--space-md);">
+                        <h2 data-ar="الأكثر طلباً" data-en="Best Sellers">الأكثر طلباً</h2>
+                        <a href="#shop" class="btn-outline" data-ar="عرض الكل" data-en="View All">عرض الكل</a>
+                    </div>
+                    <div class="products-grid animate-fade-up" id="home-featured">
+                        <!-- Products injected here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding bg-ivory" id="about">
+                <div class="container">
+                    <div class="story-section animate-fade-up">
+                        <div class="story-content">
+                            <h2 data-ar="هيمو هاند ميد — مش بس منتج، ده حِرفة" data-en="HEMO HAND MADE — Not just a product, a craft">هيمو هاند ميد — مش بس منتج، ده حِرفة</h2>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--c-text-light);" data-ar="بدأنا بشغف بسيط لخيوط الصوف، وتحول هذا الشغف لقطع فنية نصنعها بكل حب. نختار أفضل أنواع الخيوط، ونهتم بكل غرزة لتصلك قطعة فريدة تدفئ قلبك قبل جسدك." data-en="We started with a simple passion for yarn, which turned into art pieces made with love. We choose the best yarns and care for every stitch to deliver a unique piece that warms your heart before your body.">
+                                بدأنا بشغف بسيط لخيوط الصوف، وتحول هذا الشغف لقطع فنية نصنعها بكل حب. نختار أفضل أنواع الخيوط، ونهتم بكل غرزة لتصلك قطعة فريدة تدفئ قلبك قبل جسدك.
+                            </p>
+                        </div>
+                        <div class="story-artwork">
+                            <i data-lucide="heart-handshake" style="width: 120px; height: 120px; color: var(--c-white); opacity: 0.8;" class="animate-bob"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section-padding">
+                <div class="container text-center">
+                    <h2 class="animate-fade-up" data-ar="النشرة البريدية" data-en="Newsletter">النشرة البريدية</h2>
+                    <div class="newsletter-box animate-fade-up">
+                        <h3 data-ar="انضمي لعائلتنا" data-en="Join Our Family">انضمي لعائلتنا</h3>
+                        <p data-ar="احصلي على خصم ١٠٪ على أول طلب لكِ" data-en="Get 10% off your first order">احصلي على خصم ١٠٪ على أول طلب لكِ</p>
+                        <div class="input-group">
+                            <input type="email" placeholder="Email Address..." id="nl-email">
+                            <button data-ar="اشتراك" data-en="Subscribe">اشتراك</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- View: Shop -->
+        <div id="view-shop" class="page-view">
+            <div class="container section-padding">
+                <h1 class="text-center" data-ar="المتجر" data-en="Shop">المتجر</h1>
+                
+                <div class="filter-bar" id="shop-filters">
+                    <!-- Filters injected here -->
+                </div>
+
+                <div class="products-grid" id="shop-products">
+                    <!-- Products injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Product Detail -->
+        <div id="view-product" class="page-view">
+            <div class="container section-padding">
+                <div class="product-detail-grid" id="pd-container">
+                    <!-- Details injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Cart -->
+        <div id="view-cart" class="page-view">
+            <div class="container section-padding">
+                <h1 data-ar="سلة المشتريات" data-en="Shopping Cart">سلة المشتريات</h1>
+                <div class="cart-grid">
+                    <div class="cart-items" id="cart-items">
+                        <!-- Items injected here -->
+                    </div>
+                    <div>
+                        <div class="order-summary">
+                            <h3 data-ar="ملخص الطلب" data-en="Order Summary">ملخص الطلب</h3>
+                            <div class="summary-row">
+                                <span data-ar="المجموع الفرعي" data-en="Subtotal">المجموع الفرعي</span>
+                                <span id="cart-summary-sub">0 EGP</span>
+                            </div>
+                            <div class="summary-row">
+                                <span data-ar="الشحن" data-en="Shipping">الشحن</span>
+                                <span data-ar="مجاني" data-en="Free">مجاني</span>
+                            </div>
+                            <div class="summary-total flex justify-between">
+                                <span data-ar="الإجمالي" data-en="Total">الإجمالي</span>
+                                <span id="cart-summary-total">0 EGP</span>
+                            </div>
+                            <br>
+                            <button class="btn-fill" style="width: 100%;" data-ar="إتمام الطلب" data-en="Checkout">إتمام الطلب</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View: Admin -->
+        <div id="view-admin" class="page-view">
+            <div class="container section-padding">
+                <h1 data-ar="لوحة الإدارة" data-en="Admin Dashboard">لوحة الإدارة</h1>
+                <div class="admin-layout">
+                    <div class="admin-sidebar">
+                        <div class="admin-nav-item active" onclick="switchAdminView('overview')">
+                            <i data-lucide="layout-dashboard"></i>
+                            <span data-ar="الرئيسية" data-en="Overview">الرئيسية</span>
+                        </div>
+                        <div class="admin-nav-item" onclick="switchAdminView('products')">
+                            <i data-lucide="package"></i>
+                            <span data-ar="المنتجات" data-en="Products">المنتجات</span>
+                        </div>
+                        <div class="admin-nav-item" onclick="switchAdminView('orders')">
+                            <i data-lucide="shopping-cart"></i>
+                            <span data-ar="الطلبات" data-en="Orders">الطلبات</span>
+                        </div>
+                        <div class="admin-nav-item" onclick="switchAdminView('customers')">
+                            <i data-lucide="users"></i>
+                            <span data-ar="العملاء" data-en="Customers">العملاء</span>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-main">
+                        <!-- Admin Overview -->
+                        <div class="admin-content-view" id="admin-view-overview" style="display: block;">
+                            <div class="admin-stat-cards">
+                                <div class="stat-card">
+                                    <div class="stat-label" data-ar="إجمالي المبيعات" data-en="Total Sales">إجمالي المبيعات</div>
+                                    <div class="stat-val">12,500 EGP</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label" data-ar="طلبات اليوم" data-en="Today's Orders">طلبات اليوم</div>
+                                    <div class="stat-val">5</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label" data-ar="المنتجات" data-en="Products">المنتجات</div>
+                                    <div class="stat-val" id="stat-products-count">16</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label" data-ar="عملاء جدد" data-en="New Customers">عملاء جدد</div>
+                                    <div class="stat-val">12</div>
+                                </div>
+                            </div>
+
+                            <h3 data-ar="المبيعات (آخر ٧ أيام)" data-en="Revenue (Last 7 Days)">المبيعات (آخر ٧ أيام)</h3>
+                            <div class="svg-chart-container">
+                                <svg viewBox="0 0 400 150" width="100%" height="100%" preserveAspectRatio="none">
+                                    <!-- Hand-drawn style line chart -->
+                                    <polyline fill="none" stroke="var(--c-sage)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                       points="0,130 50,110 100,120 150,80 200,90 250,50 300,70 350,30 400,40" />
+                                    <!-- Data points -->
+                                    <circle cx="50" cy="110" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="100" cy="120" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="150" cy="80" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="200" cy="90" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="250" cy="50" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="300" cy="70" r="4" fill="var(--c-rose)"/>
+                                    <circle cx="350" cy="30" r="4" fill="var(--c-rose)"/>
+                                </svg>
+                            </div>
+
+                            <h3 data-ar="أحدث الطلبات" data-en="Recent Orders">أحدث الطلبات</h3>
+                            <div class="admin-table-container">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-ar="رقم الطلب" data-en="Order ID">رقم الطلب</th>
+                                            <th data-ar="العميل" data-en="Customer">العميل</th>
+                                            <th data-ar="الحالة" data-en="Status">الحالة</th>
+                                            <th data-ar="التاريخ" data-en="Date">التاريخ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="overview-orders-tbody">
+                                        <!-- Injected by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Products -->
+                        <div class="admin-content-view" id="admin-view-products">
+                            <div class="flex justify-between items-center" style="margin-bottom: var(--space-md);">
+                                <h3 data-ar="إدارة المنتجات" data-en="Manage Products">إدارة المنتجات</h3>
+                                <button class="btn-fill" onclick="toggleAddProductForm()" data-ar="إضافة منتج جديد" data-en="Add New Product">إضافة منتج جديد</button>
+                            </div>
+                            
+                            <form id="add-product-form" style="display: none; background: var(--c-ivory); padding: 24px; border-radius: var(--radius); margin-bottom: var(--space-md);" onsubmit="handleAddProduct(event)">
+                                <h4 data-ar="بيانات المنتج الجديد" data-en="New Product Details">بيانات المنتج الجديد</h4>
+                                <input type="text" class="input-box" id="p-name-ar" placeholder="اسم المنتج (عربي)" required>
+                                <input type="text" class="input-box" id="p-name-en" placeholder="Product Name (English)" required>
+                                <select class="input-box" id="p-cat" required>
+                                    <!-- Options injected via JS -->
+                                </select>
+                                <div class="flex gap-sm">
+                                    <input type="number" class="input-box" id="p-price" placeholder="السعر / Price (EGP)" required>
+                                    <input type="number" class="input-box" id="p-stock" placeholder="المخزون / Stock" required>
+                                </div>
+                                <div class="flex justify-between">
+                                    <button class="btn-outline" type="button" onclick="toggleAddProductForm()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+                                    <button class="btn-fill" type="submit" data-ar="حفظ المنتج" data-en="Save Product">حفظ المنتج</button>
+                                </div>
+                            </form>
+
+                            <div class="admin-table-container">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-ar="الاسم" data-en="Name">الاسم</th>
+                                            <th data-ar="الفئة" data-en="Category">الفئة</th>
+                                            <th data-ar="السعر" data-en="Price">السعر</th>
+                                            <th data-ar="المخزون" data-en="Stock">المخزون</th>
+                                            <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-products-tbody">
+                                        <!-- Injected via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Orders -->
+                        <div class="admin-content-view" id="admin-view-orders">
+                            <div class="flex justify-between items-center" style="margin-bottom: var(--space-md);">
+                                <h3 data-ar="إدارة الطلبات" data-en="Manage Orders">إدارة الطلبات</h3>
+                                <select class="admin-filter-select" id="order-status-filter" onchange="renderAdminOrders()">
+                                    <option value="all" data-ar="كل الحالات" data-en="All Statuses">كل الحالات</option>
+                                    <option value="pending" data-ar="قيد التجهيز" data-en="Pending">قيد التجهيز</option>
+                                    <option value="processing" data-ar="جاري التنفيذ" data-en="Processing">جاري التنفيذ</option>
+                                    <option value="shipped" data-ar="تم الشحن" data-en="Shipped">تم الشحن</option>
+                                    <option value="delivered" data-ar="تم التوصيل" data-en="Delivered">تم التوصيل</option>
+                                </select>
+                            </div>
+                            <div class="admin-table-container">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-ar="رقم الطلب" data-en="Order ID">رقم الطلب</th>
+                                            <th data-ar="العميل" data-en="Customer">العميل</th>
+                                            <th data-ar="المنتجات" data-en="Products">المنتجات</th>
+                                            <th data-ar="الإجمالي" data-en="Total">الإجمالي</th>
+                                            <th data-ar="الحالة" data-en="Status">الحالة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-orders-tbody">
+                                        <!-- Injected via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Customers -->
+                        <div class="admin-content-view" id="admin-view-customers">
+                            <h3 data-ar="العملاء" data-en="Customers">العملاء</h3>
+                            <div class="admin-table-container">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-ar="الاسم" data-en="Name">الاسم</th>
+                                            <th data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</th>
+                                            <th data-ar="تاريخ التسجيل" data-en="Join Date">تاريخ التسجيل</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>سارة أحمد</td><td>sara@example.com</td><td>2026-01-10</td></tr>
+                                        <tr><td>Mona Ali</td><td>mona@example.com</td><td>2026-02-15</td></tr>
+                                        <tr><td>نور محمد</td><td>nour@example.com</td><td>2026-03-20</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 style="font-family: var(--f-head);">HEMO HAND MADE</h3>
+                    <p style="color: var(--c-text-light); max-width: 300px; line-height: 1.8;" data-ar="كل قطعة نصنعها هي قصة حب بين الخيوط والإبرة. أهلاً بكِ في عالمنا الدافئ." data-en="Every piece we make is a love story between yarn and needle. Welcome to our warm world.">كل قطعة نصنعها هي قصة حب بين الخيوط والإبرة. أهلاً بكِ في عالمنا الدافئ.</p>
+                </div>
+                <div>
+                    <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                        <li><a href="#shop" data-ar="المتجر" data-en="Shop">المتجر</a></li>
+                        <li><a href="#about" data-ar="من نحن" data-en="About Us">من نحن</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h4>
+                    <div class="flex gap-sm" style="color: var(--c-text-light);">
+                        <i data-lucide="instagram"></i>
+                        <i data-lucide="facebook"></i>
+                        <i data-lucide="mail"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom" data-ar="جميع الحقوق محفوظة © ٢٠٢٦ هيمو هاند ميد" data-en="All rights reserved © 2026 HEMO HAND MADE">
+                جميع الحقوق محفوظة © ٢٠٢٦ هيمو هاند ميد
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Database / State ---
+        const DB = {
+            categories: [
+                { id: 8, nameAr: 'كل المنتجات', nameEn: 'All Products', color: 'var(--c-sand)', icon: 'grid' },
+                { id: 1, nameAr: 'شرابات', nameEn: 'Socks', color: 'var(--c-rose)', icon: 'footprints' },
+                { id: 2, nameAr: 'كوفيات', nameEn: 'Scarves', color: 'var(--c-sage)', icon: 'wind' },
+                { id: 3, nameAr: 'جوانتيات', nameEn: 'Gloves', color: 'var(--c-lavender)', icon: 'hand' },
+                { id: 4, nameAr: 'جواكت تريكو وكروشيه', nameEn: 'Knit & Crochet Jackets', color: 'var(--c-sand)', icon: 'shirt' },
+                { id: 5, nameAr: 'بلوفرات تريكو', nameEn: 'Knit Sweaters', color: 'var(--c-peach)', icon: 'snowflake' },
+                { id: 6, nameAr: 'بلوفرات كروشيه', nameEn: 'Crochet Sweaters', color: 'var(--c-ivory)', icon: 'scissors' },
+                { id: 7, nameAr: 'سالوبيت أطفال', nameEn: 'Children\'s Overalls', color: 'var(--c-rose)', icon: 'baby' }
+            ],
+            products: [
+                { id: 1, nameAr: 'جورب شتوي دافئ', nameEn: 'Warm Winter Socks', catId: 1, price: 150, stock: 10 },
+                { id: 2, nameAr: 'جورب قصير ملون', nameEn: 'Colorful Ankle Socks', catId: 1, price: 120, stock: 15 },
+                { id: 3, nameAr: 'جورب صوف للركبة', nameEn: 'Knee High Wool Socks', catId: 1, price: 180, stock: 8 },
+                { id: 4, nameAr: 'كوفية غرزة الضفيرة', nameEn: 'Cable Knit Scarf', catId: 2, price: 350, stock: 12 },
+                { id: 5, nameAr: 'كوفية انفينيتي', nameEn: 'Infinity Scarf', catId: 2, price: 300, stock: 20 },
+                { id: 6, nameAr: 'شال كروشيه عريض', nameEn: 'Wide Crochet Wrap', catId: 2, price: 450, stock: 5 },
+                { id: 7, nameAr: 'جوانتي بدون أصابع', nameEn: 'Fingerless Gloves', catId: 3, price: 200, stock: 25 },
+                { id: 8, nameAr: 'قفازات كروشيه كاملة', nameEn: 'Full Crochet Gloves', catId: 3, price: 250, stock: 18 },
+                { id: 9, nameAr: 'جاكيت تريكو مفتوح', nameEn: 'Open Front Knit Jacket', catId: 4, price: 850, stock: 4 },
+                { id: 10, nameAr: 'كارديجان أوفر سايز', nameEn: 'Oversized Cardigan', catId: 4, price: 750, stock: 6 },
+                { id: 11, nameAr: 'بلوفر تريكو كلاسيك', nameEn: 'Classic Knit Sweater', catId: 5, price: 650, stock: 9 },
+                { id: 12, nameAr: 'بلوفر ياقة عالية', nameEn: 'Turtleneck Sweater', catId: 5, price: 680, stock: 7 },
+                { id: 13, nameAr: 'توب كروشيه بوهيمي', nameEn: 'Boho Crochet Top', catId: 6, price: 450, stock: 14 },
+                { id: 14, nameAr: 'بلوفر كروشيه مربعات', nameEn: 'Granny Square Sweater', catId: 6, price: 700, stock: 5 },
+                { id: 15, nameAr: 'سالوبيت أطفال لحديثي الولادة', nameEn: 'Newborn Overall Set', catId: 7, price: 550, stock: 11 },
+                { id: 16, nameAr: 'رومبير كروشيه للأطفال', nameEn: 'Toddler Crochet Romper', catId: 7, price: 500, stock: 15 }
+            ],
+            cart: [],
+            orders: [
+                { id: 1001, customer: 'سارة أحمد', products: 'جورب شتوي دافئ', total: 150, status: 'pending', date: '2026-05-07' },
+                { id: 1002, customer: 'Mona Ali', products: 'بلوفر كروشيه مربعات', total: 700, status: 'shipped', date: '2026-05-06' },
+                { id: 1003, customer: 'نور محمد', products: 'كوفية غرزة الضفيرة', total: 350, status: 'delivered', date: '2026-05-05' },
+                { id: 1004, customer: 'Aya Youssef', products: 'جاكيت تريكو مفتوح', total: 850, status: 'processing', date: '2026-05-07' }
+            ]
+        };
+
+        const State = {
+            lang: 'ar',
+            shopFilter: 8,
+            currentProductId: null,
+            pdSelection: { size: 'S', color: 'var(--c-rose)', qty: 1 }
+        };
+
+        // --- Core Functions ---
+        function updateLangAttributes() {
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                if (el.tagName === 'INPUT' && el.type === 'text') {
+                    // Handled manually or skipped for inputs
+                } else {
+                    el.innerText = el.getAttribute(`data-${State.lang}`);
+                }
+            });
+            lucide.createIcons();
+        }
+
+        function toggleLang() {
+            State.lang = State.lang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = State.lang;
+            document.documentElement.dir = State.lang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('lang-toggle').innerText = State.lang === 'ar' ? 'EN' : 'AR';
+            
+            // Re-render views that depend on dynamic strings
+            renderShopFilters();
+            renderShopProducts();
+            if(window.location.hash.includes('#product/')) renderProductDetail(State.currentProductId);
+            if(window.location.hash.includes('#cart')) renderCart();
+            renderAdminProducts();
+            renderAdminOrders();
+            renderAdminOverview();
+            
+            updateLangAttributes();
+        }
+
+        // --- Home Setup ---
+        function initHome() {
+            const homeCatEl = document.getElementById('home-categories');
+            homeCatEl.innerHTML = '';
+            DB.categories.filter(c => c.id !== 8).forEach(cat => {
+                homeCatEl.innerHTML += `
+                    <div class="category-card" onclick="location.hash='#shop/${cat.id}'">
+                        <div class="cat-icon-wrapper" style="background: ${cat.color}">
+                            <i data-lucide="${cat.icon}" style="color: var(--c-white); width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3 data-ar="${cat.nameAr}" data-en="${cat.nameEn}">${State.lang==='ar'?cat.nameAr:cat.nameEn}</h3>
+                    </div>
+                `;
+            });
+
+            const homeFeatEl = document.getElementById('home-featured');
+            homeFeatEl.innerHTML = '';
+            DB.products.slice(0, 4).forEach(p => {
+                homeFeatEl.innerHTML += getProductCardHTML(p);
+            });
+        }
+
+        function getProductCardHTML(p) {
+            const cat = DB.categories.find(c => c.id === p.catId);
+            return `
+                <div class="product-card" onclick="location.hash='#product/${p.id}'">
+                    <span class="badge" data-ar="جديد" data-en="NEW">${State.lang==='ar'?'جديد':'NEW'}</span>
+                    <button class="fav-btn" onclick="event.stopPropagation()"><i data-lucide="heart"></i></button>
+                    <div class="product-img-area" style="background: ${cat.color}">
+                        <i data-lucide="${cat.icon}" style="width: 100px; height: 100px; color: var(--c-white);"></i>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${State.lang==='ar'?p.nameAr:p.nameEn}</div>
+                        <div class="product-title-en" style="display: ${State.lang==='ar'?'block':'none'}">${p.nameEn}</div>
+                        <div class="product-price">${p.price} EGP</div>
+                        <button class="add-to-cart-pill" data-ar="عرض التفاصيل" data-en="View Details" onclick="location.hash='#product/${p.id}'">${State.lang==='ar'?'عرض التفاصيل':'View Details'}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Shop Page ---
+        function renderShopFilters() {
+            const filterEl = document.getElementById('shop-filters');
+            filterEl.innerHTML = '';
+            DB.categories.forEach(cat => {
+                const activeCls = cat.id === State.shopFilter ? 'active' : '';
+                filterEl.innerHTML += `
+                    <button class="filter-tab ${activeCls}" onclick="setShopFilter(${cat.id})" data-ar="${cat.nameAr}" data-en="${cat.nameEn}">
+                        ${State.lang==='ar'?cat.nameAr:cat.nameEn}
+                    </button>
+                `;
+            });
+        }
+        function setShopFilter(id) {
+            State.shopFilter = id;
+            renderShopFilters();
+            renderShopProducts();
+        }
+        function renderShopProducts() {
+            const gridEl = document.getElementById('shop-products');
+            gridEl.innerHTML = '';
+            const filtered = State.shopFilter === 8 ? DB.products : DB.products.filter(p => p.catId === State.shopFilter);
+            filtered.forEach(p => {
+                gridEl.innerHTML += getProductCardHTML(p);
+            });
+            updateLangAttributes();
+        }
+
+        // --- Product Detail Page ---
+        window.selectThumb = function(el, color) {
+            document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('pd-main-img').style.background = color;
+        };
+        window.selectColor = function(el, color) {
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            State.pdSelection.color = color;
+            document.getElementById('pd-main-img').style.background = color;
+        };
+        window.selectSize = function(el, size) {
+            document.querySelectorAll('.size-pill').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            State.pdSelection.size = size;
+        };
+        window.updatePdQty = function(delta) {
+            State.pdSelection.qty += delta;
+            if(State.pdSelection.qty < 1) State.pdSelection.qty = 1;
+            document.getElementById('pd-qty-val').innerText = State.pdSelection.qty;
+        };
+        window.pdAddToCart = function(productId) {
+            const existing = DB.cart.find(i => i.productId === productId && i.size === State.pdSelection.size && i.color === State.pdSelection.color);
+            if(existing) {
+                existing.qty += State.pdSelection.qty;
+            } else {
+                DB.cart.push({
+                    id: Date.now(),
+                    productId: productId,
+                    size: State.pdSelection.size,
+                    color: State.pdSelection.color,
+                    qty: State.pdSelection.qty
+                });
+            }
+            updateCartIcon();
+            alert(State.lang === 'ar' ? 'تمت الإضافة للسلة بنجاح!' : 'Added to cart successfully!');
+        };
+
+        function renderProductDetail(id) {
+            State.currentProductId = parseInt(id);
+            const p = DB.products.find(x => x.id === State.currentProductId);
+            if (!p) return;
+            const cat = DB.categories.find(c => c.id === p.catId);
+            
+            // Reset selection
+            State.pdSelection = { size: 'S', color: cat.color, qty: 1 };
+
+            document.getElementById('pd-container').innerHTML = `
+                <div>
+                    <div id="pd-main-img" class="pd-image-area" style="background: ${cat.color}">
+                        <i data-lucide="${cat.icon}" style="width: 150px; height: 150px; color: var(--c-white);"></i>
+                    </div>
+                    <div class="pd-thumbs">
+                        <div class="pd-thumb active" style="background: ${cat.color}" onclick="selectThumb(this, '${cat.color}')"><i data-lucide="${cat.icon}" style="color:white"></i></div>
+                        <div class="pd-thumb" style="background: var(--c-sand)" onclick="selectThumb(this, 'var(--c-sand)')"><i data-lucide="${cat.icon}" style="color:white"></i></div>
+                        <div class="pd-thumb" style="background: var(--c-ivory)" onclick="selectThumb(this, 'var(--c-ivory)')"><i data-lucide="${cat.icon}" style="color:var(--c-sage)"></i></div>
+                    </div>
+                </div>
+                <div class="pd-info">
+                    <div class="pd-badge" style="display: inline-block; margin-bottom: 16px;" data-ar="يدوي ١٠٠٪" data-en="100% Handmade">${State.lang==='ar'?'يدوي ١٠٠٪':'100% Handmade'}</div>
+                    <h1>${State.lang==='ar'?p.nameAr:p.nameEn}</h1>
+                    <div class="en-title">${p.nameEn}</div>
+                    <div class="pd-price">${p.price} EGP</div>
+                    
+                    <span class="selector-label" data-ar="اللون" data-en="Color">${State.lang==='ar'?'اللون':'Color'}</span>
+                    <div class="color-swatches">
+                        <div class="swatch active" style="background: ${cat.color}" onclick="selectColor(this, '${cat.color}')"></div>
+                        <div class="swatch" style="background: var(--c-sage)" onclick="selectColor(this, 'var(--c-sage)')"></div>
+                        <div class="swatch" style="background: var(--c-lavender)" onclick="selectColor(this, 'var(--c-lavender)')"></div>
+                        <div class="swatch" style="background: var(--c-peach)" onclick="selectColor(this, 'var(--c-peach)')"></div>
+                        <div class="swatch" style="background: var(--c-sand)" onclick="selectColor(this, 'var(--c-sand)')"></div>
+                    </div>
+
+                    <span class="selector-label" data-ar="المقاس" data-en="Size">${State.lang==='ar'?'المقاس':'Size'}</span>
+                    <div class="size-selector">
+                        <div class="size-pill active" onclick="selectSize(this, 'S')">S</div>
+                        <div class="size-pill" onclick="selectSize(this, 'M')">M</div>
+                        <div class="size-pill" onclick="selectSize(this, 'L')">L</div>
+                        <div class="size-pill" onclick="selectSize(this, 'XL')">XL</div>
+                    </div>
+
+                    <span class="selector-label" data-ar="الكمية" data-en="Quantity">${State.lang==='ar'?'الكمية':'Quantity'}</span>
+                    <div class="qty-selector">
+                        <button class="qty-btn" onclick="updatePdQty(-1)">-</button>
+                        <span class="qty-val" id="pd-qty-val">1</span>
+                        <button class="qty-btn" onclick="updatePdQty(1)">+</button>
+                    </div>
+
+                    <div class="pd-actions">
+                        <button class="btn-fill" onclick="pdAddToCart(${p.id})" data-ar="أضف للسلة" data-en="Add to Cart">${State.lang==='ar'?'أضف للسلة':'Add to Cart'}</button>
+                    </div>
+                    
+                    <div class="accordion">
+                        <div class="acc-item active" onclick="this.classList.toggle('active')">
+                            <div class="acc-header">
+                                <span data-ar="الوصف" data-en="Description">${State.lang==='ar'?'الوصف':'Description'}</span>
+                                <i data-lucide="chevron-down"></i>
+                            </div>
+                            <div class="acc-content" style="display: block;">${State.lang==='ar'?'قطعة فريدة مشغولة يدوياً بعناية فائقة. مريحة ودافئة ومناسبة لفصل الشتاء.':'A unique piece handmade with great care. Comfortable, warm and perfect for winter.'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            updateLangAttributes();
+        }
+
+        // --- Cart Page ---
+        window.removeFromCart = function(id) {
+            DB.cart = DB.cart.filter(i => i.id !== id);
+            updateCartIcon();
+            renderCart();
+        };
+        window.updateCartQty = function(id, delta) {
+            const item = DB.cart.find(i => i.id === id);
+            if(item) {
+                item.qty += delta;
+                if(item.qty < 1) item.qty = 1;
+                renderCart();
+            }
+        };
+        function updateCartIcon() {
+            const count = DB.cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').innerText = count;
+        }
+
+        function renderCart() {
+            const cartItemsEl = document.getElementById('cart-items');
+            if(DB.cart.length === 0) {
+                cartItemsEl.innerHTML = `
+                    <div class="empty-cart-state">
+                        <i data-lucide="gem" class="animate-bob" style="width: 80px; height: 80px; color: var(--c-rose); margin-bottom: 20px;"></i>
+                        <h3 data-ar="سلتك فاضية لسه 🧶" data-en="Your cart is empty 🧶">${State.lang==='ar'?'سلتك فاضية لسه 🧶':'Your cart is empty 🧶'}</h3>
+                        <a href="#shop" class="btn-fill" style="margin-top: 20px;" data-ar="العودة للمتجر" data-en="Return to Shop">${State.lang==='ar'?'العودة للمتجر':'Return to Shop'}</a>
+                    </div>
+                `;
+                document.getElementById('cart-summary-sub').innerText = '0 EGP';
+                document.getElementById('cart-summary-total').innerText = '0 EGP';
+                updateLangAttributes();
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+            DB.cart.forEach(item => {
+                const product = DB.products.find(p => p.id === item.productId);
+                const cat = DB.categories.find(c => c.id === product.catId);
+                const itemTotal = product.price * item.qty;
+                subtotal += itemTotal;
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-img" style="background: ${cat.color}">
+                            <i data-lucide="${cat.icon}" style="color: white;"></i>
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${State.lang==='ar'?product.nameAr:product.nameEn}</div>
+                            <div class="cart-item-meta">
+                                <span style="width:12px; height:12px; border-radius:50%; background:${item.color}"></span> ${item.size}
+                            </div>
+                        </div>
+                        <div class="cart-item-price">${itemTotal} EGP</div>
+                        <div class="qty-selector" style="margin: 0;">
+                            <button class="qty-btn" onclick="updateCartQty(${item.id}, -1)">-</button>
+                            <span class="qty-val">${item.qty}</span>
+                            <button class="qty-btn" onclick="updateCartQty(${item.id}, 1)">+</button>
+                        </div>
+                        <button class="cart-remove-btn" onclick="removeFromCart(${item.id})"><i data-lucide="trash-2"></i></button>
+                    </div>
+                `;
+            });
+            cartItemsEl.innerHTML = html;
+            document.getElementById('cart-summary-sub').innerText = `${subtotal} EGP`;
+            document.getElementById('cart-summary-total').innerText = `${subtotal} EGP`;
+            updateLangAttributes();
+        }
+
+        // --- Admin Dashboard ---
+        window.switchAdminView = function(viewId) {
+            document.querySelectorAll('.admin-content-view').forEach(v => v.style.display = 'none');
+            document.getElementById(`admin-view-${viewId}`).style.display = 'block';
+            document.querySelectorAll('.admin-nav-item').forEach(l => l.classList.remove('active'));
+            document.querySelector(`.admin-nav-item[onclick="switchAdminView('${viewId}')"]`).classList.add('active');
+            
+            if(viewId === 'orders') renderAdminOrders();
+            if(viewId === 'products') {
+                renderAdminCatSelect();
+                renderAdminProducts();
+            }
+            if(viewId === 'overview') renderAdminOverview();
+            
+            updateLangAttributes();
+        };
+
+        function translateStatus(status) {
+            const dict = {
+                'pending': { ar: 'قيد التجهيز', en: 'Pending' },
+                'processing': { ar: 'جاري التنفيذ', en: 'Processing' },
+                'shipped': { ar: 'تم الشحن', en: 'Shipped' },
+                'delivered': { ar: 'تم التوصيل', en: 'Delivered' }
+            };
+            return State.lang === 'ar' ? dict[status].ar : dict[status].en;
+        }
+
+        function renderAdminOverview() {
+            document.getElementById('stat-products-count').innerText = DB.products.length;
+            const tbody = document.getElementById('overview-orders-tbody');
+            tbody.innerHTML = '';
+            DB.orders.slice(0,2).forEach(o => {
+                let badgeColor = 'var(--c-lavender)';
+                if(o.status === 'processing') badgeColor = 'var(--c-peach)';
+                if(o.status === 'shipped') badgeColor = 'var(--c-sage)';
+                if(o.status === 'delivered') badgeColor = '#A8D5BA';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>#${o.id}</td>
+                        <td>${o.customer}</td>
+                        <td><span class="status-badge" style="background:${badgeColor}">${translateStatus(o.status)}</span></td>
+                        <td>${o.date}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        window.renderAdminOrders = function() {
+            const filter = document.getElementById('order-status-filter').value;
+            const tbody = document.getElementById('admin-orders-tbody');
+            tbody.innerHTML = '';
+            const filtered = filter === 'all' ? DB.orders : DB.orders.filter(o => o.status === filter);
+            filtered.forEach(o => {
+                let badgeColor = 'var(--c-lavender)';
+                if(o.status === 'processing') badgeColor = 'var(--c-peach)';
+                if(o.status === 'shipped') badgeColor = 'var(--c-sage)';
+                if(o.status === 'delivered') badgeColor = '#A8D5BA';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>#${o.id}</td>
+                        <td>${o.customer}</td>
+                        <td>${o.products}</td>
+                        <td>${o.total} EGP</td>
+                        <td><span class="status-badge" style="background:${badgeColor}">${translateStatus(o.status)}</span></td>
+                    </tr>
+                `;
+            });
+        };
+
+        function renderAdminCatSelect() {
+            const select = document.getElementById('p-cat');
+            select.innerHTML = '';
+            DB.categories.filter(c => c.id !== 8).forEach(cat => {
+                select.innerHTML += `<option value="${cat.id}">${State.lang==='ar'?cat.nameAr:cat.nameEn}</option>`;
+            });
+        }
+
+        function renderAdminProducts() {
+            const tbody = document.getElementById('admin-products-tbody');
+            tbody.innerHTML = '';
+            DB.products.forEach(p => {
+                const cat = DB.categories.find(c => c.id === p.catId);
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${State.lang==='ar'?p.nameAr:p.nameEn}</td>
+                        <td>${State.lang==='ar'?cat.nameAr:cat.nameEn}</td>
+                        <td>${p.price} EGP</td>
+                        <td>${p.stock}</td>
+                        <td>
+                            <button style="color: var(--c-sage); margin: 0 8px;"><i data-lucide="edit"></i></button>
+                            <button style="color: var(--c-rose); margin: 0 8px;" onclick="deleteProduct(${p.id})"><i data-lucide="trash-2"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        window.toggleAddProductForm = function() {
+            const form = document.getElementById('add-product-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        };
+
+        window.handleAddProduct = function(e) {
+            e.preventDefault();
+            const newP = {
+                id: Date.now(),
+                nameAr: document.getElementById('p-name-ar').value,
+                nameEn: document.getElementById('p-name-en').value,
+                catId: parseInt(document.getElementById('p-cat').value),
+                price: parseInt(document.getElementById('p-price').value),
+                stock: parseInt(document.getElementById('p-stock').value)
+            };
+            DB.products.push(newP);
+            toggleAddProductForm();
+            renderAdminProducts();
+            document.getElementById('add-product-form').reset();
+            alert(State.lang === 'ar' ? 'تمت إضافة المنتج بنجاح' : 'Product added successfully');
+        };
+
+        window.deleteProduct = function(id) {
+            if(confirm(State.lang === 'ar' ? 'هل أنت متأكد من حذف المنتج؟' : 'Are you sure you want to delete this product?')) {
+                DB.products = DB.products.filter(p => p.id !== id);
+                renderAdminProducts();
+            }
+        };
+
+        // --- Router ---
+        function router() {
+            const hash = window.location.hash || '#home';
+            const parts = hash.replace('#', '').split('/');
+            const view = parts[0];
+            const param = parts[1];
+
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            const viewEl = document.getElementById(`view-${view}`);
+            if (viewEl) {
+                viewEl.classList.add('active');
+                const link = document.querySelector(`.nav-link[href="#${view}"]`);
+                if (link) link.classList.add('active');
+            } else {
+                document.getElementById('view-home').classList.add('active');
+            }
+
+            if (view === 'home') {
+                initHome();
+            } else if (view === 'shop') {
+                if (param) State.shopFilter = parseInt(param);
+                renderShopFilters();
+                renderShopProducts();
+            } else if (view === 'product') {
+                renderProductDetail(param);
+            } else if (view === 'cart') {
+                renderCart();
+            } else if (view === 'admin') {
+                switchAdminView('overview');
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            updateLangAttributes();
+        }
+
+        window.addEventListener('hashchange', router);
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+            initHome();
+            router();
+            
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate-fade-up').forEach(el => observer.observe(el));
+        });
+
+    </script>
+</body>
+</html>
