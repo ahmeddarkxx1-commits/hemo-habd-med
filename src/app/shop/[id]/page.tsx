@@ -20,6 +20,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [quantity, setQuantity] = useState(1);
+  const [customNote, setCustomNote] = useState("");
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
@@ -31,6 +32,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       size: selectedSize,
       quantity,
       image: activeImage,
+      customNote,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -138,6 +140,17 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   <Plus size={16} />
                 </button>
               </div>
+            </div>
+
+            {/* Custom Details */}
+            <div>
+              <h3 className="text-sm font-medium mb-3">تفاصيل مخصصة <span className="text-foreground/50 text-xs font-normal">(اختياري)</span></h3>
+              <textarea 
+                value={customNote}
+                onChange={(e) => setCustomNote(e.target.value)}
+                placeholder="اكتب هنا أي تفاصيل مخصصة للمنتج، مثل مقاس خاص أو تعديل معين..."
+                className="w-full bg-white border border-sand-200 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#5A5452] resize-none h-24 transition-all"
+              />
             </div>
           </div>
 

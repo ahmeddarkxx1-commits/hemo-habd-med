@@ -99,24 +99,13 @@ export default function ShopPage() {
               
               {/* Quick Add Button Overlay */}
               <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 z-10">
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    addToCart({
-                      productId: product._id,
-                      name: product.name,
-                      price: product.price,
-                      image: product.images[0],
-                      quantity: 1,
-                      color: product.colors[0], // Default color
-                      size: product.sizes ? product.sizes[0] : undefined // Default size
-                    });
-                  }}
+                <Link 
+                  href={`/shop/${product._id}`}
                   className="w-full bg-white/90 backdrop-blur-md text-[#5A5452] py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-white shadow-lg"
                 >
                   <ShoppingBag size={16} />
-                  أضف سريعاً
-                </button>
+                  تخصيص وطلب
+                </Link>
               </div>
             </div>
 

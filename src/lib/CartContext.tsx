@@ -11,6 +11,7 @@ type CartItem = {
   size: string;
   quantity: number;
   image: string;
+  customNote?: string;
 };
 
 type CartContextType = {
@@ -51,7 +52,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const addToCart = (item: Omit<CartItem, "id">) => {
     setItems((prev) => {
       const existing = prev.find(
-        (i) => i.productId === item.productId && i.color === item.color && i.size === item.size
+        (i) => i.productId === item.productId && i.color === item.color && i.size === item.size && i.customNote === item.customNote
       );
       if (existing) {
         return prev.map((i) =>

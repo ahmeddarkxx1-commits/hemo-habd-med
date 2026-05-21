@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Nunito } from "next/font/google";
+import { Cairo, Tajawal } from "next/font/google";
 import { CartProvider } from "@/lib/CartContext";
 import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const cairo = Cairo({ 
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-cormorant",
 });
 
-const nunito = Nunito({ 
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
+const tajawal = Tajawal({ 
+  subsets: ["arabic", "latin"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-nunito",
 });
 
@@ -64,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${cormorant.variable} ${nunito.variable}`}>
+    <html lang="ar" dir="rtl" className={`${cairo.variable} ${tajawal.variable}`}>
       <body className="font-sans min-h-screen bg-ivory-100 text-foreground overflow-x-hidden">
         <CartProvider>
           <Navbar />
