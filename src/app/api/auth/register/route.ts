@@ -59,7 +59,7 @@ export async function POST(request: Request) {
       phone,
       governorate,
       address,
-      role,
+      role: role as "user" | "admin",
     });
 
     // Generate token
