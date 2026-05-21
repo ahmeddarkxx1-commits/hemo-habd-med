@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       .map((e) => e.trim().toLowerCase())
       .filter((e) => e.length > 0);
 
-    let role = "user";
+    let role: "user" | "admin" = "user";
     if (adminEmails.length > 0) {
       if (adminEmails.includes(email.toLowerCase().trim())) {
         role = "admin";
