@@ -1,31 +1,64 @@
 "use client";
 
-import { useState } from "react";
-import { products, categories } from "@/lib/data";
+import { useState, useEffect } from "react";
+import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
-import { ArrowRight, Minus, Plus, ShoppingBag, Heart } from "lucide-react";
+import { ArrowRight, Minus, Plus, ShoppingBag, Heart, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = products.find(p => p.id === params.id);
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [notFoundState, setNotFoundState] = useState(false);
   const { addToCart } = useCart();
-  
-  if (!product) {
-    notFound();
-  }
 
-  const [activeImage, setActiveImage] = useState(product.images[0]);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [activeImage, setActiveImage] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [customNote, setCustomNote] = useState("");
   const [added, setAdded] = useState(false);
 
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const res = await fetch(`/api/products/${params.id}`);
+        const data = await res.json();
+        if (data.success && data.data) {
+          setProduct(data.data);
+          setActiveImage(data.data.images[0]);
+          setSelectedColor(data.data.colors[0]);
+          setSelectedSize(data.data.sizes?.[0] || "");
+        } else {
+          setNotFoundState(true);
+        }
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
+        setNotFoundState(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProduct();
+  }, [params.id]);
+
+  if (loading) {
+    return (
+      <div className="h-[60vh] flex items-center justify-center">
+        <Loader2 className="animate-spin text-rose-500" size={40} />
+      </div>
+    );
+  }
+
+  if (notFoundState || !product) {
+    notFound();
+  }
+
   const handleAddToCart = () => {
     addToCart({
-      productId: product.id,
+      productId: product._id,
       name: product.name,
       price: product.price,
       color: selectedColor,
@@ -49,17 +82,18 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         {/* Gallery */}
         <div className="space-y-4">
           <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-sand-100 shadow-sm transition-all duration-500">
-            <Image 
-              src={activeImage} 
-              alt={product.name} 
-              fill 
-              className="object-cover"
-              priority
-              placeholder="blur"
-            />
+            {activeImage && (
+              <Image 
+                src={activeImage} 
+                alt={product.name} 
+                fill 
+                className="object-cover"
+                priority
+              />
+            )}
           </div>
           <div className="flex gap-4">
-            {product.images.map((img, idx) => (
+            {product.images.map((img: string, idx: number) => (
               <button 
                 key={idx}
                 onClick={() => setActiveImage(img)}
@@ -70,7 +104,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   alt={`${product.name} ${idx + 1}`} 
                   fill 
                   className="object-cover"
-                  placeholder="blur"
                 />
               </button>
             ))}
@@ -94,7 +127,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             <div>
               <h3 className="text-sm font-medium mb-3">اللون: <span className="text-foreground/60 capitalize">{selectedColor}</span></h3>
               <div className="flex gap-3">
-                {product.colors.map(color => (
+                {product.colors.map((color: string) => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
@@ -107,20 +140,22 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             </div>
 
             {/* Sizes */}
-            <div>
-              <h3 className="text-sm font-medium mb-3">المقاس: <span className="text-foreground/60">{selectedSize}</span></h3>
-              <div className="flex flex-wrap gap-3">
-                {product.sizes.map(size => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-5 py-2 rounded-xl text-sm transition-all border font-medium ${selectedSize === size ? 'bg-[#5A5452] text-white border-[#5A5452]' : 'bg-white text-[#5A5452] hover:border-sand-400 border-sand-200'}`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {product.sizes && product.sizes.length > 0 && (
+              <div>
+                <h3 className="text-sm font-medium mb-3">المقاس: <span className="text-foreground/60">{selectedSize}</span></h3>
+                <div className="flex flex-wrap gap-3">
+                  {product.sizes.map((size: string) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`px-5 py-2 rounded-xl text-sm transition-all border font-medium ${selectedSize === size ? 'bg-[#5A5452] text-white border-[#5A5452]' : 'bg-white text-[#5A5452] hover:border-sand-400 border-sand-200'}`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Quantity */}
             <div>
