@@ -1,34 +1,16 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { dbHelper } from "@/lib/dbHelper";
-
-const SETTINGS_PATH = path.join(process.cwd(), "store_settings.json");
-
-function getSettings() {
-  if (!fs.existsSync(SETTINGS_PATH)) {
-    const defaults = {
-      storeName: "HEMO HAND",
-      storePhone: "01234567890",
-      storeEmail: "contact@hemohand.com",
-      whatsapp: "201234567890",
-      instagram: "hemo.hand",
-      facebook: "hemohand",
-    };
-    fs.writeFileSync(SETTINGS_PATH, JSON.stringify(defaults, null, 2), "utf8");
-    return defaults;
-  }
-  try {
-    return JSON.parse(fs.readFileSync(SETTINGS_PATH, "utf8"));
-  } catch (e) {
-    return {};
-  }
-}
+import connectDB from "@/lib/db";
+import Setting from "@/models/Setting";
 
 export async function GET() {
   try {
-    const settings = getSettings();
+    await connectDB();
+    let settings = await Setting.findOne();
+    if (!settings) {
+      settings = await Setting.create({});
+    }
     return NextResponse.json({ success: true, data: settings });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
@@ -48,8 +30,16 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    fs.writeFileSync(SETTINGS_PATH, JSON.stringify(body, null, 2), "utf8");
-    return NextResponse.json({ success: true, message: "تم حفظ الإعدادات بنجاح" });
+    await connectDB();
+    
+    let settings = await Setting.findOne();
+    if (settings) {
+      settings = await Setting.findByIdAndUpdate(settings._id, body, { new: true });
+    } else {
+      settings = await Setting.create(body);
+    }
+    
+    return NextResponse.json({ success: true, message: "تم حفظ الإعدادات بنجاح", data: settings });
   } catch (error: any) {
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
