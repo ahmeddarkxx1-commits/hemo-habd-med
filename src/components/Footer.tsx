@@ -1,10 +1,21 @@
-import Link from "next/link";
-import connectDB from "@/lib/db";
-import Setting from "@/models/Setting";
+"use client";
 
-export default async function Footer() {
-  await connectDB();
-  const settings = await Setting.findOne() || {};
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
+export default function Footer() {
+  const [settings, setSettings] = useState<any>({});
+
+  useEffect(() => {
+    fetch('/api/admin/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setSettings(data.data);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const getSocialUrl = (platformUrl: string, platform: 'instagram' | 'facebook') => {
     if (!platformUrl) return "#";
