@@ -3,16 +3,19 @@
 import { useState, useEffect } from "react";
 import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
+import { useWishlist } from "@/lib/WishlistContext";
 import { ArrowRight, Minus, Plus, ShoppingBag, Heart, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import ProductReviews from "@/components/ProductReviews";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [notFoundState, setNotFoundState] = useState(false);
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const [activeImage, setActiveImage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -81,13 +84,13 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
         {/* Gallery */}
         <div className="space-y-4">
-          <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-sand-100 shadow-sm transition-all duration-500">
+          <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-sand-100 shadow-sm transition-all duration-500 group cursor-crosshair">
             {activeImage && (
               <Image 
                 src={activeImage} 
                 alt={product.name} 
                 fill 
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-125"
                 priority
               />
             )}
@@ -118,9 +121,15 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             <p className="text-2xl font-medium">{product.price} ج.م</p>
           </div>
 
-          <p className="text-foreground/70 font-light leading-relaxed mb-8">
+          <p className="text-foreground/70 font-light leading-relaxed mb-6">
             {product.description}
           </p>
+
+          {product.material && (
+            <p className="text-sm font-medium mb-8 text-foreground/80 bg-sand-50 p-3 rounded-xl border border-sand-100">
+              <span className="font-bold text-foreground">الخامة: </span>{product.material}
+            </p>
+          )}
 
           <div className="space-y-8 mb-10">
             {/* Colors */}
@@ -132,8 +141,14 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                     key={color}
                     onClick={() => setSelectedColor(color)}
                     className={`w-8 h-8 rounded-full border-2 transition-all ${selectedColor === color ? 'border-foreground p-1' : 'border-transparent'}`}
+                    title={color}
                   >
-                    <div className="w-full h-full rounded-full border border-sand-200" style={{ backgroundColor: `var(--c-${color})` }} />
+                    <div 
+                      className="w-full h-full rounded-full border border-sand-200" 
+                      style={{ 
+                        backgroundColor: color.startsWith('#') || color.match(/^[a-zA-Z]+$/) ? color : `var(--c-${color})`
+                      }} 
+                    />
                   </button>
                 ))}
               </div>
@@ -192,18 +207,34 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <div className="flex gap-4">
             <button 
               onClick={handleAddToCart}
-              disabled={!product.inStock}
+              disabled={product.inStock === false}
               className={`flex-1 py-4 rounded-full transition-all duration-300 shadow-lg font-medium flex items-center justify-center gap-2 ${added ? 'bg-sage-400 text-white' : 'bg-[#5A5452] text-white hover:bg-rose-400'} disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               <ShoppingBag size={18} />
-              {added ? "تمت الإضافة للسلة" : "أضف للسلة"}
+              {added ? "تمت الإضافة للسلة" : (product.inStock === false ? "نفذت الكمية" : "أضف للسلة")}
             </button>
-            <button className="w-14 h-14 bg-white rounded-full flex items-center justify-center border border-sand-200 hover:border-rose-300 hover:text-rose-500 transition-colors shadow-sm">
-              <Heart size={20} />
+            <button 
+              onClick={() => {
+                if (isInWishlist(product._id)) {
+                  removeFromWishlist(product._id);
+                } else {
+                  addToWishlist({
+                    id: product._id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.images[0]
+                  });
+                }
+              }}
+              className={`w-14 h-14 bg-white rounded-full flex items-center justify-center border border-sand-200 transition-colors shadow-sm ${isInWishlist(product._id) ? 'text-rose-500 border-rose-300' : 'hover:border-rose-300 hover:text-rose-500'}`}
+            >
+              <Heart size={20} fill={isInWishlist(product._id) ? "currentColor" : "none"} />
             </button>
           </div>
         </div>
       </div>
+
+      <ProductReviews productId={product._id || product.id} initialReviews={product.reviews} />
     </div>
   );
 }

@@ -1,0 +1,128 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { IProduct } from "@/models/Product";
+import { useCart } from "@/lib/CartContext";
+import { useWishlist } from "@/lib/WishlistContext";
+import { ShoppingBag, Heart } from "lucide-react";
+
+export default function BestSellers() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { addToCart, setIsCartOpen } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+        const res = await fetch("/api/products/best-sellers");
+        const data = await res.json();
+        if (data.success) {
+          setProducts(data.products);
+        }
+      } catch (error) {
+        console.error("Failed to fetch best sellers:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBestSellers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-24">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-foreground"></div>
+      </div>
+    );
+  }
+
+  if (products.length === 0) return null;
+
+  return (
+    <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto text-center">
+      <h2 className="font-serif text-3xl md:text-5xl font-semibold text-foreground mb-6">الأكثر مبيعاً هذا الأسبوع</h2>
+      <p className="text-foreground/80 font-medium text-lg mb-12 max-w-2xl mx-auto">
+        تشكيلتنا المختارة بعناية من القطع الأكثر طلباً. قطع فريدة تخطف الأنظار في كل مناسبة.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {products.map((product) => {
+          const inWishlist = isInWishlist(product._id as string);
+          
+          return (
+            <motion.div whileHover={{ y: -5 }} key={product._id as string} className="group flex flex-col items-center text-center">
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow">
+                <Link href={`/shop/${product._id}`}>
+                  <Image 
+                    src={product.images[0] || "/placeholder.jpg"} 
+                    alt={product.name} 
+                    fill 
+                    className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                </Link>
+                <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-xs font-bold text-foreground shadow-sm">
+                  الأكثر مبيعاً
+                </div>
+                
+                {/* Action Buttons (Visible on Hover) */}
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  <button 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addToCart({
+                        productId: product._id as string,
+                        name: product.name,
+                        price: product.price,
+                        image: product.images[0],
+                        color: product.colors[0] || "افتراضي",
+                        size: product.sizes[0] || "افتراضي",
+                        quantity: 1
+                      });
+                      setIsCartOpen(true);
+                    }}
+                    className="bg-white text-foreground p-3 rounded-full shadow-lg hover:bg-rose-500 hover:text-white transition-colors"
+                    title="أضف للسلة سريعاً"
+                  >
+                    <ShoppingBag size={20} />
+                  </button>
+                  <button 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (inWishlist) {
+                        removeFromWishlist(product._id as string);
+                      } else {
+                        addToWishlist({
+                          id: product._id as string,
+                          name: product.name,
+                          price: product.price,
+                          image: product.images[0]
+                        });
+                      }
+                    }}
+                    className={`bg-white p-3 rounded-full shadow-lg transition-colors ${inWishlist ? 'text-rose-500' : 'text-foreground hover:text-rose-500'}`}
+                    title="إضافة للمفضلة"
+                  >
+                    <Heart size={20} fill={inWishlist ? "currentColor" : "none"} />
+                  </button>
+                </div>
+              </div>
+              <Link href={`/shop/${product._id}`}>
+                <h4 className="font-medium text-foreground text-lg mb-1 group-hover:text-rose-500 transition-colors">{product.name}</h4>
+              </Link>
+              <p className="text-foreground/70 text-sm">{product.price} ج.م</p>
+            </motion.div>
+          );
+        })}
+      </div>
+      <div className="mt-12">
+        <Link href="/shop" className="inline-flex items-center gap-2 border-2 border-foreground text-foreground px-8 py-3 rounded-full font-medium hover:bg-foreground hover:text-white transition-colors duration-300">
+          عرض كل المنتجات
+        </Link>
+      </div>
+    </section>
+  );
+}

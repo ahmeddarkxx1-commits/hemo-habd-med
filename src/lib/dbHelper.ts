@@ -287,7 +287,8 @@ export const dbHelper = {
 
   async getProductById(id: string) {
     const isConnected = await isMongoConnected();
-    if (isConnected) {
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    if (isConnected && isValidId) {
       return await Product.findById(id);
     } else {
       const db = readLocalDB();
@@ -308,6 +309,29 @@ export const dbHelper = {
         ...productData,
         updatedAt: new Date().toISOString(),
       };
+      writeLocalDB(db);
+      return db.products[index];
+    }
+  },
+
+  async addProductReview(id: string, review: { userName: string; rating: number; comment: string }) {
+    const isConnected = await isMongoConnected();
+    const reviewWithDate = { ...review, date: new Date().toISOString() };
+    const isValidId = mongoose.Types.ObjectId.isValid(id);
+    
+    if (isConnected && isValidId) {
+      const Product = (await import("@/models/Product")).default;
+      return await Product.findByIdAndUpdate(
+        id, 
+        { $push: { reviews: reviewWithDate } }, 
+        { new: true }
+      );
+    } else {
+      const db = readLocalDB();
+      const index = db.products.findIndex((p) => p._id === id || p.id === id);
+      if (index === -1) return null;
+      if (!db.products[index].reviews) db.products[index].reviews = [];
+      db.products[index].reviews.push(reviewWithDate);
       writeLocalDB(db);
       return db.products[index];
     }

@@ -17,6 +17,11 @@
   html, body {
     @apply bg-[var(--background)] text-[var(--foreground)] antialiased selection:bg-rose-200 selection:text-white;
   }
+
+  /* Global Smooth Transitions */
+  a, button, input, textarea {
+    @apply transition-all duration-300 ease-in-out;
+  }
 }
 
 @layer utilities {

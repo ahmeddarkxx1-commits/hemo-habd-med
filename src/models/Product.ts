@@ -8,7 +8,16 @@ export interface IProduct extends Document {
   images: string[];
   colors: string[];
   sizes: string[];
+  material: string;
   isFeatured: boolean;
+  inStock: boolean;
+  salesCount: number;
+  reviews: {
+    userName: string;
+    rating: number;
+    comment: string;
+    date: Date;
+  }[];
   createdAt: Date;
 }
 
@@ -21,7 +30,18 @@ const ProductSchema: Schema<IProduct> = new Schema(
     images: { type: [String], required: true },
     colors: { type: [String], default: [] },
     sizes: { type: [String], default: [] },
+    material: { type: String, default: "" },
     isFeatured: { type: Boolean, default: false },
+    inStock: { type: Boolean, default: true },
+    salesCount: { type: Number, default: 0 },
+    reviews: [
+      {
+        userName: { type: String, required: true },
+        rating: { type: Number, required: true, min: 1, max: 5 },
+        comment: { type: String, required: true },
+        date: { type: Date, default: Date.now },
+      }
+    ],
   },
   {
     timestamps: true,

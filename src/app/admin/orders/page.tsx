@@ -136,7 +136,7 @@ export default function AdminOrders() {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-sand-100 overflow-hidden">
+      <div className="bg-white rounded-2xl md:rounded-[2rem] p-4 md:p-8 shadow-sm border border-sand-100 overflow-hidden">
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-8">
           <div className="relative w-full md:w-96">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/30" size={18} />
@@ -190,7 +190,7 @@ export default function AdminOrders() {
           </div>
         </div>
 
-        <div className="overflow-x-auto -mx-8 px-8">
+        <div className="overflow-x-auto -mx-4 px-4 md:-mx-8 md:px-8">
           <table className="w-full text-right border-collapse">
             <thead>
               <tr className="text-[11px] text-foreground/40 border-b border-sand-100 uppercase tracking-[0.15em] font-bold">

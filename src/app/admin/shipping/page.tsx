@@ -53,40 +53,42 @@ export default function AdminShipping() {
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-sand-100 overflow-hidden">
-        <table className="w-full text-right">
-          <thead className="bg-sand-50 border-b border-sand-100">
-            <tr>
-              <th className="px-6 py-4 font-medium text-sm">المحافظة</th>
-              <th className="px-6 py-4 font-medium text-sm">تكلفة الشحن (ج.م)</th>
-              <th className="px-6 py-4 font-medium text-sm text-center">حفظ</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-sand-50">
-            {rates.map((rate) => (
-              <tr key={rate._id} className="hover:bg-sand-50/50 transition-colors">
-                <td className="px-6 py-4 font-medium">{rate.governorate}</td>
-                <td className="px-6 py-4">
-                  <input 
-                    type="number"
-                    defaultValue={rate.rate}
-                    onBlur={(e) => {
-                      const val = parseInt(e.target.value);
-                      if (val !== rate.rate) {
-                        handleUpdate(rate.governorate, val);
-                      }
-                    }}
-                    className="w-32 bg-white border border-sand-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-rose-100"
-                  />
-                </td>
-                <td className="px-6 py-4 text-center">
-                  <button className="text-foreground/30 hover:text-rose-500 transition-colors">
-                    <Save size={18} />
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-right min-w-[500px]">
+            <thead className="bg-sand-50 border-b border-sand-100">
+              <tr>
+                <th className="px-6 py-4 font-medium text-sm">المحافظة</th>
+                <th className="px-6 py-4 font-medium text-sm">تكلفة الشحن (ج.م)</th>
+                <th className="px-6 py-4 font-medium text-sm text-center">حفظ</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-sand-50">
+              {rates.map((rate) => (
+                <tr key={rate._id} className="hover:bg-sand-50/50 transition-colors">
+                  <td className="px-6 py-4 font-medium">{rate.governorate}</td>
+                  <td className="px-6 py-4">
+                    <input 
+                      type="number"
+                      defaultValue={rate.rate}
+                      onBlur={(e) => {
+                        const val = parseInt(e.target.value);
+                        if (val !== rate.rate) {
+                          handleUpdate(rate.governorate, val);
+                        }
+                      }}
+                      className="w-32 bg-white border border-sand-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-rose-100"
+                    />
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <button className="text-foreground/30 hover:text-rose-500 transition-colors">
+                      <Save size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       
       {saving && (

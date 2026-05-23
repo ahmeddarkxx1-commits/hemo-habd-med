@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { ShoppingBag, Heart, Menu, ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import BestSellers from "@/components/BestSellers";
+import Footer from "@/components/Footer";
 
 // Define image paths as strings
 const heroImage = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (6).jpeg";
@@ -179,40 +181,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-white pt-24 pb-8 px-6 md:px-12 border-t border-sand-200">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-2">
-            <h4 className="font-serif text-2xl tracking-widest mb-6">HEMO</h4>
-            <p className="text-foreground/60 max-w-sm font-light mb-6">
-              بوتيك فاخر مخصص لحركة الأزياء البطيئة، يقدم أزياء تريكو وكروشيه مصنوعة يدوياً بحب وعناية.
-            </p>
-          </div>
-          <div>
-            <h5 className="font-medium mb-6">التسوق</h5>
-            <ul className="space-y-4 text-foreground/70 font-light">
-              <li><Link href="/shop" className="hover:text-rose-400 transition-colors">كل المنتجات</Link></li>
-              <li><Link href="/shop" className="hover:text-rose-400 transition-colors">جواكت تريكو</Link></li>
-              <li><Link href="/shop" className="hover:text-rose-400 transition-colors">أطفال ورضع</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-medium mb-6">المساعدة</h5>
-            <ul className="space-y-4 text-foreground/70 font-light">
-              <li><Link href="/faq" className="hover:text-rose-400 transition-colors">الأسئلة الشائعة</Link></li>
-              <li><Link href="/shipping" className="hover:text-rose-400 transition-colors">الشحن والاسترجاع</Link></li>
-              <li><Link href="/contact" className="hover:text-rose-400 transition-colors">تواصل معنا</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto border-t border-sand-200 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/50 font-light">
-          <p>&copy; {new Date().getFullYear()} هيمو هاند ميد. جميع الحقوق محفوظة.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-foreground transition-colors">سياسة الخصوصية</Link>
-            <Link href="/terms" className="hover:text-foreground transition-colors">شروط الخدمة</Link>
-          </div>
-        </div>
-      </footer>
+      {/* Best Sellers & New Arrivals Teaser */}
+      <BestSellers />
+
+      <Footer />
     </main>
   );
 }

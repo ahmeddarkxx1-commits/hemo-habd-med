@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/lib/CartContext";
+import { useWishlist } from "@/lib/WishlistContext";
 import { Menu, ShoppingBag, Heart, User, Search, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { cartCount, setIsCartOpen } = useCart();
+  const { items: wishlistItems } = useWishlist();
   const pathname = usePathname();
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
@@ -164,8 +166,13 @@ export default function Navbar() {
             <User size={22} strokeWidth={2} />
           </Link>
           
-          <Link href="/wishlist" className="hidden sm:block hover:text-rose-600 transition-colors">
+          <Link href="/wishlist" className="hidden sm:block relative hover:text-rose-600 transition-colors">
             <Heart size={22} strokeWidth={2} />
+            {wishlistItems.length > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 bg-rose-400 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm">
+                {wishlistItems.length}
+              </span>
+            )}
           </Link>
           
           <button 
