@@ -51,12 +51,13 @@ export default function BestSellers() {
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product) => {
-          const inWishlist = isInWishlist(product._id as string);
+          const productId = String(product._id);
+          const inWishlist = isInWishlist(productId);
           
           return (
-            <motion.div whileHover={{ y: -5 }} key={product._id as string} className="group flex flex-col items-center text-center">
+            <motion.div whileHover={{ y: -5 }} key={productId} className="group flex flex-col items-center text-center">
               <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow">
-                <Link href={`/shop/${product._id}`}>
+                <Link href={`/shop/${productId}`}>
                   <Image 
                     src={product.images[0] || "/placeholder.jpg"} 
                     alt={product.name} 
@@ -74,7 +75,7 @@ export default function BestSellers() {
                     onClick={(e) => {
                       e.preventDefault();
                       addToCart({
-                        productId: product._id as string,
+                        productId: productId,
                         name: product.name,
                         price: product.price,
                         image: product.images[0],
@@ -93,10 +94,10 @@ export default function BestSellers() {
                     onClick={(e) => {
                       e.preventDefault();
                       if (inWishlist) {
-                        removeFromWishlist(product._id as string);
+                        removeFromWishlist(productId);
                       } else {
                         addToWishlist({
-                          id: product._id as string,
+                          id: productId,
                           name: product.name,
                           price: product.price,
                           image: product.images[0]
