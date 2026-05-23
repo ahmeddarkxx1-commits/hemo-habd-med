@@ -1,11 +1,16 @@
 import { Mail, MapPin, Phone } from "lucide-react";
+import connectDB from "@/lib/db";
+import Setting from "@/models/Setting";
 
 export const metadata = {
   title: "تواصل معنا",
   description: "نحن هنا للإجابة على جميع استفساراتك حول منتجات هيمو هاند ميد.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  await connectDB();
+  const settings = await Setting.findOne() || {};
+
   return (
     <div className="pt-32 px-6 md:px-12 max-w-6xl mx-auto pb-24 text-right">
       <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-6 font-semibold text-center">تواصل معنا</h1>
@@ -23,7 +28,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h4 className="font-semibold text-lg text-foreground mb-1">الواتساب / الهاتف</h4>
-              <p className="text-foreground/80 text-left" dir="ltr">+20 100 000 0000</p>
+              <p className="text-foreground/80 text-left" dir="ltr">{settings.storePhone || "+20 100 000 0000"}</p>
             </div>
           </div>
 
@@ -33,7 +38,7 @@ export default function ContactPage() {
             </div>
             <div>
               <h4 className="font-semibold text-lg text-foreground mb-1">البريد الإلكتروني</h4>
-              <p className="text-foreground/80">hello@hemohandmade.com</p>
+              <p className="text-foreground/80">{settings.storeEmail || "hello@hemohandmade.com"}</p>
             </div>
           </div>
 
