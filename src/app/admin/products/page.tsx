@@ -78,22 +78,7 @@ export default function AdminProducts() {
     }
   };
 
-  const syncFromFile = async () => {
-    if (!confirm("سيتم مسح المنتجات الحالية وإعادة تحميلها من الملف. هل أنت متأكد؟")) return;
-    setLoading(true);
-    try {
-      const res = await fetch("/api/admin/seed?force=true");
-      const data = await res.json();
-      if (data.success) {
-        alert("تمت المزامنة بنجاح!");
-        window.location.reload();
-      }
-    } catch (error) {
-      alert("فشل في المزامنة");
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const openAddModal = () => {
     setModalMode("add");
@@ -219,13 +204,7 @@ export default function AdminProducts() {
           <p className="text-foreground/50 text-sm font-light">تعديل وإضافة وحذف المنتجات من كتالوج المتجر.</p>
         </div>
         <div className="flex gap-3">
-          <button 
-            onClick={syncFromFile}
-            className="bg-white text-foreground/60 border border-sand-100 px-6 py-3 rounded-2xl hover:bg-sand-50 transition-all flex items-center gap-2 group"
-          >
-            <RefreshCw size={18} className="group-hover:rotate-180 transition-transform duration-500" />
-            <span className="font-medium">تحديث من الملف</span>
-          </button>
+
           <button 
             onClick={openAddModal}
             className="bg-[#5A5452] text-white px-6 py-3 rounded-2xl hover:bg-rose-500 transition-all duration-300 shadow-lg flex items-center gap-2 group"
