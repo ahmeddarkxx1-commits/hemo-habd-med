@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function WhatsAppButton() {
   const [whatsappNumber, setWhatsappNumber] = useState<string | null>(null);
@@ -30,6 +31,9 @@ export default function WhatsAppButton() {
 
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
+  const pathname = usePathname();
+  const isProductPage = pathname?.startsWith("/shop/") && pathname.split("/").length > 2;
+
   return (
     <AnimatePresence>
       <motion.a
@@ -41,7 +45,7 @@ export default function WhatsAppButton() {
         exit={{ scale: 0, opacity: 0 }}
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-28 md:bottom-6 right-4 md:right-6 z-[90] bg-white text-foreground px-4 py-2.5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-sand-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)] transition-all flex items-center justify-center gap-2 group"
+        className={`fixed ${isProductPage ? 'bottom-24 md:bottom-6' : 'bottom-6'} right-4 md:right-6 z-[90] bg-white text-foreground px-4 py-2.5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-sand-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)] transition-all flex items-center justify-center gap-2 group`}
         aria-label="تواصل معنا عبر واتساب"
       >
         <MessageCircle size={18} className="text-[#25D366] group-hover:scale-110 transition-transform" />
