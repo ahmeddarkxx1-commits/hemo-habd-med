@@ -123,7 +123,8 @@ export default function CheckoutPage() {
             price: item.price,
             color: item.color,
             size: item.size,
-            image: item.image
+            image: item.image,
+            customNote: item.customNote
           })),
           totalAmount: finalTotal,
           status: "pending",
@@ -335,6 +336,11 @@ export default function CheckoutPage() {
                     <p className="text-[10px] text-foreground/50 mt-1">
                       {item.color} | {item.size} | {item.quantity} قطع
                     </p>
+                    {item.customNote && (
+                      <p className="text-[10px] text-foreground/70 mt-1 bg-sand-50 p-1 rounded">
+                        تفاصيل مخصصة: {item.customNote}
+                      </p>
+                    )}
                     <p className="text-sm font-bold mt-1">{item.price * item.quantity} ج.م</p>
                   </div>
                 </div>

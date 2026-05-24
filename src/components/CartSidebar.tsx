@@ -101,6 +101,11 @@ export default function CartSidebar() {
                         <p className="text-xs text-foreground/40 mt-1">
                           اللون: {item.color} | المقاس: {item.size}
                         </p>
+                        {item.customNote && (
+                          <p className="text-[10px] text-foreground/70 mt-1 bg-sand-50 p-1 rounded">
+                            تخصيص: {item.customNote}
+                          </p>
+                        )}
                       </div>
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-3 bg-sand-50 rounded-lg px-2 py-1">

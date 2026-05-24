@@ -69,6 +69,11 @@ export default function CartPage() {
                       <p className="text-sm text-foreground/60 mt-1 uppercase tracking-wider text-[10px]">
                         المقاس: {item.size} | اللون: <span className="inline-block w-2 h-2 rounded-full border border-sand-200 ml-1" style={{ backgroundColor: `var(--c-${item.color})` }} />
                       </p>
+                      {item.customNote && (
+                        <p className="text-[10px] text-foreground/70 mt-1 bg-sand-50 p-1 rounded w-fit">
+                          تخصيص: {item.customNote}
+                        </p>
+                      )}
                     </div>
                     <button 
                       onClick={() => removeFromCart(item.id)}

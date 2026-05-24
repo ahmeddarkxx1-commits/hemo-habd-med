@@ -8,6 +8,7 @@ export interface IOrderItem {
   color?: string;
   size?: string;
   image: string;
+  customNote?: string;
 }
 
 export interface IOrder extends Document {
@@ -31,6 +32,7 @@ const OrderItemSchema = new Schema<IOrderItem>({
   color: { type: String },
   size: { type: String },
   image: { type: String, required: true },
+  customNote: { type: String },
 });
 
 const OrderSchema = new Schema<IOrder>(

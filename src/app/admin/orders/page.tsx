@@ -334,6 +334,11 @@ export default function AdminOrders() {
                           {item.size && <span className="bg-sand-100 px-2 py-0.5 rounded text-[10px] font-bold">مقاس: {item.size}</span>}
                           {item.color && <span className="bg-rose-50 border border-rose-100 px-2 py-0.5 rounded text-[10px] text-rose-600 font-bold ml-1">لون: {item.color}</span>}
                           {!item.size && !item.color && <span>-</span>}
+                          {item.customNote && (
+                            <div className="mt-1 text-[10px] bg-sand-100/50 p-1 rounded text-foreground/80 border border-sand-200">
+                              ملاحظة: {item.customNote}
+                            </div>
+                          )}
                         </td>
                         <td className="p-3 text-center font-medium">{item.quantity}</td>
                         <td className="p-3 text-left font-medium">{(item.price * item.quantity).toLocaleString()} ج.م</td>
