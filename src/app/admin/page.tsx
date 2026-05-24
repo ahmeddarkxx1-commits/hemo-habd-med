@@ -12,7 +12,7 @@ export default function AdminOverview() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const res = await fetch("/api/admin/stats");
+        const res = await fetch("/api/admin/stats", { cache: "no-store" });
         const data = await res.json();
         if (data.success) {
           setStats(data.data);

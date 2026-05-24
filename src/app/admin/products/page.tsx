@@ -41,7 +41,7 @@ export default function AdminProducts() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await fetch("/api/products");
+        const res = await fetch("/api/products", { cache: "no-store" });
         const data = await res.json();
         if (data.success) {
           setProducts(data.data);
@@ -170,7 +170,7 @@ export default function AdminProducts() {
       if (data.success) {
         setIsModalOpen(false);
         // Refresh product list
-        const updatedRes = await fetch("/api/products");
+        const updatedRes = await fetch("/api/products", { cache: "no-store" });
         const updatedData = await updatedRes.json();
         if (updatedData.success) {
           setProducts(updatedData.data);
