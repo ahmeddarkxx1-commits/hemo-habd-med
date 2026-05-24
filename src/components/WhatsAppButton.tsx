@@ -13,8 +13,8 @@ export default function WhatsAppButton() {
       try {
         const res = await fetch("/api/settings");
         const data = await res.json();
-        if (data.success && data.data && data.data.whatsappNumber) {
-          setWhatsappNumber(data.data.whatsappNumber);
+        if (data.success && data.data && (data.data.whatsapp || data.data.whatsappNumber)) {
+          setWhatsappNumber(data.data.whatsapp || data.data.whatsappNumber);
         } else {
           // Fallback number if not found in DB
           setWhatsappNumber("201201944837");
