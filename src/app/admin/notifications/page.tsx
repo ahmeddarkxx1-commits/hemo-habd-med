@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Bell, Plus, Trash2, Edit2, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { confirmAction } from "@/lib/confirmAction";
 
 type NotificationType = "offer" | "info" | "alert";
 
@@ -107,17 +108,17 @@ export default function NotificationsAdmin() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("هل أنت متأكد من حذف هذا الإشعار؟")) return;
-    
-    try {
-      const res = await fetch(`/api/notifications/${id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        setNotifications(notifications.filter((n) => n._id !== id));
+    confirmAction("هل أنت متأكد من حذف هذا الإشعار؟", async () => {
+      try {
+        const res = await fetch(`/api/notifications/${id}`, { method: "DELETE" });
+        const data = await res.json();
+        if (data.success) {
+          setNotifications(notifications.filter((n) => n._id !== id));
+        }
+      } catch (err) {
+        console.error("Failed to delete notification", err);
       }
-    } catch (err) {
-      console.error("Failed to delete notification", err);
-    }
+    });
   };
 
   if (loading) {

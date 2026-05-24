@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Truck, Save, Plus, Trash2, Loader2, RefreshCw } from "lucide-react";
 import toast from "react-hot-toast";
+import { confirmAction } from "@/lib/confirmAction";
 
 export default function AdminShipping() {
   const [rates, setRates] = useState<any[]>([]);
@@ -70,42 +71,42 @@ export default function AdminShipping() {
   };
 
   const handleDelete = async (gov: string) => {
-    if (!confirm(`هل أنت متأكد من حذف ${gov}؟ لن تظهر للعملاء في صفحة الدفع.`)) return;
-    
-    try {
-      const res = await fetch(`/api/shipping-rates?governorate=${encodeURIComponent(gov)}`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        toast.success(`تم حذف ${gov}`);
-        fetchRates();
-      } else {
+    confirmAction(`هل أنت متأكد من حذف ${gov}؟ لن تظهر للعملاء في صفحة الدفع.`, async () => {
+      try {
+        const res = await fetch(`/api/shipping-rates?governorate=${encodeURIComponent(gov)}`, {
+          method: "DELETE",
+        });
+        if (res.ok) {
+          toast.success(`تم حذف ${gov}`);
+          fetchRates();
+        } else {
+          toast.error("حدث خطأ أثناء الحذف");
+        }
+      } catch (err) {
         toast.error("حدث خطأ أثناء الحذف");
       }
-    } catch (err) {
-      toast.error("حدث خطأ أثناء الحذف");
-    }
+    });
   };
 
   const handleSeed = async () => {
-    if (!confirm("هل تريد إضافة جميع المحافظات الافتراضية؟ سيؤدي هذا إلى مسح المحافظات الحالية وإعادتها للافتراضي.")) return;
-    
-    setSeeding(true);
-    try {
-      const res = await fetch("/api/shipping-rates", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "seed" }),
-      });
-      if (res.ok) {
-        toast.success("تم إعادة تعيين جميع المحافظات بنجاح");
-        fetchRates();
-      } else {
-        toast.error("حدث خطأ أثناء الإضافة");
+    confirmAction("هل تريد إضافة جميع المحافظات الافتراضية؟ سيؤدي هذا إلى مسح المحافظات الحالية وإعادتها للافتراضي.", async () => {
+      setSeeding(true);
+      try {
+        const res = await fetch("/api/shipping-rates", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "seed" }),
+        });
+        if (res.ok) {
+          toast.success("تم إعادة تعيين جميع المحافظات بنجاح");
+          fetchRates();
+        } else {
+          toast.error("حدث خطأ أثناء الإضافة");
+        }
+      } finally {
+        setSeeding(false);
       }
-    } finally {
-      setSeeding(false);
-    }
+    });
   };
 
   if (loading) return <div className="p-12 text-center flex justify-center"><Loader2 className="animate-spin text-rose-500" size={32} /></div>;

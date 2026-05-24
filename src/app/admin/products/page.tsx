@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2, Loader2, RefreshCw, X } from "lucide-react";
 import toast from "react-hot-toast";
+import { confirmAction } from "@/lib/confirmAction";
 
 const categoriesList = [
   { id: "socks", name: "شرابات" },
@@ -61,24 +62,22 @@ export default function AdminProducts() {
     const matchesCategory = selectedCategory === "all" || p.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
   const handleDeleteProduct = async (id: string) => {
-    if (!confirm("هل أنت متأكد من حذف هذا المنتج؟")) return;
-
-    try {
-      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        setProducts(products.filter(p => p._id !== id));
-      } else {
-        toast.error("فشل حذف المنتج: " + data.message);
+    confirmAction("هل أنت متأكد من حذف هذا المنتج؟", async () => {
+      try {
+        const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+        const data = await res.json();
+        if (data.success) {
+          setProducts(products.filter(p => p._id !== id));
+        } else {
+          toast.error("فشل حذف المنتج: " + data.message);
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        toast.error("حدث خطأ أثناء الحذف");
       }
-    } catch (error) {
-      console.error("Delete error:", error);
-      toast.error("حدث خطأ أثناء الحذف");
-    }
+    });
   };
-
 
 
   const openAddModal = () => {
