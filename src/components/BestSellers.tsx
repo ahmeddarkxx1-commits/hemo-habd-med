@@ -71,7 +71,7 @@ export default function BestSellers() {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto text-center">
+    <div className="px-6 md:px-12 max-w-7xl mx-auto text-center">
       <h2 className="font-serif text-3xl md:text-5xl font-semibold text-foreground mb-6">الأكثر مبيعاً هذا الأسبوع</h2>
       <p className="text-foreground/80 font-medium text-lg mb-12 max-w-2xl mx-auto">
         تشكيلتنا المختارة بعناية من القطع الأكثر طلباً. قطع فريدة تخطف الأنظار في كل مناسبة.
@@ -142,6 +142,6 @@ export default function BestSellers() {
           عرض كل المنتجات
         </Link>
       </div>
-    </section>
+    </div>
   );
 }

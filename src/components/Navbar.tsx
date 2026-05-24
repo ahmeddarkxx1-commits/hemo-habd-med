@@ -38,10 +38,15 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none">
+      {/* Announcement Bar */}
+      <div className={`w-full bg-[#5A5452] text-white text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase py-2 text-center pointer-events-auto transition-transform duration-500 ${scrolled ? '-translate-y-full absolute' : 'translate-y-0 relative'}`}>
+        شحن مجاني لجميع الطلبات فوق 1000 ج.م
+      </div>
+
       <nav 
-        className={`pointer-events-auto transition-all duration-500 flex justify-between items-center relative ${
+        className={`pointer-events-auto transition-all duration-700 flex justify-between items-center relative ${
           scrolled 
-            ? "w-[95%] md:w-[90%] max-w-7xl mt-4 bg-white/90 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-full py-4 px-6 md:px-10" 
+            ? "w-[95%] md:w-[90%] max-w-7xl mt-4 bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_20px_40px_rgb(0,0,0,0.06)] rounded-full py-4 px-6 md:px-10" 
             : "w-full bg-transparent py-8 px-6 md:px-16"
         }`}
       >
@@ -106,8 +111,8 @@ export default function Navbar() {
         {/* Logo (Center) */}
         <Link 
           href="/" 
-          className={`absolute left-1/2 -translate-x-1/2 font-serif tracking-widest text-foreground font-bold transition-all duration-500 ${
-            scrolled ? "text-2xl" : "text-3xl md:text-5xl drop-shadow-xl"
+          className={`absolute left-1/2 -translate-x-1/2 font-serif tracking-widest text-foreground transition-all duration-700 ${
+            scrolled ? "text-2xl font-bold" : "text-4xl md:text-5xl font-semibold drop-shadow-sm"
           }`}
           onClick={() => setIsMobileMenuOpen(false)}
         >

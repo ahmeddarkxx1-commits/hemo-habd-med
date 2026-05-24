@@ -132,14 +132,14 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         </div>
 
         {/* Details */}
-        <div className="flex flex-col justify-center">
-          <div className="mb-8">
-            <p className="text-xs tracking-widest text-foreground/50 mb-2">{categories.find(c => c.id === product.category)?.name}</p>
-            <h1 className="font-serif text-4xl md:text-5xl mb-4">{product.name}</h1>
-            <p className="text-2xl font-medium">{product.price} ج.م</p>
+        <div className="flex flex-col lg:sticky lg:top-32 h-fit">
+          <div className="mb-10">
+            <p className="text-xs tracking-[0.2em] uppercase text-foreground/50 mb-4">{categories.find(c => c.id === product.category)?.name}</p>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">{product.name}</h1>
+            <p className="text-2xl md:text-3xl font-medium tracking-tight">{product.price} ج.م</p>
           </div>
 
-          <p className="text-foreground/70 font-light leading-relaxed mb-6">
+          <p className="text-foreground/70 font-light leading-relaxed mb-8 text-lg">
             {product.description}
           </p>
 

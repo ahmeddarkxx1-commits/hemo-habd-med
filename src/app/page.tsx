@@ -36,19 +36,19 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
           >
-            <span className="text-sm md:text-base tracking-[0.15em] text-foreground mb-6 block font-medium uppercase">صُنع بحب لأجلك</span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-6 text-balance text-foreground font-semibold">
-              نعومة في <br/><span className="italic text-rose-600 font-normal">كل غرزة</span>
+            <span className="text-xs md:text-sm tracking-[0.3em] text-foreground mb-8 block font-medium uppercase opacity-90">صُنع بحب لأجلك</span>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-8 text-balance text-foreground font-semibold drop-shadow-sm">
+              نعومة في <br/><span className="italic text-rose-600/90 font-light tracking-tight">كل غرزة</span>
             </h1>
-            <p className="text-lg md:text-xl text-foreground/90 mb-10 max-w-lg font-normal leading-relaxed drop-shadow-sm">
+            <p className="text-lg md:text-xl text-foreground/80 mb-10 max-w-lg font-normal leading-relaxed">
               اكتشفي مجموعتنا الفاخرة من أزياء التريكو والكروشيه المصنوعة يدوياً. تُصنع ببطء، لتدوم للأبد.
             </p>
             <Link 
               href="/shop" 
-              className="inline-flex items-center justify-center gap-2 bg-foreground text-white px-8 py-4 rounded-full font-medium hover:bg-rose-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-4 bg-foreground text-white px-10 py-5 rounded-full text-sm font-semibold tracking-widest uppercase hover:bg-rose-600 transition-colors duration-500 shadow-xl"
             >
               <span>تسوقي الآن</span>
               <ArrowRight size={18} className="rotate-180" />
@@ -202,8 +202,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Best Sellers & New Arrivals Teaser */}
-      <BestSellers />
+      {/* Best Sellers Section with Distinct Background */}
+      <section className="bg-[#FAF8F5] py-24">
+        <BestSellers />
+      </section>
 
       {/* Static Instagram Grid */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
