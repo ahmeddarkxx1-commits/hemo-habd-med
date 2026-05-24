@@ -15,6 +15,10 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState("");
   const [depositAccepted, setDepositAccepted] = useState(false);
 
+  // نحفظ القيم قبل مسح السلة علشان شاشة النجاح تبان صح
+  const [savedTotal, setSavedTotal] = useState(0);
+  const [savedDeposit, setSavedDeposit] = useState(0);
+
   const [shippingRates, setShippingRates] = useState<any[]>([]);
   const [selectedRate, setSelectedRate] = useState<any>(null);
   const [storeWhatsapp, setStoreWhatsapp] = useState("201201944837");
@@ -151,6 +155,9 @@ export default function CheckoutPage() {
       const result = await response.json();
 
       if (result.success) {
+        // ✅ نحفظ القيم الصح قبل مسح السلة
+        setSavedTotal(finalTotal);
+        setSavedDeposit(depositAmount);
         setOrderId(result.data._id || result.data.id || "");
         setIsSuccess(true);
         clearCart();
@@ -168,8 +175,12 @@ export default function CheckoutPage() {
   // ── شاشة النجاح ──────────────────────────────────────────────
   if (isSuccess) {
     const shortId = orderId ? `#${orderId.slice(-6).toUpperCase()}` : "";
+    // نستخدم القيم المحفوظة قبل مسح السلة — مش المحسوبة من سلة فاضية
+    const displayTotal = savedTotal;
+    const displayDeposit = savedDeposit;
+    const displayRemaining = displayTotal - displayDeposit;
     const waMessage = encodeURIComponent(
-      `مرحباً هيمو هاند ميد 👋\nأريد إتمام دفع العربون للطلب ${shortId}\n\nتفاصيل الطلب:\n- إجمالي الطلب: ${finalTotal} ج.م\n- العربون المطلوب (50%): ${depositAmount} ج.م\n- المبلغ المتبقي عند الاستلام: ${remainingAmount} ج.م\n\nشكراً 🌸`
+      `مرحباً هيمو هاند ميد 👋\nأريد إتمام دفع العربون للطلب ${shortId}\n\nتفاصيل الطلب:\n- إجمالي الطلب: ${displayTotal} ج.م\n- العربون المطلوب (50%): ${displayDeposit} ج.م\n- المبلغ المتبقي عند الاستلام: ${displayRemaining} ج.م\n\nشكراً 🌸`
     );
     const waLink = `https://wa.me/${storeWhatsapp}?text=${waMessage}`;
 
@@ -201,15 +212,15 @@ export default function CheckoutPage() {
             <div className="space-y-2">
               <div className="flex justify-between items-center bg-white rounded-xl px-4 py-2.5 border border-amber-100">
                 <span className="text-sm text-foreground/60">إجمالي الطلب</span>
-                <span className="font-bold text-foreground">{finalTotal} ج.م</span>
+                <span className="font-bold text-foreground">{displayTotal} ج.م</span>
               </div>
               <div className="flex justify-between items-center bg-amber-100 rounded-xl px-4 py-3 border border-amber-200">
                 <span className="text-sm font-bold text-amber-900">العربون المطلوب الآن (50%)</span>
-                <span className="text-xl font-serif font-bold text-amber-700">{depositAmount} ج.م</span>
+                <span className="text-xl font-serif font-bold text-amber-700">{displayDeposit} ج.م</span>
               </div>
               <div className="flex justify-between items-center bg-white rounded-xl px-4 py-2.5 border border-amber-100">
                 <span className="text-sm text-foreground/60">المتبقي عند الاستلام</span>
-                <span className="font-bold text-foreground">{remainingAmount} ج.م</span>
+                <span className="font-bold text-foreground">{displayRemaining} ج.م</span>
               </div>
             </div>
           </div>
