@@ -12,6 +12,8 @@ import { ShoppingBag, Heart } from "lucide-react";
 export default function BestSellers() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [quickAddStatus, setQuickAddStatus] = useState<{[key: string]: boolean}>({});
+
   const { addToCart, setIsCartOpen } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
@@ -40,6 +42,31 @@ export default function BestSellers() {
       </div>
     );
   }
+
+  const handleQuickAdd = (e: React.MouseEvent, product: any, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    addToCart({
+      productId: productId,
+      name: product.name,
+      price: product.price,
+      color: product.colors?.[0] || "",
+      size: product.sizes?.[0] || "",
+      quantity: 1,
+      image: product.images[0],
+      customNote: "",
+    });
+
+    if (window.innerWidth < 1024) {
+      setIsCartOpen(true);
+    } else {
+      setQuickAddStatus(prev => ({ ...prev, [productId]: true }));
+      setTimeout(() => {
+        setQuickAddStatus(prev => ({ ...prev, [productId]: false }));
+      }, 2000);
+    }
+  };
 
   if (products.length === 0) return null;
 
@@ -72,20 +99,11 @@ export default function BestSellers() {
                 {/* Action Buttons (Visible on Hover) */}
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                   <button 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToCart({
-                        productId: productId,
-                        name: product.name,
-                        price: product.price,
-                        image: product.images[0],
-                        color: product.colors[0] || "افتراضي",
-                        size: product.sizes[0] || "افتراضي",
-                        quantity: 1
-                      });
-                      setIsCartOpen(true);
-                    }}
-                    className="bg-white text-foreground p-3 rounded-full shadow-lg hover:bg-rose-500 hover:text-white transition-colors"
+                    onClick={(e) => handleQuickAdd(e, product, productId)}
+                    disabled={product.inStock === false}
+                    className={`text-foreground p-3 rounded-full shadow-lg transition-colors ${
+                      quickAddStatus[productId] ? 'bg-sage-400 text-white' : 'bg-white hover:bg-rose-500 hover:text-white'
+                    } disabled:opacity-50`}
                     title="أضف للسلة سريعاً"
                   >
                     <ShoppingBag size={20} />

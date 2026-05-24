@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductReviews from "@/components/ProductReviews";
+import SizeGuideModal from "@/components/SizeGuideModal";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>(null);
@@ -23,6 +24,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const [quantity, setQuantity] = useState(1);
   const [customNote, setCustomNote] = useState("");
   const [added, setAdded] = useState(false);
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -44,7 +47,22 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         setLoading(false);
       }
     }
-    fetchProduct();
+
+    async function fetchRelatedProducts() {
+      try {
+        const res = await fetch('/api/products');
+        const data = await res.json();
+        if (data.success) {
+          // Shuffle and pick 4 products
+          const shuffled = data.data.sort(() => 0.5 - Math.random());
+          setRelatedProducts(shuffled.slice(0, 4));
+        }
+      } catch (error) {
+        console.error("Failed to fetch related products:", error);
+      }
+    }
+
+    fetchProduct().then(() => fetchRelatedProducts());
   }, [params.id]);
 
   if (loading) {
@@ -157,7 +175,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             {/* Sizes */}
             {product.sizes && product.sizes.length > 0 && (
               <div>
-                <h3 className="text-sm font-medium mb-3">المقاس: <span className="text-foreground/60">{selectedSize}</span></h3>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-medium">المقاس: <span className="text-foreground/60">{selectedSize}</span></h3>
+                  <button onClick={() => setIsSizeGuideOpen(true)} className="text-xs font-bold uppercase tracking-widest text-foreground/50 hover:text-rose-600 underline transition-colors">
+                    دليل المقاسات
+                  </button>
+                </div>
                 <div className="flex flex-wrap gap-3">
                   {product.sizes.map((size: string) => (
                     <button
@@ -204,7 +227,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             </div>
           </div>
 
-          <div className="flex gap-4">
+          <div className="hidden lg:flex gap-4">
             <button 
               onClick={handleAddToCart}
               disabled={product.inStock === false}
@@ -234,7 +257,63 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         </div>
       </div>
 
+      {/* Reviews Section */}
       <ProductReviews productId={product._id || product.id} initialReviews={product.reviews} />
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <div className="mt-24 border-t border-sand-100 pt-16">
+          <h2 className="font-serif text-3xl mb-10 text-center">منتجات قد تعجبك</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {relatedProducts.map((p) => (
+              <Link href={`/shop/${p._id}`} key={p._id} className="group cursor-pointer">
+                <div className="relative w-full aspect-[3/4] bg-sand-100 rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg transition-all duration-300">
+                  <Image 
+                    src={p.images[0] || "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg"} 
+                    alt={p.name} 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
+                </div>
+                <h3 className="font-bold text-sm text-foreground mb-1 group-hover:text-rose-600 transition-colors line-clamp-1">{p.name}</h3>
+                <p className="text-foreground/70 text-sm">{p.price} ج.م</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Sticky Add To Cart Footer */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-sand-100 p-4 z-40 flex gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] pb-safe-8">
+        <button 
+          onClick={handleAddToCart}
+          disabled={product.inStock === false}
+          className={`flex-1 py-3.5 rounded-full transition-all shadow-md font-medium flex items-center justify-center gap-2 text-sm ${added ? 'bg-sage-400 text-white' : 'bg-foreground text-white hover:bg-rose-500'} disabled:opacity-50 disabled:cursor-not-allowed`}
+        >
+          <ShoppingBag size={18} />
+          {added ? "تمت الإضافة للسلة" : (product.inStock === false ? "نفذت الكمية" : "أضف للسلة")}
+        </button>
+        <button 
+          onClick={() => {
+            if (isInWishlist(product._id)) {
+              removeFromWishlist(product._id);
+            } else {
+              addToWishlist({
+                id: product._id,
+                name: product.name,
+                price: product.price,
+                image: product.images[0]
+              });
+            }
+          }}
+          className={`w-[52px] h-[52px] shrink-0 bg-white rounded-full flex items-center justify-center border transition-colors shadow-sm ${isInWishlist(product._id) ? 'text-rose-500 border-rose-300' : 'border-sand-200 hover:border-rose-300 hover:text-rose-500'}`}
+        >
+          <Heart size={20} fill={isInWishlist(product._id) ? "currentColor" : "none"} />
+        </button>
+      </div>
+
+      <SizeGuideModal isOpen={isSizeGuideOpen} onClose={() => setIsSizeGuideOpen(false)} />
     </div>
   );
 }

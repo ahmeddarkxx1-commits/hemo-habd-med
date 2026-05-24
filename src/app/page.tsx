@@ -57,6 +57,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Promotional Banner (New Collection) */}
+      <section className="py-12 px-6">
+        <div className="max-w-7xl mx-auto rounded-[2rem] overflow-hidden relative group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-700">
+          <div className="absolute inset-0 bg-gradient-to-r from-rose-900/60 to-transparent z-10" />
+          <Image 
+            src="/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (5).jpeg" 
+            alt="New Collection Banner"
+            width={1200}
+            height={400}
+            className="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+          />
+          <div className="absolute inset-0 z-20 flex flex-col justify-center px-10 md:px-20 text-white">
+            <span className="text-xs tracking-[0.3em] uppercase mb-4 opacity-80">وصل حديثاً</span>
+            <h2 className="font-serif text-3xl md:text-5xl mb-4 font-semibold">تشكيلة الصيف الجديدة</h2>
+            <Link href="/shop?collection=new" className="inline-flex items-center gap-2 text-sm uppercase tracking-widest font-bold hover:text-rose-200 transition-colors w-fit border-b border-white/30 hover:border-white pb-1">
+              تسوقي التشكيلة <ArrowRight size={16} className="rotate-180" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Categories */}
       <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-12">
@@ -183,6 +204,39 @@ export default function Home() {
 
       {/* Best Sellers & New Arrivals Teaser */}
       <BestSellers />
+
+      {/* Static Instagram Grid */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <span className="text-sm tracking-[0.2em] text-foreground/60 mb-2 block font-bold uppercase">@HEMO_HANDMADE</span>
+          <h2 className="font-serif text-3xl md:text-5xl font-semibold text-foreground">تابعينا على انستجرام</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM.jpeg",
+            "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg",
+            "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (4).jpeg",
+            "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (6).jpeg"
+          ].map((src, i) => (
+            <motion.a 
+              key={i}
+              href="#"
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300"
+            >
+              <Image 
+                src={src} 
+                alt={`Instagram Photo ${i+1}`} 
+                fill 
+                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-rose-900/0 group-hover:bg-rose-900/20 transition-colors duration-300 flex items-center justify-center">
+                <Heart className="text-white opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300" fill="white" size={32} />
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </section>
 
       <Footer />
     </main>

@@ -15,6 +15,9 @@ export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [quickAddStatus, setQuickAddStatus] = useState<{[key: string]: boolean}>({});
+
+  const { setIsCartOpen } = useCart();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -44,6 +47,32 @@ export default function ShopPage() {
       </div>
     );
   }
+
+  const handleQuickAdd = (e: React.MouseEvent, product: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    addToCart({
+      productId: product._id,
+      name: product.name,
+      price: product.price,
+      color: product.colors?.[0] || "",
+      size: product.sizes?.[0] || "",
+      quantity: 1,
+      image: product.images[0],
+      customNote: "",
+    });
+
+    // Check if mobile (width < 1024px)
+    if (window.innerWidth < 1024) {
+      setIsCartOpen(true);
+    } else {
+      setQuickAddStatus(prev => ({ ...prev, [product._id]: true }));
+      setTimeout(() => {
+        setQuickAddStatus(prev => ({ ...prev, [product._id]: false }));
+      }, 2000);
+    }
+  };
 
   return (
     <div className="pt-24 px-6 md:px-12 max-w-7xl mx-auto pb-24">
@@ -120,13 +149,18 @@ export default function ShopPage() {
               
               {/* Quick Add Button Overlay */}
               <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 z-10">
-                <Link 
-                  href={`/shop/${product._id}`}
-                  className="w-full bg-white/90 backdrop-blur-md text-[#5A5452] py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 hover:bg-white shadow-lg"
+                <button 
+                  onClick={(e) => handleQuickAdd(e, product)}
+                  disabled={product.inStock === false}
+                  className={`w-full py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-lg transition-all ${
+                    quickAddStatus[product._id] 
+                      ? 'bg-sage-400 text-white' 
+                      : 'bg-white/90 backdrop-blur-md text-[#5A5452] hover:bg-white'
+                  }`}
                 >
                   <ShoppingBag size={16} />
-                  تخصيص وطلب
-                </Link>
+                  {quickAddStatus[product._id] ? "تمت الإضافة" : (product.inStock === false ? "نفذت الكمية" : "إضافة سريعة")}
+                </button>
               </div>
             </div>
 
