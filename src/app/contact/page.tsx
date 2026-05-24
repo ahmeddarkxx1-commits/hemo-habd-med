@@ -5,7 +5,18 @@ import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
   title: "تواصل معنا",
-  description: "نحن هنا للإجابة على جميع استفساراتك حول منتجات هيمو هاند ميد.",
+  description: "نحن هنا للإجابة على جميع استفساراتك حول منتجات هيمو هاند ميد — للطلبات المخصصة والاستفسارات تواصلي معنا الآن.",
+  keywords: [
+    "تواصل هيمو هاند ميد", "طلب مخصص تريكو", "استفسار كروشيه",
+    "contact handmade egypt", "custom order knitwear",
+  ],
+  openGraph: {
+    title: "تواصل معنا — هيمو هاند ميد",
+    description: "تواصلي معنا للاستفسار أو لطلب قطعة مخصصة. يسعدنا مساعدتك.",
+    url: "https://hemohandmade.com/contact",
+    type: "website",
+  },
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {

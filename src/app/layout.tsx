@@ -22,42 +22,78 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hemohandmade.com'),
+  // ── Base ──────────────────────────────────────────────────────────────────
+  metadataBase: new URL("https://hemohandmade.com"),
+
+  // ── Title ─────────────────────────────────────────────────────────────────
   title: {
-    default: "HEMO HAND MADE | أزياء تريكو وكروشيه فاخرة",
-    template: "%s | HEMO HAND MADE"
+    default: "هيمو هاند ميد | تريكو وكروشيه يدوي فاخر من مصر",
+    template: "%s | هيمو هاند ميد",
   },
-  description: "بوتيك فاخر مخصص لحركة الأزياء البطيئة، يقدم أزياء تريكو وكروشيه وملابس أطفال مصنوعة يدوياً بحب وعناية في مصر.",
-  keywords: ["تريكو", "كروشيه", "أزياء بطيئة", "صناعة يدوية", "ملابس أطفال", "حقائب كروشيه", "مصر", "handmade", "knitwear", "crochet"],
-  authors: [{ name: "HEMO HAND MADE" }],
-  creator: "HEMO HAND MADE",
+
+  // ── Description ───────────────────────────────────────────────────────────
+  description:
+    "متجر هيمو هاند ميد — بوتيك مصري متخصص في أزياء التريكو والكروشيه اليدوية الفاخرة. ملابس نساء، ملابس أطفال، إكسسوارات مصنوعة بحب وعناية في الإسكندرية، مصر.",
+
+  // ── Keywords (عربي + إنجليزي) ─────────────────────────────────────────────
+  keywords: [
+    "تريكو يدوي", "كروشيه مصر", "ملابس شتوي يدوية", "أزياء بطيئة",
+    "ملابس أطفال كروشيه", "شنطة كروشيه", "بلوفر تريكو", "طاقية كروشيه",
+    "متجر اون لاين مصر", "إكسسوارات يدوية", "هيمو هاند ميد",
+    "handmade egypt", "crochet online", "knitwear egypt",
+    "slow fashion", "handmade knitwear", "crochet bags egypt",
+  ],
+
+  // ── Authors & Creator ─────────────────────────────────────────────────────
+  authors: [{ name: "هيمو هاند ميد", url: "https://hemohandmade.com" }],
+  creator: "هيمو هاند ميد",
+  publisher: "هيمو هاند ميد",
+
+  // ── Robots ────────────────────────────────────────────────────────────────
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  // ── Open Graph ────────────────────────────────────────────────────────────
   openGraph: {
     type: "website",
     locale: "ar_EG",
     url: "https://hemohandmade.com",
-    title: "HEMO HAND MADE | أزياء تريكو وكروشيه فاخرة",
-    description: "بوتيك فاخر مخصص لحركة الأزياء البطيئة، يقدم أزياء تريكو وكروشيه وملابس أطفال مصنوعة يدوياً بحب وعناية.",
-    siteName: "HEMO HAND MADE",
+    siteName: "هيمو هاند ميد",
+    title: "هيمو هاند ميد | تريكو وكروشيه يدوي فاخر من مصر",
+    description:
+      "بوتيك مصري فاخر متخصص في تريكو وكروشيه يدوي. أزياء فريدة لكل امرأة تقدّر الأصالة والجمال اليدوي.",
     images: [
       {
-        url: "/og-image.jpg", // We will create this or use existing later
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "HEMO HAND MADE Boutique",
+        alt: "متجر هيمو هاند ميد — تريكو وكروشيه يدوي",
       },
     ],
   },
+
+  // ── Twitter Card ──────────────────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
-    title: "HEMO HAND MADE | أزياء تريكو وكروشيه فاخرة",
-    description: "بوتيك فاخر مخصص لحركة الأزياء البطيئة.",
+    title: "هيمو هاند ميد | تريكو وكروشيه يدوي فاخر من مصر",
+    description:
+      "بوتيك مصري فاخر متخصص في تريكو وكروشيه يدوي. أزياء فريدة لكل امرأة تقدّر الأصالة.",
     images: ["/og-image.jpg"],
   },
+
+  // ── Canonical ─────────────────────────────────────────────────────────────
   alternates: {
     canonical: "/",
     languages: {
       "ar-EG": "/",
-      "en-US": "/en",
     },
   },
 };
