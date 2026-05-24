@@ -85,27 +85,7 @@ export default function AdminSettings() {
     }
   };
 
-  const handleSeedDatabase = async () => {
-    if (!confirm("تحذير: سيتم استعادة البيانات الافتراضية للمنتجات وحذف أي تعديلات غير محفوظة بالملفات. هل أنت متأكد؟")) return;
-    setSeeding(true);
-    setMessage(null);
 
-    try {
-      const res = await fetch("/api/admin/seed?force=true");
-      const data = await res.json();
-      if (data.success) {
-        setMessage({ type: "success", text: "تم إعادة تهيئة قاعدة البيانات بنجاح!" });
-        setTimeout(() => setMessage(null), 3000);
-        await checkDb();
-      } else {
-        setMessage({ type: "error", text: "فشل إعادة التهيئة: " + data.message });
-      }
-    } catch (err) {
-      setMessage({ type: "error", text: "حدث خطأ أثناء الاتصال بخادم التهيئة" });
-    } finally {
-      setSeeding(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -294,25 +274,7 @@ export default function AdminSettings() {
             )}
           </div>
 
-          {/* Database Tools Card */}
-          <div className="bg-white rounded-3xl p-8 shadow-sm border border-sand-100 space-y-6">
-            <div className="border-b border-sand-50 pb-4">
-              <h2 className="font-serif text-lg font-bold text-foreground">أدوات التحكم بالبيانات</h2>
-            </div>
-            
-            <p className="text-xs text-foreground/50 leading-relaxed">
-              تتيح لك هذه الأدوات إعادة تهيئة وتحديث قاعدة البيانات بالمنتجات الافتراضية المحددة في النظام.
-            </p>
 
-            <button
-              onClick={handleSeedDatabase}
-              disabled={seeding}
-              className="w-full bg-white hover:bg-rose-50 border border-sand-200 hover:border-rose-200 hover:text-rose-600 text-foreground/75 font-bold py-3.5 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-75 text-sm"
-            >
-              {seeding ? <Loader2 className="animate-spin" size={16} /> : <RefreshCw size={16} />}
-              <span>إعادة تهيئة المنتجات (Seed)</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
