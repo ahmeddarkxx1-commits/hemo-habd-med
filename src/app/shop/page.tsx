@@ -7,9 +7,11 @@ import Image from "next/image";
 import { Filter, ShoppingBag, Heart, Loader2 } from "lucide-react";
 import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
+import { useWishlist } from "@/lib/WishlistContext";
 
 export default function ShopPage() {
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [activeCategory, setActiveCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -91,8 +93,27 @@ export default function ShopPage() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               
-              <button className="absolute top-3 left-3 p-2 bg-white/0 text-[#5A5452]/0 group-hover:bg-white/50 group-hover:backdrop-blur-md group-hover:text-[#5A5452] rounded-full transition-all duration-300 z-10 hover:!bg-rose-100 hover:!text-rose-500">
-                <Heart size={18} />
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (isInWishlist(product._id)) {
+                    removeFromWishlist(product._id);
+                  } else {
+                    addToWishlist({
+                      id: product._id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.images[0]
+                    });
+                  }
+                }}
+                className={`absolute top-3 left-3 p-2 rounded-full transition-all duration-300 z-10 
+                  ${isInWishlist(product._id) 
+                    ? 'bg-white/90 text-rose-500 backdrop-blur-md' 
+                    : 'bg-white/0 text-[#5A5452]/0 group-hover:bg-white/50 group-hover:backdrop-blur-md group-hover:text-[#5A5452] hover:!bg-rose-100 hover:!text-rose-500'}`}
+              >
+                <Heart size={18} fill={isInWishlist(product._id) ? "currentColor" : "none"} />
               </button>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0" />

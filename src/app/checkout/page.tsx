@@ -114,6 +114,7 @@ export default function CheckoutPage() {
           customerPhone: formData.phone,
           customerCity: formData.governorate,
           customerAddress: formData.address,
+          customerNotes: formData.notes,
           items: items.map(item => ({
             productId: item.productId,
             name: item.name,

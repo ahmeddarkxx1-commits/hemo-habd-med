@@ -278,6 +278,9 @@ export default function AdminOrders() {
                 <p className="text-sm text-foreground/70 mt-1.5 font-medium" dir="ltr">{selectedOrder.customerPhone}</p>
                 <p className="text-sm text-foreground/70 mt-1"><span className="font-bold">المحافظة:</span> {selectedOrder.customerCity}</p>
                 <p className="text-sm text-foreground/70 mt-1"><span className="font-bold">العنوان بالتفصيل:</span> {selectedOrder.customerAddress}</p>
+                {selectedOrder.customerNotes && (
+                  <p className="text-sm text-foreground/70 mt-1"><span className="font-bold">ملاحظات العميل:</span> {selectedOrder.customerNotes}</p>
+                )}
               </div>
 
               {/* Status Update */}

@@ -16,6 +16,7 @@ export interface IOrder extends Document {
   customerPhone: string;
   customerAddress: string;
   customerCity: string;
+  customerNotes?: string;
   items: IOrderItem[];
   totalAmount: number;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
@@ -39,6 +40,7 @@ const OrderSchema = new Schema<IOrder>(
     customerPhone: { type: String, required: true },
     customerAddress: { type: String, required: true },
     customerCity: { type: String, required: true },
+    customerNotes: { type: String },
     items: { type: [OrderItemSchema], required: true },
     totalAmount: { type: Number, required: true },
     status: { 

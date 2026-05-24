@@ -215,6 +215,7 @@ export const dbHelper = {
     customerPhone: string;
     customerAddress: string;
     customerCity: string;
+    customerNotes?: string;
     items: any[];
     totalAmount: number;
     status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
