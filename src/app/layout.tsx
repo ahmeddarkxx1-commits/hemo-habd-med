@@ -4,6 +4,7 @@ import { CartProvider } from "@/lib/CartContext";
 import { WishlistProvider } from "@/lib/WishlistContext";
 import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
+import GlobalNotification from "@/components/GlobalNotification";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({ 
@@ -71,6 +72,7 @@ export default function RootLayout({
           <CartProvider>
             <Navbar />
             <CartSidebar />
+            <GlobalNotification />
             {children}
           </CartProvider>
         </WishlistProvider>

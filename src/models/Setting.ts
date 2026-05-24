@@ -8,6 +8,7 @@ const settingSchema = new mongoose.Schema(
     whatsapp: { type: String, default: "201234567890" },
     instagram: { type: String, default: "hemo.hand" },
     facebook: { type: String, default: "hemohand" },
+    freeShippingThreshold: { type: Number, default: 1000 },
   },
   { timestamps: true }
 );

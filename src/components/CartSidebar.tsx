@@ -5,9 +5,22 @@ import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function CartSidebar() {
   const { items, removeFromCart, updateQuantity, cartTotal, isCartOpen, setIsCartOpen } = useCart();
+  const [freeShippingThreshold, setFreeShippingThreshold] = useState(1000);
+
+  useEffect(() => {
+    fetch('/api/settings').then(res => res.json()).then(data => {
+      if(data.success && data.data?.freeShippingThreshold) {
+        setFreeShippingThreshold(data.data.freeShippingThreshold);
+      }
+    });
+  }, []);
+
+  const progress = Math.min((cartTotal / freeShippingThreshold) * 100, 100);
+  const remainingForFree = freeShippingThreshold - cartTotal;
 
   return (
     <AnimatePresence>
@@ -120,10 +133,28 @@ export default function CartSidebar() {
                   <span className="font-serif">الإجمالي</span>
                   <span className="font-bold">{cartTotal} ج.م</span>
                 </div>
-                <p className="text-[10px] text-foreground/40 text-center uppercase tracking-widest">
-                  الشحن والضرائب يتم حسابها عند الدفع
-                </p>
-                <div className="grid grid-cols-1 gap-3">
+                
+                {/* Free Shipping Progress */}
+                <div className="space-y-2 bg-white p-3 rounded-xl border border-sand-100">
+                  <div className="flex justify-between text-xs font-medium">
+                    {progress >= 100 ? (
+                      <span className="text-green-600 font-bold">🎉 لقد حصلت على شحن مجاني!</span>
+                    ) : (
+                      <span className="text-foreground/70">
+                        أضف <span className="font-bold text-rose-500">{remainingForFree} ج.م</span> للحصول على شحن مجاني
+                      </span>
+                    )}
+                  </div>
+                  <div className="h-1.5 w-full bg-sand-100 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      className={`h-full rounded-full transition-colors duration-500 ${progress >= 100 ? 'bg-green-500' : 'bg-rose-400'}`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3 pt-2">
                   <Link
                     href="/checkout"
                     onClick={() => setIsCartOpen(false)}

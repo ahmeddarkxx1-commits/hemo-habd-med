@@ -25,6 +25,7 @@ const menuItems = [
   { name: "الطلبات", icon: ShoppingBag, href: "/admin/orders" },
   { name: "الشحن", icon: Truck, href: "/admin/shipping" },
   { name: "العملاء", icon: Users, href: "/admin/customers" },
+  { name: "الإشعارات", icon: Bell, href: "/admin/notifications" },
   { name: "الإعدادات", icon: Settings, href: "/admin/settings" },
 ];
 

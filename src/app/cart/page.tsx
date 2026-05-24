@@ -4,11 +4,22 @@ import { useCart } from "@/lib/CartContext";
 import { Trash2, Minus, Plus, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function CartPage() {
   const { items, removeFromCart, updateQuantity, cartTotal } = useCart();
+  const [freeShippingThreshold, setFreeShippingThreshold] = useState(1000);
 
-  const shipping = cartTotal > 500 ? 0 : 50;
+  useEffect(() => {
+    fetch('/api/settings').then(res => res.json()).then(data => {
+      if(data.success && data.data?.freeShippingThreshold) {
+        setFreeShippingThreshold(data.data.freeShippingThreshold);
+      }
+    });
+  }, []);
+
+  const shipping = cartTotal > freeShippingThreshold ? 0 : 50;
+  const remainingForFree = freeShippingThreshold - cartTotal;
   const total = cartTotal + (items.length > 0 ? shipping : 0);
 
   return (
@@ -105,7 +116,9 @@ export default function CartPage() {
                   <span>{shipping === 0 ? "مجاني" : `${shipping} ج.م`}</span>
                 </div>
                 {shipping > 0 && (
-                  <p className="text-[10px] text-rose-500 font-normal">الشحن مجاني للطلبات فوق 500 ج.م</p>
+                  <p className="text-[10px] text-rose-500 font-normal">
+                    أضف بقيمة {remainingForFree} ج.م إضافية للحصول على شحن مجاني!
+                  </p>
                 )}
               </div>
               

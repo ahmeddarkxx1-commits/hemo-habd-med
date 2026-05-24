@@ -38,11 +38,6 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none">
-      {/* Announcement Bar */}
-      <div className={`w-full bg-[#5A5452] text-white text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase py-2 text-center pointer-events-auto transition-transform duration-500 ${scrolled ? '-translate-y-full absolute' : 'translate-y-0 relative'}`}>
-        شحن مجاني لجميع الطلبات فوق 1000 ج.م
-      </div>
-
       <nav 
         className={`pointer-events-auto transition-all duration-700 flex justify-between items-center relative ${
           scrolled 

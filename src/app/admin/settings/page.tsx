@@ -20,6 +20,7 @@ export default function AdminSettings() {
     whatsapp: "201234567890",
     instagram: "hemo.hand",
     facebook: "hemohand",
+    freeShippingThreshold: 1000,
   });
 
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -169,6 +170,17 @@ export default function AdminSettings() {
                   className="w-full bg-sand-50/50 border border-sand-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-100 focus:border-rose-300 transition-all font-medium text-left"
                   dir="ltr"
                   placeholder="201234567890"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-foreground/60">الحد الأدنى للشحن المجاني (ج.م)</label>
+                <input 
+                  type="number" 
+                  value={settings.freeShippingThreshold}
+                  onChange={(e) => setSettings({ ...settings, freeShippingThreshold: Number(e.target.value) })}
+                  className="w-full bg-sand-50/50 border border-sand-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-100 focus:border-rose-300 transition-all font-medium text-left"
+                  dir="ltr"
                 />
               </div>
             </div>
