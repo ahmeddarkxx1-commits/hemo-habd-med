@@ -228,6 +228,8 @@ export const dbHelper = {
     customerNotes?: string;
     items: any[];
     totalAmount: number;
+    depositAmount?: number;
+    depositPaid?: boolean;
     status?: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   }) {
     const isConnected = await isMongoConnected();
@@ -260,6 +262,24 @@ export const dbHelper = {
       db.orders[orderIndex] = {
         ...db.orders[orderIndex],
         status,
+        updatedAt: new Date().toISOString(),
+      };
+      writeLocalDB(db);
+      return db.orders[orderIndex];
+    }
+  },
+
+  async updateOrder(id: string, fields: Record<string, any>) {
+    const isConnected = await isMongoConnected();
+    if (isConnected) {
+      return await Order.findByIdAndUpdate(id, { $set: fields }, { new: true });
+    } else {
+      const db = readLocalDB();
+      const orderIndex = db.orders.findIndex((o) => o._id === id);
+      if (orderIndex === -1) return null;
+      db.orders[orderIndex] = {
+        ...db.orders[orderIndex],
+        ...fields,
         updatedAt: new Date().toISOString(),
       };
       writeLocalDB(db);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, Filter, MoreHorizontal, FileText, Loader2, Clock, CheckCircle, Package, Truck, XCircle, X } from "lucide-react";
+import { Search, Filter, MoreHorizontal, FileText, Loader2, Clock, CheckCircle, Package, Truck, XCircle, X, ShieldAlert, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function AdminOrders() {
@@ -118,6 +118,31 @@ export default function AdminOrders() {
     }
   };
 
+  const handleConfirmDeposit = async (orderId: string) => {
+    setUpdatingStatus(true);
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ depositPaid: true }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setOrders(orders.map(o => o._id === orderId ? { ...o, depositPaid: true } : o));
+        if (selectedOrder && selectedOrder._id === orderId) {
+          setSelectedOrder({ ...selectedOrder, depositPaid: true });
+        }
+        toast.success("✅ تم تأكيد استلام العربون");
+      } else {
+        toast.error("فشل تأكيد العربون");
+      }
+    } catch (err) {
+      toast.error("حدث خطأ أثناء التأكيد");
+    } finally {
+      setUpdatingStatus(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="h-[60vh] flex items-center justify-center">
@@ -199,6 +224,7 @@ export default function AdminOrders() {
                 <th className="pb-4 font-bold px-4">التاريخ</th>
                 <th className="pb-4 font-bold px-4">العميل</th>
                 <th className="pb-4 font-bold px-4">الحالة</th>
+                <th className="pb-4 font-bold px-4">العربون</th>
                 <th className="pb-4 font-bold px-4">الإجمالي</th>
                 <th className="pb-4 font-bold px-4 text-left">إجراءات</th>
               </tr>
@@ -228,6 +254,20 @@ export default function AdminOrders() {
                           {status.icon}
                           {status.label}
                         </span>
+                      </td>
+                      {/* عمود العربون */}
+                      <td className="py-5 px-4">
+                        {order.depositAmount > 0 ? (
+                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+                            order.depositPaid
+                              ? "bg-green-50 text-green-700 border-green-200"
+                              : "bg-amber-50 text-amber-700 border-amber-200"
+                          }`}>
+                            {order.depositPaid
+                              ? <><ShieldCheck size={11} /> مدفوع</>  
+                              : <><ShieldAlert size={11} /> {order.depositAmount} ج.م</>}
+                          </span>
+                        ) : <span className="text-foreground/30 text-xs">—</span>}
                       </td>
                       <td className="py-5 px-4 text-sm font-bold text-foreground">
                         {order.totalAmount.toLocaleString()} ج.م
@@ -348,6 +388,41 @@ export default function AdminOrders() {
                 </table>
               </div>
             </div>
+
+            {/* Deposit Section */}
+            {selectedOrder.depositAmount > 0 && (
+              <div className={`mb-5 p-4 rounded-2xl border ${
+                selectedOrder.depositPaid
+                  ? "bg-green-50 border-green-200"
+                  : "bg-amber-50 border-amber-200"
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {selectedOrder.depositPaid
+                      ? <ShieldCheck size={18} className="text-green-600" />
+                      : <ShieldAlert size={18} className="text-amber-600" />}
+                    <div>
+                      <p className={`text-sm font-bold ${selectedOrder.depositPaid ? "text-green-800" : "text-amber-800"}`}>
+                        {selectedOrder.depositPaid ? "✅ تم استلام العربون" : "⏳ في انتظار العربون"}
+                      </p>
+                      <p className="text-xs text-foreground/50 mt-0.5">
+                        العربون: <strong>{selectedOrder.depositAmount?.toLocaleString()} ج.م</strong> من إجمالي {selectedOrder.totalAmount?.toLocaleString()} ج.م
+                      </p>
+                    </div>
+                  </div>
+                  {!selectedOrder.depositPaid && (
+                    <button
+                      onClick={() => handleConfirmDeposit(selectedOrder._id)}
+                      disabled={updatingStatus}
+                      className="flex items-center gap-2 bg-amber-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-amber-600 transition-all disabled:opacity-60"
+                    >
+                      {updatingStatus ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
+                      تأكيد استلام العربون
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Total */}
             <div className="flex justify-between items-center border-t border-sand-100 pt-5 font-bold">

@@ -20,6 +20,8 @@ export interface IOrder extends Document {
   customerNotes?: string;
   items: IOrderItem[];
   totalAmount: number;
+  depositAmount: number;
+  depositPaid: boolean;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   createdAt: Date;
 }
@@ -45,6 +47,8 @@ const OrderSchema = new Schema<IOrder>(
     customerNotes: { type: String },
     items: { type: [OrderItemSchema], required: true },
     totalAmount: { type: Number, required: true },
+    depositAmount: { type: Number, required: true, default: 0 },
+    depositPaid: { type: Boolean, default: false },
     status: { 
       type: String, 
       enum: ["pending", "processing", "shipped", "delivered", "cancelled"], 
