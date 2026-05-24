@@ -16,7 +16,7 @@ const testimonialImage = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (9)
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative bg-knit-pattern">
+    <main className="min-h-screen relative bg-transparent">
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -28,8 +28,8 @@ export default function Home() {
             className="object-cover object-center scale-105 transition-transform duration-[20s] hover:scale-110"
             priority
           />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/20 to-black/70 opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#FAF6F0]/95 via-[#FAF6F0]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F0]/80 via-transparent to-black/5" />
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20 flex flex-col items-start justify-center h-full">
@@ -39,16 +39,16 @@ export default function Home() {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
           >
-            <span className="text-xs md:text-sm tracking-[0.4em] text-white mb-8 block font-semibold uppercase drop-shadow-md">صُنع بحب لأجلك</span>
-            <h1 className="font-serif text-6xl md:text-8xl lg:text-[7.5rem] leading-[1.05] mb-8 text-balance text-white font-medium drop-shadow-2xl">
-              نعومة في <br/><span className="italic text-rose-200 font-light tracking-tight">كل غرزة</span>
+            <span className="text-xs md:text-sm tracking-[0.3em] text-foreground mb-8 block font-semibold uppercase opacity-90">صُنع بحب لأجلك</span>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.05] mb-8 text-balance text-foreground font-medium drop-shadow-sm">
+              نعومة في <br/><span className="italic text-rose-600/90 font-light tracking-tight">كل غرزة</span>
             </h1>
-            <p className="text-lg md:text-2xl text-white/90 mb-12 max-w-xl font-light leading-relaxed drop-shadow-md">
+            <p className="text-lg md:text-xl text-foreground/80 mb-12 max-w-xl font-light leading-relaxed">
               اكتشفي مجموعتنا الفاخرة من أزياء التريكو والكروشيه المصنوعة يدوياً. تُصنع ببطء، لتدوم للأبد.
             </p>
             <Link 
               href="/shop" 
-              className="inline-flex items-center justify-center gap-4 bg-white text-foreground px-12 py-5 rounded-full text-sm font-bold tracking-[0.2em] uppercase hover:bg-rose-50 hover:scale-105 transition-all duration-500 luxury-shadow"
+              className="inline-flex items-center justify-center gap-4 bg-[#5A5452] text-white px-12 py-5 rounded-full text-sm font-bold tracking-[0.2em] uppercase hover:bg-rose-600 hover:scale-105 transition-all duration-500 shadow-xl"
             >
               <span>تسوقي الآن</span>
               <ArrowRight size={18} className="rotate-180" />
@@ -160,7 +160,7 @@ export default function Home() {
       </section>
       
       {/* Testimonial & Editorial Section */}
-      <section className="py-24 bg-rose-50 px-6">
+      <section className="py-24 bg-transparent px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative aspect-[4/5] rounded-t-full overflow-hidden shadow-xl">
             <Image 
@@ -187,7 +187,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter & Community Section */}
-      <section className="bg-rose-50/50 py-24 px-6 md:px-12 border-y border-rose-100">
+      <section className="bg-white py-24 px-6 md:px-12 border-y border-sand-100">
         <div className="max-w-4xl mx-auto text-center">
           <span className="text-sm tracking-[0.2em] text-foreground mb-4 block font-bold uppercase">عائلة هيمو</span>
           <h2 className="font-serif text-3xl md:text-5xl font-semibold mb-6 text-foreground">انضمي لمجتمع الأزياء البطيئة</h2>
@@ -212,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* Best Sellers Section with Distinct Background */}
-      <section className="bg-[#FAF8F5] py-24">
+      <section className="bg-transparent py-24 border-b border-sand-100">
         <BestSellers />
       </section>
 
