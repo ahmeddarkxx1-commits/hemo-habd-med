@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2, Loader2, RefreshCw, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 const categoriesList = [
   { id: "socks", name: "شرابات" },
@@ -70,11 +71,11 @@ export default function AdminProducts() {
       if (data.success) {
         setProducts(products.filter(p => p._id !== id));
       } else {
-        alert("فشل حذف المنتج: " + data.message);
+        toast.error("فشل حذف المنتج: " + data.message);
       }
     } catch (error) {
       console.error("Delete error:", error);
-      alert("حدث خطأ أثناء الحذف");
+      toast.error("حدث خطأ أثناء الحذف");
     }
   };
 
@@ -115,13 +116,13 @@ export default function AdminProducts() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.price || !formData.category || !formData.description) {
-      alert("برجاء ملء جميع الحقول المطلوبة");
+      toast.error("برجاء ملء جميع الحقول المطلوبة");
       return;
     }
 
     const parsedPrice = parseFloat(formData.price);
     if (isNaN(parsedPrice)) {
-      alert("السعر يجب أن يكون رقماً صحيحاً");
+      toast.error("السعر يجب أن يكون رقماً صحيحاً");
       return;
     }
 
@@ -175,13 +176,13 @@ export default function AdminProducts() {
         if (updatedData.success) {
           setProducts(updatedData.data);
         }
-        alert(modalMode === "add" ? "تم إضافة المنتج بنجاح!" : "تم تعديل المنتج بنجاح!");
+        toast.success(modalMode === "add" ? "تم إضافة المنتج بنجاح!" : "تم تعديل المنتج بنجاح!");
       } else {
-        alert("فشل الحفظ: " + data.message);
+        toast.error("فشل الحفظ: " + data.message);
       }
     } catch (error) {
       console.error("Error saving product:", error);
-      alert("حدث خطأ أثناء الحفظ");
+      toast.error("حدث خطأ أثناء الحفظ");
     } finally {
       setSavingProduct(false);
     }

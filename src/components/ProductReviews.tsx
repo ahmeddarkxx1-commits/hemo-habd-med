@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Star, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface Review {
   _id?: string;
@@ -46,8 +47,9 @@ export default function ProductReviews({ productId, initialReviews = [] }: { pro
         setReviews(newReviews);
         setShowForm(false);
         setFormData({ userName: "", rating: 5, comment: "" });
+        toast.success("تم إضافة تقييمك بنجاح");
       } else {
-        alert("فشل إضافة التقييم: " + data.message);
+        toast.error("فشل إضافة التقييم: " + data.message);
       }
     } catch (error) {
       console.error(error);

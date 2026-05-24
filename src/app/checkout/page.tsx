@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone, User, Truck, CreditCard, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function CheckoutPage() {
   const { items, cartTotal, clearCart } = useCart();
@@ -136,11 +137,11 @@ export default function CheckoutPage() {
         setIsSuccess(true);
         clearCart();
       } else {
-        alert("حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.");
+        toast.error("حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.");
       }
     } catch (error) {
       console.error("Order error:", error);
-      alert("فشل الاتصال بالخادم. يرجى التحقق من الإنترنت.");
+      toast.error("فشل الاتصال بالخادم. يرجى التحقق من الإنترنت.");
     } finally {
       setIsSubmitting(false);
     }

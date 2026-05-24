@@ -166,20 +166,15 @@ export default function ShopPage() {
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0" />
               
-              {/* Quick Add Button Overlay */}
+              {/* View Details Button Overlay */}
               <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 z-10">
-                <button 
-                  onClick={(e) => handleQuickAdd(e, product)}
-                  disabled={product.inStock === false}
-                  className={`w-full py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-lg transition-all ${
-                    quickAddStatus[product._id] 
-                      ? 'bg-sage-400 text-white' 
-                      : 'bg-white/90 backdrop-blur-md text-[#5A5452] hover:bg-white'
-                  }`}
+                <Link 
+                  href={`/shop/${product._id}`}
+                  className="w-full py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-lg transition-all bg-white/90 backdrop-blur-md text-[#5A5452] hover:bg-white"
                 >
                   <ShoppingBag size={16} />
-                  {quickAddStatus[product._id] ? "تمت الإضافة" : (product.inStock === false ? "نفذت الكمية" : "إضافة سريعة")}
-                </button>
+                  عرض التفاصيل
+                </Link>
               </div>
             </div>
 

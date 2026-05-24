@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, Filter, MoreHorizontal, FileText, Loader2, Clock, CheckCircle, Package, Truck, XCircle, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -51,7 +52,7 @@ export default function AdminOrders() {
 
   const handleExportCSV = () => {
     if (filteredOrders.length === 0) {
-      alert("لا توجد طلبات لتصديرها");
+      toast.error("لا توجد طلبات لتصديرها");
       return;
     }
     
@@ -105,13 +106,13 @@ export default function AdminOrders() {
         if (selectedOrder && selectedOrder._id === orderId) {
           setSelectedOrder({ ...selectedOrder, status: newStatus });
         }
-        alert("تم تحديث حالة الطلب بنجاح");
+        toast.success("تم تحديث حالة الطلب بنجاح");
       } else {
-        alert("فشل تحديث حالة الطلب: " + result.message);
+        toast.error("فشل تحديث حالة الطلب: " + result.message);
       }
     } catch (err) {
       console.error("Failed to update status:", err);
-      alert("حدث خطأ أثناء التحديث");
+      toast.error("حدث خطأ أثناء التحديث");
     } finally {
       setUpdatingStatus(false);
     }

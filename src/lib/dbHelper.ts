@@ -420,6 +420,49 @@ export const dbHelper = {
     }
   },
 
+  async deleteShippingRate(governorate: string) {
+    const isConnected = await isMongoConnected();
+    if (isConnected) {
+      const ShippingRate = (await import("@/models/ShippingRate")).default;
+      return await ShippingRate.findOneAndDelete({ governorate });
+    } else {
+      const db = readLocalDB();
+      db.shippingRates = db.shippingRates.filter((r: any) => r.governorate !== governorate);
+      writeLocalDB(db);
+      return { success: true };
+    }
+  },
+
+  async seedShippingRates() {
+    const isConnected = await isMongoConnected();
+    if (isConnected) {
+      const ShippingRate = (await import("@/models/ShippingRate")).default;
+      // Clear existing
+      await ShippingRate.deleteMany({});
+      const rates = EGYPT_GOVERNORATES.map(gov => ({
+        governorate: gov,
+        rate: gov === "القاهرة" || gov === "الجيزة" ? 50 : 70,
+        estimatedDays: "3-5 أيام",
+        isActive: true
+      }));
+      await ShippingRate.insertMany(rates);
+      return { success: true };
+    } else {
+      const db = readLocalDB();
+      db.shippingRates = EGYPT_GOVERNORATES.map(gov => ({
+        _id: "sh_" + Math.random().toString(36).substring(2, 11),
+        governorate: gov,
+        rate: gov === "القاهرة" || gov === "الجيزة" ? 50 : 70,
+        estimatedDays: "3-5 أيام",
+        isActive: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }));
+      writeLocalDB(db);
+      return { success: true };
+    }
+  },
+
   async getStats() {
     const isConnected = await isMongoConnected();
     if (isConnected) {

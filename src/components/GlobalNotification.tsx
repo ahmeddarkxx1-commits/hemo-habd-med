@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { X, Tag, Info, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import useSWR from "swr";
 
 type NotificationType = "offer" | "info" | "alert";
 
@@ -15,39 +16,39 @@ interface Notification {
   link?: string;
 }
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
 export default function GlobalNotification() {
+  const { data } = useSWR("/api/notifications/active", fetcher, { refreshInterval: 3000 });
   const [activeNotifications, setActiveNotifications] = useState<Notification[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    async function fetchNotifications() {
-      try {
-        const res = await fetch("/api/notifications/active");
-        const data = await res.json();
-        
-        if (data.success && data.data.length > 0) {
-          // Filter out notifications that were already seen if showOnce is true
-          const filtered = data.data.filter((n: Notification) => {
-            if (n.showOnce) {
-              return !localStorage.getItem(`hemo_notif_${n._id}`);
-            }
-            return true;
-          });
-
-          if (filtered.length > 0) {
-            setActiveNotifications(filtered);
-            // Delay showing the notification slightly so it feels like a popup
-            setTimeout(() => setIsVisible(true), 1500);
-          }
+    if (data?.success && data.data) {
+      // Filter out notifications that were already seen if showOnce is true
+      const filtered = data.data.filter((n: Notification) => {
+        if (n.showOnce) {
+          return !localStorage.getItem(`hemo_notif_${n._id}`);
         }
-      } catch (err) {
-        console.error("Failed to load notifications:", err);
-      }
-    }
+        return true;
+      });
 
-    fetchNotifications();
-  }, []);
+      // If active notifications changed, update state
+      if (JSON.stringify(filtered) !== JSON.stringify(activeNotifications)) {
+        setActiveNotifications(filtered);
+        setCurrentIndex(0);
+        if (filtered.length > 0) {
+          setTimeout(() => setIsVisible(true), 500);
+        } else {
+          setIsVisible(false);
+        }
+      }
+    } else {
+      setActiveNotifications([]);
+      setIsVisible(false);
+    }
+  }, [data, activeNotifications]);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -63,7 +64,7 @@ export default function GlobalNotification() {
       setTimeout(() => {
         setCurrentIndex(prev => prev + 1);
         setIsVisible(true);
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -74,12 +75,12 @@ export default function GlobalNotification() {
   const Icon = currentNotification.type === 'offer' ? Tag :
                currentNotification.type === 'alert' ? AlertTriangle : Info;
 
-  const bgStyles = currentNotification.type === 'offer' ? 'bg-gradient-to-r from-rose-500 to-rose-400 text-white' :
-                   currentNotification.type === 'alert' ? 'bg-gradient-to-r from-amber-500 to-orange-400 text-white' :
-                   'bg-white text-foreground border border-sand-100 shadow-2xl';
+  const bgStyles = currentNotification.type === 'offer' ? 'bg-gradient-to-r from-rose-500 to-rose-400 text-white shadow-rose-200/50' :
+                   currentNotification.type === 'alert' ? 'bg-gradient-to-r from-amber-500 to-orange-400 text-white shadow-orange-200/50' :
+                   'bg-white text-foreground border border-sand-100 shadow-xl';
 
   const content = (
-    <div className={`p-4 rounded-2xl luxury-shadow flex items-center gap-4 ${bgStyles}`}>
+    <div className={`p-4 rounded-2xl shadow-xl flex items-center gap-4 ${bgStyles}`}>
       <div className={`p-2 rounded-xl shrink-0 ${currentNotification.type === 'info' ? 'bg-sand-50 text-[#5A5452]' : 'bg-white/20 text-white'}`}>
         <Icon size={20} />
       </div>
@@ -102,11 +103,11 @@ export default function GlobalNotification() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          initial={{ opacity: 0, y: -50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm z-[100]"
+          className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-[100]"
         >
           {currentNotification.link ? (
             <Link href={currentNotification.link} onClick={handleClose} className="block w-full">

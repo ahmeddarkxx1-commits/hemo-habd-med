@@ -108,16 +108,13 @@ export default function BestSellers() {
                 
                 {/* Action Buttons (Visible on Hover) */}
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                  <button 
-                    onClick={(e) => handleQuickAdd(e, product, productId)}
-                    disabled={product.inStock === false}
-                    className={`text-foreground p-3 rounded-full shadow-lg transition-colors ${
-                      quickAddStatus[productId] ? 'bg-sage-400 text-white' : 'bg-white hover:bg-rose-500 hover:text-white'
-                    } disabled:opacity-50`}
-                    title="أضف للسلة سريعاً"
+                  <Link 
+                    href={`/shop/${productId}`}
+                    className="bg-white text-foreground hover:bg-rose-500 hover:text-white p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
+                    title="عرض التفاصيل"
                   >
                     <ShoppingBag size={20} />
-                  </button>
+                  </Link>
                   <button 
                     onClick={(e) => {
                       e.preventDefault();

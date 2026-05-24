@@ -5,6 +5,8 @@ import { WishlistProvider } from "@/lib/WishlistContext";
 import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
 import GlobalNotification from "@/components/GlobalNotification";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({ 
@@ -70,9 +72,21 @@ export default function RootLayout({
       <body className="font-sans min-h-screen bg-ivory-100 text-foreground overflow-x-hidden">
         <WishlistProvider>
           <CartProvider>
+            <Toaster 
+              position="top-center"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: '#333',
+                  color: '#fff',
+                  fontFamily: 'var(--font-nunito)',
+                },
+              }} 
+            />
             <Navbar />
             <CartSidebar />
             <GlobalNotification />
+            <WhatsAppButton />
             {children}
           </CartProvider>
         </WishlistProvider>
