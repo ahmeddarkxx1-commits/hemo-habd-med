@@ -48,7 +48,7 @@ export default async function ContactPage() {
             </div>
             <div>
               <h4 className="font-semibold text-lg text-foreground mb-1">المشغل</h4>
-              <p className="text-foreground/80">القاهرة، مصر (زيارات المشغل بموعد مسبق فقط)</p>
+              <p className="text-foreground/80">الإسكندرية، المنتزه (زيارات المشغل بموعد مسبق فقط)</p>
             </div>
           </div>
         </div>
