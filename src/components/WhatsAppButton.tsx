@@ -39,12 +39,13 @@ export default function WhatsAppButton() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0, opacity: 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-6 right-6 z-[90] bg-[#5A5452] text-white px-4 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:bg-[#4a4544] transition-all flex items-center justify-center gap-2"
         aria-label="تواصل معنا عبر واتساب"
       >
-        <MessageCircle size={28} />
+        <MessageCircle size={16} />
+        <span className="text-xs font-bold tracking-wider">الدعم</span>
       </motion.a>
     </AnimatePresence>
   );
