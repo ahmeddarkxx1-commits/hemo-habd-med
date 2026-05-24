@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import connectDB from "@/lib/db";
 import Setting from "@/models/Setting";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
   title: "تواصل معنا",
@@ -55,23 +56,7 @@ export default async function ContactPage() {
 
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-sand-100">
           <h2 className="font-serif text-2xl font-semibold mb-6 text-foreground">أرسلي رسالة</h2>
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-foreground">الاسم</label>
-              <input type="text" name="name" required className="w-full bg-sand-50 border border-sand-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose-300 transition-colors" placeholder="اسمك الكريم" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-foreground">البريد الإلكتروني أو رقم الواتساب</label>
-              <input type="text" name="contact" required className="w-full bg-sand-50 border border-sand-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose-300 transition-colors" placeholder="للتواصل معكِ" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-foreground">رسالتك</label>
-              <textarea name="message" required rows={4} className="w-full bg-sand-50 border border-sand-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose-300 transition-colors resize-none" placeholder="كيف يمكننا مساعدتك؟" />
-            </div>
-            <button type="submit" className="w-full bg-foreground text-white font-semibold py-4 rounded-xl hover:bg-rose-600 transition-colors shadow-md">
-              إرسال الرسالة
-            </button>
-          </form>
+          <ContactForm whatsappNumber={settings.whatsapp || "201000000000"} />
         </div>
       </div>
     </div>
