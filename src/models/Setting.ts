@@ -9,6 +9,7 @@ const settingSchema = new mongoose.Schema(
     instagram: { type: String, default: "hemo.hand" },
     facebook: { type: String, default: "hemohand" },
     freeShippingThreshold: { type: Number, default: 1000 },
+    totalVisits: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

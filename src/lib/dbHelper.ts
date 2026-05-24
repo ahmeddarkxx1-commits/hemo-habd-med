@@ -21,6 +21,7 @@ interface LocalDB {
   orders: any[];
   products: any[];
   shippingRates: any[];
+  totalVisits: number;
 }
 
 function readLocalDB(): LocalDB {
@@ -43,6 +44,7 @@ function readLocalDB(): LocalDB {
         updatedAt: new Date().toISOString(),
       })),
       shippingRates: [],
+      totalVisits: 0,
     };
     fs.writeFileSync(LOCAL_DB_PATH, JSON.stringify(initialData, null, 2), "utf8");
     return initialData;
@@ -54,10 +56,11 @@ function readLocalDB(): LocalDB {
     if (!parsed.orders) parsed.orders = [];
     if (!parsed.products) parsed.products = [];
     if (!parsed.shippingRates) parsed.shippingRates = [];
+    if (typeof parsed.totalVisits !== 'number') parsed.totalVisits = 0;
     return parsed as LocalDB;
   } catch (error) {
     console.error("Failed to read local DB:", error);
-    return { users: [], orders: [], products: [], shippingRates: [] };
+    return { users: [], orders: [], products: [], shippingRates: [], totalVisits: 0 };
   }
 }
 
@@ -469,6 +472,7 @@ export const dbHelper = {
     if (isConnected) {
       const Order = (await import("@/models/Order")).default;
       const Product = (await import("@/models/Product")).default;
+      const Setting = (await import("@/models/Setting")).default;
 
       const orders = await Order.find({ status: { $ne: "cancelled" } });
       const totalRevenue = orders.reduce((acc: number, order: any) => acc + order.totalAmount, 0);
@@ -478,48 +482,77 @@ export const dbHelper = {
       const totalProducts = await Product.countDocuments();
       const recentOrders = await Order.find({}).sort({ createdAt: -1 }).limit(5);
 
+      // ── Visits ─────────────────────────────────────────────
+      const settingDoc = await Setting.findOne({});
+      const totalVisits = settingDoc?.totalVisits ?? 0;
+
+      // ── Weekly sales (last 7 days) ──────────────────────────
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
       sevenDaysAgo.setHours(0, 0, 0, 0);
 
-      const dailySales = await Order.aggregate([
-        {
-          $match: {
-            createdAt: { $gte: sevenDaysAgo },
-            status: { $ne: "cancelled" }
-          }
-        },
-        {
-          $group: {
-            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-            total: { $sum: "$totalAmount" }
-          }
-        },
+      const dailySalesRaw = await Order.aggregate([
+        { $match: { createdAt: { $gte: sevenDaysAgo }, status: { $ne: "cancelled" } } },
+        { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, total: { $sum: "$totalAmount" } } },
         { $sort: { _id: 1 } }
       ]);
 
-      const formattedDailySales = [];
+      const dailySales = [];
       for (let i = 0; i < 7; i++) {
         const d = new Date();
         d.setDate(d.getDate() - (6 - i));
         const dateStr = d.toISOString().split('T')[0];
-        const dayData = dailySales.find((s: any) => s._id === dateStr);
-        formattedDailySales.push({
+        const dayData = dailySalesRaw.find((s: any) => s._id === dateStr);
+        dailySales.push({
           date: dateStr,
           total: dayData ? dayData.total : 0,
           dayName: d.toLocaleDateString('ar-EG', { weekday: 'short' })
         });
       }
 
+      // ── Monthly sales (last 6 months) ───────────────────────
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+      sixMonthsAgo.setDate(1);
+      sixMonthsAgo.setHours(0, 0, 0, 0);
+
+      const monthlySalesRaw = await Order.aggregate([
+        { $match: { createdAt: { $gte: sixMonthsAgo }, status: { $ne: "cancelled" } } },
+        { $group: { _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } }, total: { $sum: "$totalAmount" } } },
+        { $sort: { _id: 1 } }
+      ]);
+
+      const monthlySales = [];
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date();
+        d.setMonth(d.getMonth() - i);
+        const monthStr = d.toISOString().slice(0, 7);
+        const monthData = monthlySalesRaw.find((s: any) => s._id === monthStr);
+        monthlySales.push({
+          month: monthStr,
+          total: monthData ? monthData.total : 0,
+          monthName: d.toLocaleDateString('ar-EG', { month: 'short' })
+        });
+      }
+
+      // ── Weekly revenue ──────────────────────────────────────
+      const weeklyRevenue = dailySales.reduce((acc, d) => acc + d.total, 0);
+      const monthlyRevenue = monthlySales[5]?.total ?? 0; // current month
+
       return {
         totalRevenue,
         totalOrders,
         totalCustomers,
         totalProducts,
+        totalVisits,
+        weeklyRevenue,
+        monthlyRevenue,
         recentOrders,
-        dailySales: formattedDailySales
+        dailySales,
+        monthlySales
       };
     } else {
+      // ── Local DB branch ─────────────────────────────────────
       const db = readLocalDB();
       const nonCancelledOrders = db.orders.filter((o: any) => o.status !== "cancelled");
       const totalRevenue = nonCancelledOrders.reduce((acc: number, o: any) => acc + o.totalAmount, 0);
@@ -527,35 +560,58 @@ export const dbHelper = {
       const uniquePhones = Array.from(new Set(db.orders.map((o: any) => o.customerPhone)));
       const totalCustomers = uniquePhones.length;
       const totalProducts = db.products.length;
-      
+      const totalVisits = db.totalVisits ?? 0;
+
       const recentOrders = [...db.orders]
         .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         .slice(0, 5);
 
-      const formattedDailySales = [];
+      // ── Weekly sales ────────────────────────────────────────
+      const dailySales = [];
       for (let i = 0; i < 7; i++) {
         const d = new Date();
         d.setDate(d.getDate() - (6 - i));
         const dateStr = d.toISOString().split('T')[0];
-        
         const dailyTotal = nonCancelledOrders
-          .filter((o: any) => o.createdAt.split('T')[0] === dateStr)
+          .filter((o: any) => o.createdAt?.split('T')[0] === dateStr)
           .reduce((acc: number, o: any) => acc + o.totalAmount, 0);
-
-        formattedDailySales.push({
+        dailySales.push({
           date: dateStr,
           total: dailyTotal,
           dayName: d.toLocaleDateString('ar-EG', { weekday: 'short' })
         });
       }
 
+      // ── Monthly sales (last 6 months) ───────────────────────
+      const monthlySales = [];
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date();
+        d.setMonth(d.getMonth() - i);
+        const monthStr = d.toISOString().slice(0, 7);
+        const monthTotal = nonCancelledOrders
+          .filter((o: any) => o.createdAt?.startsWith(monthStr))
+          .reduce((acc: number, o: any) => acc + o.totalAmount, 0);
+        monthlySales.push({
+          month: monthStr,
+          total: monthTotal,
+          monthName: d.toLocaleDateString('ar-EG', { month: 'short' })
+        });
+      }
+
+      const weeklyRevenue = dailySales.reduce((acc, d) => acc + d.total, 0);
+      const monthlyRevenue = monthlySales[5]?.total ?? 0;
+
       return {
         totalRevenue,
         totalOrders,
         totalCustomers,
         totalProducts,
+        totalVisits,
+        weeklyRevenue,
+        monthlyRevenue,
         recentOrders,
-        dailySales: formattedDailySales
+        dailySales,
+        monthlySales
       };
     }
   }

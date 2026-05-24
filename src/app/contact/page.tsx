@@ -3,6 +3,8 @@ import connectDB from "@/lib/db";
 import Setting from "@/models/Setting";
 import ContactForm from "@/components/ContactForm";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "تواصل معنا",
   description: "نحن هنا للإجابة على جميع استفساراتك حول منتجات هيمو هاند ميد — للطلبات المخصصة والاستفسارات تواصلي معنا الآن.",

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
 import GlobalNotification from "@/components/GlobalNotification";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import VisitTracker from "@/components/VisitTracker";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
@@ -119,6 +120,7 @@ export default function RootLayout({
                 },
               }} 
             />
+            <VisitTracker />
             <Navbar />
             <CartSidebar />
             <GlobalNotification />
