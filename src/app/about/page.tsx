@@ -34,7 +34,12 @@ export default function AboutPage() {
           >
             <div className="absolute inset-0 bg-rose-200 rounded-[3rem] -rotate-3 scale-105 z-0" />
             <div className="relative aspect-square md:aspect-[4/3] bg-sand-200 rounded-[3rem] z-10 flex items-center justify-center overflow-hidden shadow-xl">
-              <div className="text-sand-500 font-serif text-2xl italic">صورة الغزل والأبر</div>
+              <Image 
+                src="/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg" 
+                alt="غزل وإبر" 
+                fill 
+                className="object-cover hover:scale-105 transition-transform duration-700"
+              />
             </div>
           </motion.div>
         </div>

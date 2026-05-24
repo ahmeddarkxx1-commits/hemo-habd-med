@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "name": "جاكيت صوف كروشيه كلاسيكي",
+    "description": "جاكيت يدوي الصنع من أجود أنواع الصوف الناعم. تصميم كلاسيكي يناسب جميع الأوقات ويمنحك الدفء في أيام الشتاء الباردة.",
+    "price": 2500,
+    "image": "/products/WhatsApp Image 2026-05-06 at 10.39.42 PM (1).jpeg",
+    "category": "جاكيت",
+    "inStock": true,
+    "images": [
+      "/products/WhatsApp Image 2026-05-06 at 10.39.42 PM (1).jpeg",
+      "/products/WhatsApp Image 2026-05-06 at 10.39.42 PM (2).jpeg"
+    ],
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["أبيض", "بيج", "أسود"]
+  },
+  {
+    "id": "2",
+    "name": "شال تريكو شتوي أنيق",
+    "description": "شال ناعم منسوج بحرفية عالية من الصوف الفاخر، يتميز بغرز متقنة وتفاصيل مميزة.",
+    "price": 850,
+    "image": "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg",
+    "category": "شال",
+    "inStock": true,
+    "images": [
+      "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg",
+      "/products/WhatsApp Image 2026-05-06 at 10.39.43 PM (1).jpeg"
+    ],
+    "sizes": ["Free Size"],
+    "colors": ["وردي", "رمادي", "كحلي"]
+  },
+  {
+    "id": "3",
+    "name": "طقم قبعة وكوفية للأطفال",
+    "description": "طقم شتوي رائع للأطفال مكون من قبعة وكوفية منسوجة يدوياً من قطن وصوف ناعم لا يسبب حساسية.",
+    "price": 600,
+    "image": "/products/WhatsApp Image 2026-05-06 at 10.39.41 PM.jpeg",
+    "category": "أطفال",
+    "inStock": true,
+    "images": [
+      "/products/WhatsApp Image 2026-05-06 at 10.39.41 PM.jpeg"
+    ],
+    "sizes": ["عمر سنة", "عمر سنتين", "عمر 3 سنوات"],
+    "colors": ["أزرق فاتح", "وردي", "أصفر"]
+  }
+]
