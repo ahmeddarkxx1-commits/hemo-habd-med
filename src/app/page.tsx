@@ -25,30 +25,30 @@ export default function Home() {
             src={heroImage} 
             alt="Hemo Hand Made Luxury Knitwear" 
             fill 
-            className="object-cover object-center"
+            className="object-cover object-center scale-105 transition-transform duration-[20s] hover:scale-110"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-ivory-100/95 via-ivory-100/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-ivory-100/80 via-transparent to-black/10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/20 to-black/70 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20 flex flex-col items-start justify-center h-full">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-2xl"
           >
-            <span className="text-xs md:text-sm tracking-[0.3em] text-foreground mb-8 block font-medium uppercase opacity-90">صُنع بحب لأجلك</span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-8 text-balance text-foreground font-semibold drop-shadow-sm">
-              نعومة في <br/><span className="italic text-rose-600/90 font-light tracking-tight">كل غرزة</span>
+            <span className="text-xs md:text-sm tracking-[0.4em] text-white mb-8 block font-semibold uppercase drop-shadow-md">صُنع بحب لأجلك</span>
+            <h1 className="font-serif text-6xl md:text-8xl lg:text-[7.5rem] leading-[1.05] mb-8 text-balance text-white font-medium drop-shadow-2xl">
+              نعومة في <br/><span className="italic text-rose-200 font-light tracking-tight">كل غرزة</span>
             </h1>
-            <p className="text-lg md:text-xl text-foreground/80 mb-10 max-w-lg font-normal leading-relaxed">
+            <p className="text-lg md:text-2xl text-white/90 mb-12 max-w-xl font-light leading-relaxed drop-shadow-md">
               اكتشفي مجموعتنا الفاخرة من أزياء التريكو والكروشيه المصنوعة يدوياً. تُصنع ببطء، لتدوم للأبد.
             </p>
             <Link 
               href="/shop" 
-              className="inline-flex items-center justify-center gap-4 bg-foreground text-white px-10 py-5 rounded-full text-sm font-semibold tracking-widest uppercase hover:bg-rose-600 transition-colors duration-500 shadow-xl"
+              className="inline-flex items-center justify-center gap-4 bg-white text-foreground px-12 py-5 rounded-full text-sm font-bold tracking-[0.2em] uppercase hover:bg-rose-50 hover:scale-105 transition-all duration-500 luxury-shadow"
             >
               <span>تسوقي الآن</span>
               <ArrowRight size={18} className="rotate-180" />
@@ -93,57 +93,66 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Category 1 */}
           <motion.div 
-            whileHover={{ y: -10 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
             className="group cursor-pointer"
           >
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-700">
               <Image 
                 src={cat1Image} 
                 alt="جواكت تريكو وكروشيه" 
                 fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 opacity-60 group-hover:opacity-40 transition-opacity" />
-              <div className="absolute inset-0 flex items-end p-8">
-                <div className="text-white font-serif text-2xl italic drop-shadow-md">جواكت تريكو</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
+              <div className="absolute inset-0 flex items-end p-10">
+                <div className="text-white font-serif text-3xl italic drop-shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">جواكت تريكو</div>
               </div>
             </div>
           </motion.div>
 
           {/* Category 2 */}
           <motion.div 
-            whileHover={{ y: -10 }}
-            className="group cursor-pointer md:translate-y-12"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="group cursor-pointer md:translate-y-16"
           >
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-700">
               <Image 
                 src={cat2Image} 
                 alt="كوفيات وجوانتيات" 
                 fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 opacity-60 group-hover:opacity-40 transition-opacity" />
-              <div className="absolute inset-0 flex items-end p-8">
-                <div className="text-white font-serif text-2xl italic drop-shadow-md">إكسسوارات</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
+              <div className="absolute inset-0 flex items-end p-10">
+                <div className="text-white font-serif text-3xl italic drop-shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">إكسسوارات</div>
               </div>
             </div>
           </motion.div>
 
           {/* Category 3 */}
           <motion.div 
-            whileHover={{ y: -10 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="group cursor-pointer"
           >
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-700">
               <Image 
                 src={cat3Image} 
                 alt="أطفال" 
                 fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 opacity-60 group-hover:opacity-40 transition-opacity" />
-              <div className="absolute inset-0 flex items-end p-8">
-                <div className="text-white font-serif text-2xl italic drop-shadow-md">أطفال</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
+              <div className="absolute inset-0 flex items-end p-10">
+                <div className="text-white font-serif text-3xl italic drop-shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500">أطفال</div>
               </div>
             </div>
           </motion.div>

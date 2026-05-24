@@ -46,7 +46,7 @@ export default function Navbar() {
       <nav 
         className={`pointer-events-auto transition-all duration-700 flex justify-between items-center relative ${
           scrolled 
-            ? "w-[95%] md:w-[90%] max-w-7xl mt-4 bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_20px_40px_rgb(0,0,0,0.06)] rounded-full py-4 px-6 md:px-10" 
+            ? "w-[95%] md:w-[90%] max-w-7xl mt-4 bg-white/70 backdrop-blur-xl border border-white/40 luxury-shadow rounded-full py-4 px-6 md:px-10" 
             : "w-full bg-transparent py-8 px-6 md:px-16"
         }`}
       >
@@ -58,7 +58,7 @@ export default function Navbar() {
           >
             <Menu size={24} />
           </button>
-          <div className={`hidden lg:flex gap-6 text-[13px] tracking-wider uppercase font-bold transition-all duration-300 ${!scrolled ? 'drop-shadow-md text-foreground' : 'text-foreground/90'}`}>
+          <div className={`hidden lg:flex gap-6 text-[13px] tracking-[0.1em] uppercase font-bold transition-all duration-300 ${!scrolled ? 'drop-shadow-sm text-foreground' : 'text-foreground/90'}`}>
             <Link href="/" className="relative group">
               <span className="hover:text-rose-600 transition-colors">الرئيسية</span>
               <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-rose-400 transition-all group-hover:w-full"></span>
@@ -120,8 +120,8 @@ export default function Navbar() {
         </Link>
 
         {/* Left side (Icons & Extra Links) */}
-        <div className={`flex items-center gap-6 transition-all duration-300 ${!scrolled ? 'drop-shadow-md text-foreground' : 'text-foreground/90'}`}>
-          <div className="hidden xl:flex gap-6 text-[13px] tracking-wider uppercase font-bold ml-6">
+        <div className={`flex items-center gap-6 transition-all duration-300 ${!scrolled ? 'drop-shadow-sm text-foreground' : 'text-foreground/90'}`}>
+          <div className="hidden xl:flex gap-6 text-[13px] tracking-[0.1em] uppercase font-bold ml-6">
             <Link href="/about" className="hover:text-rose-600 transition-colors">من نحن</Link>
             <Link href="/faq" className="hover:text-rose-600 transition-colors">الأسئلة الشائعة</Link>
             <Link href="/contact" className="hover:text-rose-600 transition-colors">تواصل معنا</Link>

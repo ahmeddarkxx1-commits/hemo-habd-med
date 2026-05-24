@@ -67,8 +67,17 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
   if (loading) {
     return (
-      <div className="h-[60vh] flex items-center justify-center">
-        <Loader2 className="animate-spin text-rose-500" size={40} />
+      <div className="pt-24 px-6 md:px-12 max-w-7xl mx-auto pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+          <div className="w-full aspect-[4/5] rounded-3xl skeleton"></div>
+          <div className="flex flex-col space-y-6 pt-10">
+            <div className="w-24 h-4 skeleton rounded-md"></div>
+            <div className="w-3/4 h-12 skeleton rounded-lg"></div>
+            <div className="w-1/3 h-8 skeleton rounded-md"></div>
+            <div className="w-full h-24 skeleton rounded-xl mt-4"></div>
+            <div className="w-full h-14 skeleton rounded-full mt-8"></div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -102,7 +111,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
         {/* Gallery */}
         <div className="space-y-4">
-          <div className="relative w-full aspect-[3/4] rounded-3xl overflow-hidden bg-sand-100 shadow-sm transition-all duration-500 group cursor-crosshair">
+          <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden bg-sand-100 luxury-shadow transition-all duration-500 group cursor-crosshair">
             {activeImage && (
               <Image 
                 src={activeImage} 
@@ -118,7 +127,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               <button 
                 key={idx}
                 onClick={() => setActiveImage(img)}
-                className={`relative w-20 aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${activeImage === img ? 'border-foreground shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                className={`relative w-20 aspect-[4/5] rounded-xl overflow-hidden border-2 transition-all ${activeImage === img ? 'border-foreground shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
               >
                 <Image 
                   src={img} 
@@ -267,7 +276,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {relatedProducts.map((p) => (
               <Link href={`/shop/${p._id}`} key={p._id} className="group cursor-pointer">
-                <div className="relative w-full aspect-[3/4] bg-sand-100 rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-lg transition-all duration-300">
+                <div className="relative w-full aspect-[4/5] bg-sand-100 rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
                   <Image 
                     src={p.images[0] || "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg"} 
                     alt={p.name} 
@@ -285,7 +294,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       )}
 
       {/* Mobile Sticky Add To Cart Footer */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-sand-100 p-4 z-40 flex gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] pb-safe-8">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-white/40 p-4 z-40 flex gap-3 shadow-[0_-20px_40px_rgba(0,0,0,0.08)] pb-safe-8 supports-[backdrop-filter]:bg-white/60">
         <button 
           onClick={handleAddToCart}
           disabled={product.inStock === false}

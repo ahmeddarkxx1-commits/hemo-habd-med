@@ -57,11 +57,20 @@
   }
 }
 
+.luxury-shadow {
+  box-shadow: 0 10px 40px -10px rgba(90, 84, 82, 0.08), 0 4px 15px -3px rgba(90, 84, 82, 0.04);
+}
+
+.luxury-shadow-hover:hover {
+  box-shadow: 0 20px 50px -12px rgba(90, 84, 82, 0.12), 0 8px 25px -5px rgba(90, 84, 82, 0.06);
+  transform: translateY(-4px);
+}
+
 .skeleton {
-  background: #f6f7f8;
-  background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+  background: #fdfaf6;
+  background: linear-gradient(to right, #fdfaf6 8%, #f4eee6 18%, #fdfaf6 33%);
   background-size: 1000px 100%;
-  animation: shimmer 2s infinite linear;
+  animation: shimmer 2.5s infinite linear;
 }
 
 /* Smooth Image Reveal */

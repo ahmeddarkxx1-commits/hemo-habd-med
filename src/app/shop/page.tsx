@@ -42,8 +42,27 @@ export default function ShopPage() {
 
   if (loading) {
     return (
-      <div className="h-[60vh] flex items-center justify-center">
-        <Loader2 className="animate-spin text-rose-500" size={40} />
+      <div className="pt-24 px-6 md:px-12 max-w-7xl mx-auto pb-24">
+        {/* Skeleton Header */}
+        <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+          <div className="w-full">
+            <div className="w-48 h-12 skeleton mb-4 rounded-lg ml-auto"></div>
+            <div className="w-full max-w-xl h-16 skeleton rounded-lg ml-auto"></div>
+          </div>
+        </div>
+        {/* Skeleton Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+            <div key={i} className="flex flex-col">
+              <div className="w-full aspect-[4/5] rounded-2xl mb-4 skeleton"></div>
+              <div className="flex justify-between items-start mb-2">
+                <div className="w-1/2 h-6 skeleton rounded-md"></div>
+                <div className="w-1/4 h-5 skeleton rounded-md"></div>
+              </div>
+              <div className="w-1/3 h-4 skeleton rounded-md"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -114,7 +133,7 @@ export default function ShopPage() {
             className="group"
           >
             {/* Image Container */}
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-xl transition-all duration-500">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
               <Image 
                 src={product.images[0]} 
                 alt={product.name} 

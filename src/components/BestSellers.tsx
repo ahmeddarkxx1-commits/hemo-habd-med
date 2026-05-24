@@ -37,8 +37,18 @@ export default function BestSellers() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-24">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-foreground"></div>
+      <div className="px-6 md:px-12 max-w-7xl mx-auto text-center py-12">
+        <div className="w-64 h-10 skeleton mx-auto mb-6 rounded-lg"></div>
+        <div className="w-full max-w-lg h-6 skeleton mx-auto mb-12 rounded-lg"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="flex flex-col items-center">
+              <div className="w-full aspect-[4/5] rounded-2xl mb-4 skeleton"></div>
+              <div className="w-2/3 h-5 skeleton mb-2 rounded-md"></div>
+              <div className="w-1/3 h-4 skeleton rounded-md"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -83,7 +93,7 @@ export default function BestSellers() {
           
           return (
             <motion.div whileHover={{ y: -5 }} key={productId} className="group flex flex-col items-center text-center">
-              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow">
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
                 <Link href={`/shop/${productId}`}>
                   <Image 
                     src={product.images[0] || "/placeholder.jpg"} 
