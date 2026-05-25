@@ -1,25 +1,24 @@
 "use client";
 
-import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Heart } from "lucide-react";
+import { Filter, ShoppingBag, Heart } from "lucide-react";
 import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { nameToSlug } from "@/lib/slug";
 
-// ── الـ component الداخلي اللي بيستخدم useSearchParams ──
-function ShopContent() {
+export default function ShopPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const { addToCart, setIsCartOpen } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
+  // القسم النشط من الـ URL أو "all" كافتراضي
   const activeCategory = searchParams.get("category") || "all";
 
   const [products, setProducts] = useState<any[]>([]);
@@ -31,9 +30,11 @@ function ShopContent() {
       try {
         const res = await fetch("/api/products");
         const data = await res.json();
-        if (data.success) setProducts(data.data);
-      } catch (e) {
-        console.error("Failed to fetch products:", e);
+        if (data.success) {
+          setProducts(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
       } finally {
         setLoading(false);
       }
@@ -45,6 +46,7 @@ function ShopContent() {
     ? products
     : products.filter(p => p.category === activeCategory);
 
+  // تغيير القسم = تغيير الـ URL
   const handleCategoryChange = useCallback((catId: string) => {
     const params = new URLSearchParams(searchParams.toString());
     if (catId === "all") {
@@ -73,7 +75,9 @@ function ShopContent() {
       setIsCartOpen(true);
     } else {
       setQuickAddStatus(prev => ({ ...prev, [product._id]: true }));
-      setTimeout(() => setQuickAddStatus(prev => ({ ...prev, [product._id]: false })), 2000);
+      setTimeout(() => {
+        setQuickAddStatus(prev => ({ ...prev, [product._id]: false }));
+      }, 2000);
     }
   };
 
@@ -87,7 +91,7 @@ function ShopContent() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-          {[1,2,3,4,5,6,7,8].map(i => (
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
             <div key={i} className="flex flex-col">
               <div className="w-full aspect-[4/5] rounded-2xl mb-4 skeleton"></div>
               <div className="flex justify-between items-start mb-2">
@@ -145,6 +149,7 @@ function ShopContent() {
             transition={{ duration: 0.5, delay: idx * 0.08 }}
             className="group"
           >
+            {/* Image Container */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
               <Image
                 src={product.images[0].replace(/\.(jpe?g|png)$/i, '.webp')}
@@ -154,13 +159,20 @@ function ShopContent() {
                 loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
+
               <button
                 onClick={(e) => {
-                  e.preventDefault(); e.stopPropagation();
+                  e.preventDefault();
+                  e.stopPropagation();
                   if (isInWishlist(product._id)) {
                     removeFromWishlist(product._id);
                   } else {
-                    addToWishlist({ id: product._id, name: product.name, price: product.price, image: product.images[0] });
+                    addToWishlist({
+                      id: product._id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.images[0]
+                    });
                   }
                 }}
                 className={`absolute top-3 left-3 p-2 rounded-full transition-all duration-300 z-10
@@ -170,7 +182,10 @@ function ShopContent() {
               >
                 <Heart size={18} fill={isInWishlist(product._id) ? "currentColor" : "none"} />
               </button>
+
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0" />
+
+              {/* View Details Overlay */}
               <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 z-10">
                 <Link
                   href={`/shop/${nameToSlug(product.name)}`}
@@ -182,6 +197,7 @@ function ShopContent() {
               </div>
             </div>
 
+            {/* Product Info */}
             <div>
               <div className="flex justify-between items-start mb-1">
                 <Link
@@ -206,26 +222,5 @@ function ShopContent() {
         </div>
       )}
     </div>
-  );
-}
-
-// ── الصفحة الرئيسية — لازم Suspense عشان useSearchParams يشتغل ──
-export default function ShopPage() {
-  return (
-    <Suspense fallback={
-      <div className="pt-24 px-6 md:px-12 max-w-7xl mx-auto pb-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-          {[1,2,3,4,5,6,7,8].map(i => (
-            <div key={i} className="flex flex-col">
-              <div className="w-full aspect-[4/5] rounded-2xl mb-4 skeleton"></div>
-              <div className="w-1/2 h-5 skeleton rounded-md mb-2"></div>
-              <div className="w-1/3 h-4 skeleton rounded-md"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    }>
-      <ShopContent />
-    </Suspense>
   );
 }
