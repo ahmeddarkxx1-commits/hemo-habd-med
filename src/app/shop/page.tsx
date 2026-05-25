@@ -135,9 +135,11 @@ export default function ShopPage() {
             {/* Image Container */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
               <Image 
-                src={product.images[0]} 
+                src={product.images[0].replace(/\.(jpe?g|png)$/i, '.webp')} 
                 alt={product.name} 
                 fill 
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               

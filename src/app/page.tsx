@@ -7,12 +7,12 @@ import Image from "next/image";
 import BestSellers from "@/components/BestSellers";
 import Footer from "@/components/Footer";
 
-// Define image paths as strings
-const heroImage = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (6).jpeg";
-const cat1Image = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (7).jpeg";
-const cat2Image = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (2).jpeg";
-const cat3Image = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (3).jpeg";
-const testimonialImage = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (9).jpeg";
+// WebP — أصغر بـ 50% من JPEG مع نفس الجودة
+const heroImage        = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (6).webp";
+const cat1Image        = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (7).webp";
+const cat2Image        = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (2).webp";
+const cat3Image        = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (3).webp";
+const testimonialImage = "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (9).webp";
 
 export default function Home() {
   return (
@@ -25,6 +25,7 @@ export default function Home() {
             src={heroImage} 
             alt="Hemo Hand Made Luxury Knitwear" 
             fill 
+            sizes="100vw"
             className="object-cover object-center scale-105 transition-transform duration-[20s] hover:scale-110"
             priority
           />
@@ -62,10 +63,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto rounded-[2rem] overflow-hidden relative group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-700">
           <div className="absolute inset-0 bg-gradient-to-r from-rose-900/60 to-transparent z-10" />
           <Image 
-            src="/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (5).jpeg" 
+            src="/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (5).webp" 
             alt="New Collection Banner"
             width={1200}
             height={400}
+            sizes="(max-width: 768px) 100vw, 90vw"
+            loading="lazy"
             className="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
           />
           <div className="absolute inset-0 z-20 flex flex-col justify-center px-10 md:px-20 text-white">
@@ -104,6 +107,8 @@ export default function Home() {
                 src={cat1Image} 
                 alt="جواكت تريكو وكروشيه" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
@@ -126,6 +131,8 @@ export default function Home() {
                 src={cat2Image} 
                 alt="كوفيات وجوانتيات" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
@@ -148,6 +155,8 @@ export default function Home() {
                 src={cat3Image} 
                 alt="أطفال" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                loading="lazy"
                 className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
@@ -167,6 +176,8 @@ export default function Home() {
               src={testimonialImage} 
               alt="Editorial Artisan Image" 
               fill 
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
               className="object-cover"
             />
           </div>
@@ -236,9 +247,11 @@ export default function Home() {
               className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-lg transition-all duration-300"
             >
               <Image 
-                src={src} 
+                src={src.replace('.jpeg', '.webp').replace('.jpg', '.webp')} 
                 alt={`Instagram Photo ${i+1}`} 
                 fill 
+                sizes="(max-width: 768px) 50vw, 25vw"
+                loading="lazy"
                 className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-rose-900/0 group-hover:bg-rose-900/20 transition-colors duration-300 flex items-center justify-center">
