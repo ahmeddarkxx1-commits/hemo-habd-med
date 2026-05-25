@@ -18,44 +18,97 @@ export default function Home() {
   return (
     <main className="min-h-screen relative bg-transparent">
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src={heroImage} 
-            alt="Hemo Hand Made Luxury Knitwear" 
-            fill 
+      {/* ─────────────── Hero Section ─────────────── */}
+      {/*
+        Mobile  (< md): flex-col — image on top, text block below
+        Desktop (≥ md): full-screen overlay — image absolute fill, text centered
+      */}
+      <section className="flex flex-col md:relative md:h-screen md:overflow-hidden">
+
+        {/* IMAGE */}
+        {/* Mobile: 55vw tall block, no overlays.  Desktop: absolute fill */}
+        <div
+          className="relative w-full md:absolute md:inset-0 md:h-full"
+          style={{ height: "55vw" }}
+        >
+          <Image
+            src={heroImage}
+            alt="Hemo Hand Made Luxury Knitwear"
+            fill
             sizes="100vw"
-            className="object-cover object-center scale-105 transition-transform duration-[20s] hover:scale-110"
+            className="object-cover object-top md:object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#FAF6F0]/95 via-[#FAF6F0]/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#FAF6F0]/80 via-transparent to-black/5" />
+          {/* Overlays — desktop only */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-l from-[#FAF6F0]/95 via-[#FAF6F0]/70 to-transparent" />
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-[#FAF6F0]/80 via-transparent to-black/5" />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20 flex flex-col items-start justify-center h-full">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-2xl"
-          >
-            <span className="text-xs md:text-sm tracking-[0.3em] text-foreground mb-8 block font-semibold uppercase opacity-90">صُنع بحب لأجلك</span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-[6.5rem] leading-[1.05] mb-8 text-balance text-foreground font-medium drop-shadow-sm">
-              نعومة في <br/><span className="italic text-rose-600/90 font-light tracking-tight">كل غرزة</span>
-            </h1>
-            <p className="text-lg md:text-xl text-foreground/80 mb-12 max-w-xl font-light leading-relaxed">
-              اكتشفي مجموعتنا الفاخرة من أزياء التريكو والكروشيه المصنوعة يدوياً. تُصنع ببطء، لتدوم للأبد.
-            </p>
-            <Link 
-              href="/shop" 
-              className="inline-flex items-center justify-center gap-4 bg-[#5A5452] text-white px-12 py-5 rounded-full text-sm font-bold tracking-[0.2em] uppercase hover:bg-rose-600 hover:scale-105 transition-all duration-500 shadow-xl"
+        {/* TEXT BLOCK */}
+        {/*
+          Mobile : normal flow below the image, bg #FAF6F0, text-right, full-width button
+          Desktop: absolute overlay, transparent bg, text left-anchored (original)
+        */}
+        <div className="
+          relative z-10
+          bg-[#FAF6F0] px-6 pt-10 pb-8 text-right
+          md:absolute md:inset-0 md:bg-transparent
+          md:flex md:items-center md:justify-start md:text-right md:pt-0
+        ">
+          <div className="md:max-w-7xl md:mx-auto md:w-full md:px-6 md:pt-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="md:max-w-2xl"
             >
-              <span>تسوقي الآن</span>
-              <ArrowRight size={18} className="rotate-180" />
-            </Link>
-          </motion.div>
+              {/* Subtitle */}
+              <span
+                className="block font-semibold uppercase tracking-[0.3em] mb-2 md:mb-8 md:opacity-90"
+                style={{ fontSize: "0.85rem", color: "#C4956A" }}
+              >
+                صُنع بحب لأجلك
+              </span>
+
+              {/* H1 */}
+              <h1
+                className="font-serif font-medium text-balance
+                           md:text-7xl lg:text-[6.5rem] md:leading-[1.05] md:mb-8 md:drop-shadow-sm"
+                style={{ fontSize: "2.2rem", color: "#3d3535", lineHeight: 1.3, marginBottom: 0 }}
+              >
+                نعومة في{" "}<br />
+                <span className="italic text-rose-600/90 font-light tracking-tight">كل غرزة</span>
+              </h1>
+
+              {/* Description */}
+              <p
+                className="font-light leading-relaxed md:text-xl md:mb-12 md:max-w-xl"
+                style={{ fontSize: "0.95rem", color: "#6b5e5e", margin: "16px 0 28px" }}
+              >
+                اكتشفي مجموعتنا الفاخرة من أزياء التريكو والكروشيه المصنوعة يدوياً. تُصنع ببطء، لتدوم للأبد.
+              </p>
+
+              {/* CTA */}
+              <Link
+                href="/shop"
+                className="
+                  flex items-center justify-center gap-3
+                  w-full py-4
+                  bg-[#5A5452] text-white text-sm font-bold tracking-[0.2em] uppercase
+                  rounded-full shadow-xl
+                  hover:bg-rose-600 hover:scale-105 transition-all duration-500
+                  md:inline-flex md:w-auto md:px-12 md:py-5 md:gap-4
+                "
+              >
+                <span>تسوقي الآن</span>
+                <ArrowRight size={18} className="rotate-180" />
+              </Link>
+            </motion.div>
+          </div>
         </div>
+
+        {/* Desktop spacer — keeps section at h-screen */}
+        <div className="hidden md:block h-screen" />
       </section>
 
       {/* Promotional Banner (New Collection) */}
