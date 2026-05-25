@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { dbHelper } from "@/lib/dbHelper";
+import { findProductBySlugOrId } from "@/lib/slug";
 
 export const dynamic = "force-dynamic";
 
@@ -8,7 +9,15 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const product = await dbHelper.getProductById(params.id);
+    // أولاً: جرّب الـ ID المباشر (الأسرع)
+    let product = await dbHelper.getProductById(params.id);
+
+    // ثانياً: لو ما وجدناش بالـ ID، جرّب الـ slug
+    if (!product) {
+      const allProducts = await dbHelper.getProducts();
+      product = findProductBySlugOrId(allProducts, params.id);
+    }
+
     if (!product) {
       return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
     }

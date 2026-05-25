@@ -8,6 +8,7 @@ import { Filter, ShoppingBag, Heart, Loader2 } from "lucide-react";
 import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
+import { nameToSlug } from "@/lib/slug";
 
 export default function ShopPage() {
   const { addToCart } = useCart();
@@ -171,7 +172,7 @@ export default function ShopPage() {
               {/* View Details Button Overlay */}
               <div className="absolute bottom-4 left-4 right-4 translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 z-10">
                 <Link 
-                  href={`/shop/${product._id}`}
+                  href={`/shop/${nameToSlug(product.name)}`}
                   className="w-full py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-lg transition-all bg-white/90 backdrop-blur-md text-[#5A5452] hover:bg-white"
                 >
                   <ShoppingBag size={16} />
@@ -183,7 +184,8 @@ export default function ShopPage() {
             {/* Product Info */}
             <div>
               <div className="flex justify-between items-start mb-1">
-                <Link href={`/shop/${product._id}`} className="font-serif text-lg hover:text-rose-400 transition-colors line-clamp-1">
+                <Link href={`/shop/${nameToSlug(product.name)}`}
+                  className="font-serif text-lg hover:text-rose-400 transition-colors line-clamp-1">
                   {product.name}
                 </Link>
                 <span className="text-sm font-medium whitespace-nowrap mr-2">{product.price} ج.م</span>

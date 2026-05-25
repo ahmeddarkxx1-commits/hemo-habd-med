@@ -10,6 +10,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductReviews from "@/components/ProductReviews";
 import SizeGuideModal from "@/components/SizeGuideModal";
+import { nameToSlug } from "@/lib/slug";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>(null);
@@ -275,7 +276,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <h2 className="font-serif text-3xl mb-10 text-center">منتجات قد تعجبك</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {relatedProducts.map((p) => (
-              <Link href={`/shop/${p._id}`} key={p._id} className="group cursor-pointer">
+              <Link href={`/shop/${nameToSlug(p.name)}`} key={p._id} className="group cursor-pointer">
                 <div className="relative w-full aspect-[4/5] bg-sand-100 rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
                   <Image 
                     src={p.images[0] || "/products/WhatsApp Image 2026-05-06 at 10.39.44 PM (1).jpeg"} 

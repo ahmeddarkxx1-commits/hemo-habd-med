@@ -8,6 +8,7 @@ import { IProduct } from "@/models/Product";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { ShoppingBag, Heart } from "lucide-react";
+import { nameToSlug } from "@/lib/slug";
 
 export default function BestSellers() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -94,7 +95,7 @@ export default function BestSellers() {
           return (
             <motion.div whileHover={{ y: -5 }} key={productId} className="group flex flex-col items-center text-center">
               <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
-                <Link href={`/shop/${productId}`}>
+                <Link href={`/shop/${nameToSlug(product.name)}`}>
                   <Image 
                     src={product.images[0] || "/placeholder.jpg"} 
                     alt={product.name} 
@@ -109,7 +110,7 @@ export default function BestSellers() {
                 {/* Action Buttons (Visible on Hover) */}
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                   <Link 
-                    href={`/shop/${productId}`}
+                    href={`/shop/${nameToSlug(product.name)}`}
                     className="bg-white text-foreground hover:bg-rose-500 hover:text-white p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
                     title="عرض التفاصيل"
                   >
@@ -136,7 +137,7 @@ export default function BestSellers() {
                   </button>
                 </div>
               </div>
-              <Link href={`/shop/${product._id}`}>
+              <Link href={`/shop/${nameToSlug(product.name)}`}>
                 <h4 className="font-medium text-foreground text-lg mb-1 group-hover:text-rose-500 transition-colors">{product.name}</h4>
               </Link>
               <p className="text-foreground/70 text-sm">{product.price} ج.م</p>
