@@ -1,24 +1,33 @@
 "use client";
 
+import { Suspense } from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Filter, ShoppingBag, Heart, Loader2 } from "lucide-react";
+import { ShoppingBag, Heart } from "lucide-react";
 import { categories } from "@/lib/data";
 import { useCart } from "@/lib/CartContext";
 import { useWishlist } from "@/lib/WishlistContext";
 import { nameToSlug } from "@/lib/slug";
 
-export default function ShopPage() {
-  const { addToCart } = useCart();
+// helper آمن للصور
+function safeImg(src: string | undefined): string {
+  if (!src) return "/products/placeholder.jpeg";
+  return src.replace(/\.(jpe?g|png)$/i, ".webp");
+}
+
+function ShopContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams.get("category") || "all";
+
+  const { addToCart, setIsCartOpen } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-  const [activeCategory, setActiveCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [quickAddStatus, setQuickAddStatus] = useState<{[key: string]: boolean}>({});
-
-  const { setIsCartOpen } = useCart();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -37,9 +46,17 @@ export default function ShopPage() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = activeCategory === "all" 
-    ? products 
+  const filteredProducts = activeCategory === "all"
+    ? products
     : products.filter(p => p.category === activeCategory);
+
+  const handleCategoryChange = useCallback((catId: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (catId === "all") { params.delete("category"); }
+    else { params.set("category", catId); }
+    const q = params.toString();
+    router.push(`/shop${q ? `?${q}` : ""}`, { scroll: false });
+  }, [router, searchParams]);
 
   if (loading) {
     return (
@@ -110,10 +127,10 @@ export default function ShopPage() {
           {categories.map(cat => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => handleCategoryChange(cat.id)}
               className={`whitespace-nowrap px-5 py-2.5 rounded-full text-sm transition-all duration-300 font-medium ${
-                activeCategory === cat.id 
-                  ? "bg-foreground text-white shadow-md" 
+                activeCategory === cat.id
+                  ? "bg-foreground text-white shadow-md"
                   : "bg-white text-foreground/70 hover:bg-sand-100 border border-sand-100"
               }`}
             >
@@ -136,7 +153,7 @@ export default function ShopPage() {
             {/* Image Container */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 luxury-shadow luxury-shadow-hover transition-all duration-500">
               <Image 
-                src={product.images[0].replace(/\.(jpe?g|png)$/i, '.webp')} 
+                src={safeImg(product.images?.[0])}
                 alt={product.name} 
                 fill 
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -202,5 +219,26 @@ export default function ShopPage() {
         </div>
       )}
     </div>
+  );
+}
+
+// الصفحة الرئيسية — Suspense مطلوب عشان useSearchParams يشتغل في Next.js 14
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-24 px-6 md:px-12 max-w-7xl mx-auto pb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 mt-12">
+          {[1,2,3,4,5,6,7,8].map(i => (
+            <div key={i} className="flex flex-col">
+              <div className="w-full aspect-[4/5] rounded-2xl mb-4 skeleton"></div>
+              <div className="w-1/2 h-5 skeleton rounded-md mb-2"></div>
+              <div className="w-1/3 h-4 skeleton rounded-md"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    }>
+      <ShopContent />
+    </Suspense>
   );
 }
